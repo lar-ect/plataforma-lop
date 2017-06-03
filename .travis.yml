@@ -1,0 +1,23 @@
+language: node_js
+cache:
+  yarn: true
+  directories:
+    - node_modules
+notifications:
+  email: false
+node_js:
+  - 'node'
+before_script:
+  - npm prune
+script:
+  - npm run test
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/
+deploy:
+  provider: pages
+  local_dir: build
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+  on:
+    branch: master
