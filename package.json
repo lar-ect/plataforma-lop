@@ -1,0 +1,37 @@
+{
+  "name": "lop-web",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "https://lar-ect.github.io/prototipo-lop-web",
+  "dependencies": {
+    "axios": "^0.16.1",
+    "bootstrap": "^3.3.7",
+    "brace": "^0.10.0",
+    "react": "^15.5.4",
+    "react-ace": "^5.0.1",
+    "react-bootstrap": "^0.31.0",
+    "react-dom": "^15.5.4",
+    "react-fontawesome": "^1.6.1",
+    "react-router": "^4.1.1",
+    "react-router-dom": "4.1.1"
+  },
+  "devDependencies": {
+    "cz-conventional-changelog": "2.0.0",
+    "gh-pages": "1.0.0",
+    "react-scripts": "1.0.7"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "commit": "git-cz",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
