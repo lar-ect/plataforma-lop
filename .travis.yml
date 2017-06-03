@@ -3,17 +3,12 @@ cache:
   yarn: true
   directories:
     - node_modules
-notifications:
-  email: false
 node_js:
   - 'node'
-before_script:
-  - npm prune
-script:
-  - npm run test
-branches:
-  except:
-    - /^v\d+\.\d+\.\d+$/
+git:
+  depth: 3
+before_deploy:
+  - npm run build
 deploy:
   provider: pages
   local_dir: build
