@@ -2,7 +2,7 @@
   "name": "lop-web",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://lar-ect.github.io/prototipo-lop-web",
+  "homepage": "https://lar-ect.github.io/lop-web",
   "dependencies": {
     "axios": "^0.16.1",
     "bootstrap": "^3.3.7",
