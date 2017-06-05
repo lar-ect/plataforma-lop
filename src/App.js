@@ -11,25 +11,12 @@ import FontAwesome from 'react-fontawesome';
 
 import './App.css';
 
-const defaultValue = `var x = lerReal("Entre com um número:");
-if (x < 0) {
-  //Alterar a ordem do x e do 2 para ver o resultado
-	var quadrado = potencia(x, 2); 
-	escreva("O quadrado é " + quadrado); 
-}
-else {
-	var raiz = raizQuadrada(x); 
-	escreva("A raíz quadrada é " + raiz); 
-}`;
-
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      codigo: defaultValue,
-      resultados: [],
-      valores: [],
-      resultados_esperados: []
+      codigo: '',
+      resultado: []
     };
   }
 
@@ -39,20 +26,19 @@ class App extends Component {
 
   enviarCodigo = () => {
     const codigo = this.state.codigo;
-    axios.post('https://lop-server.now.sh/execute', {
+    axios({
+      url: 'https://lop-server.herokuapp.com/execute',
+      method: 'post',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       data: {
         codigo: codigo
       }
     })
     .then((res) => {
-      this.setState({ 
-        resultados: res.data.resultados, 
-        valores: res.data.valores,  
-        resultados_esperados: res.data.resultados_esperados
-      });
+      console.log(res.data);
+      this.setState({ resultado: res.data.resultado });
     })
     .catch((error) => {
       console.log('erro:', error);
@@ -60,34 +46,19 @@ class App extends Component {
   }
 
   render() {
-    const res = this.state.resultados;
-    const valores = this.state.valores;
-    const esperados = this.state.resultados_esperados;
-    let resultados = res.map((r, i) => {
-      if(r === esperados[i]) {
-        return <p key={i}>{ 'Para x = ' + valores[i] + ', Saída: ' + r + ' '}
-          <FontAwesome name='check' style={{color: 'green'}}/>
-        </p>;
-      }
-      else {
-        return <p key={i}>{ 'Para x = ' + valores[i] + ', Saída: ' + r + ' '}
-          <FontAwesome name='times' style={{color: 'red'}}/>
-        </p>
-      }
-        
-    });
-    
+    const resultado = this.state.resultado;
+    const listaResultados = resultado.map((r, i) => { return <p key={i}>{r}</p>; });
     return (
       <div className="container">
         <br/>
         <div className="row">
           <div className="col-md-6">
+            <h3 className="text-center">Escreva seu código abaixo</h3>
             <AceEditor
               mode="javascript"
               theme="monokai"
               onChange={this.onChange}
               value={this.state.codigo}
-              defaultValue={defaultValue}
               name="javascript-editor"
               editorProps={{$blockScrolling: true}}
               fontSize={14}
@@ -95,14 +66,19 @@ class App extends Component {
             />
           </div>
           <div className="col-md-6">
+            <h3 className="text-center">Funções disponíveis</h3>
+            <code>escreva(x) - Escreve x na tela</code><br/>
+            <code>raizQuadrada(x) - Retorna o valor da raiz quadrada de x</code><br/>
+            <code>potencia(base, expoente) - Retorna base ^ expoente</code><br/>
+            <code>divisaoInteira(a, b) - Retorna o valor inteiro da divisão de a/b</code><br/>
+            <br/>
             <button className="btn btn-primary btn-block" onClick={this.enviarCodigo}>
               Enviar Código
             </button>
             <br/>
             <div className="well">
-              <p>{ 'Valores de x: ' + JSON.stringify(valores) }</p>
               <p>Resultado:</p>
-              { resultados }
+              { listaResultados }
             </div>
           </div>
         </div>
