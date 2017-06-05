@@ -45,7 +45,13 @@ class App extends Component {
 
   render() {
     const resultado = this.state.resultado;
-    const listaResultados = resultado.map((r, i) => { return <p key={i}>{r}</p>; });
+    let listaResultados = null;
+    if(resultado.erro) {
+      listaResultados = <p><span className="label label-danger">Erro</span>{' Ocorreu algum erro'}</p>;
+    }
+    else {
+      listaResultados = resultado.map((r, i) => { return <p key={i}>{r}</p>; });
+    }
     return (
       <div className="container">
         <br/>
