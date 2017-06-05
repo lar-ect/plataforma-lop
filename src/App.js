@@ -7,8 +7,6 @@ import 'brace/theme/monokai';
 
 import axios from 'axios';
 
-import FontAwesome from 'react-fontawesome';
-
 import './App.css';
 
 class App extends Component {
