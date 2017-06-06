@@ -1,0 +1,28 @@
+{
+  "version": "0.1.0",
+  "problemas": [
+    {
+      "id": 1,
+      "titulo": "Lista 01 - Exercício de Fixação 01",
+      "descricao": "Escreva um programa para exibir a mensagem: É preciso praticar para aprender a programar.",
+      "entradas": [],
+      "saida_esperada": [
+        "É preciso praticar para aprender a programar."
+      ]
+    },
+    {
+      "id": 2,
+      "titulo": "Lista 01 - Exercício de Fixação 02",
+      "descricao": "Considerando os seguintes valores para as variáveis a = 1.5, b = 4, c = 2, d = 3, e = 1.2 e f = 4.3, implemente um programa que determine e exiba os valores das seguintes expressões (fique atento à precedência de operadores):",
+      "entradas": [],
+      "saida_esperada": [
+        1.5,
+        4,
+        2,
+        3,
+        1.2,
+        4.3
+      ]
+    }
+  ]
+}

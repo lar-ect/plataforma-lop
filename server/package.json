@@ -1,0 +1,24 @@
+{
+  "name": "lop-server",
+  "version": "0.1.0",
+  "description": "API RESTful do sistema de gerenciamento de exercícios para a disciplina de Lógica de Programação",
+  "main": "server.js",
+  "author": "Gabriel Tibúrcio <tibuurcio@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon server.js -i db.json",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "body-parser": "1.17.2",
+    "cors": "2.8.3",
+    "express": "4.15.3",
+    "lodash-id": "0.14.0",
+    "lowdb": "0.16.2",
+    "morgan": "1.8.2",
+    "vm2": "3.4.6"
+  },
+  "devDependencies": {
+    "nodemon": "1.11.0"
+  }
+}
