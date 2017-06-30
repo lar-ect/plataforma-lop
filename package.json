@@ -6,16 +6,18 @@
     "axios": "^0.16.1",
     "bootstrap": "^3.3.7",
     "brace": "^0.10.0",
+    "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-ace": "^5.0.1",
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.5.4",
     "react-fontawesome": "^1.6.1",
     "react-router": "^4.1.1",
-    "react-router-dom": "4.1.1"
+    "react-router-dom": "4.1.1",
+    "react-spinkit": "^3.0.0"
   },
   "devDependencies": {
-    "cz-conventional-changelog": "2.0.0",
+    "cz-ptbr-changelog": "1.0.0",
     "gh-pages": "1.0.0",
     "react-scripts": "1.0.7"
   },
@@ -30,7 +32,7 @@
   },
   "config": {
     "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
+      "path": "./node_modules/cz-ptbr-changelog"
     }
   }
 }
