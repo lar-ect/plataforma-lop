@@ -1,0 +1,39 @@
+doctype html
+html
+  head
+    title= `${title} | ${h.siteName}`
+    link(rel='stylesheet', href='/dist/style.css')
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u", crossorigin="anonymous")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+  body
+    block navbar
+      nav.navbar.navbar-inverse.navbar-fixed-top
+        .container
+          .navbar-header
+            button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
+              span.sr-only Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+            a.navbar-brand(href='/') #{h.siteName}
+          #navbar.collapse.navbar-collapse
+            ul.nav.navbar-nav
+              each item in h.menu
+                li
+                  a(href=item.slug, class=(currentPath.startsWith(item.slug) ? 'active' : ''))  #{item.title}
+    .container
+      block messages
+      if locals.flashes
+        .row
+          .col-md-8.col-md-offset-2
+            - const categories = Object.keys(locals.flashes)
+            each category in categories
+              each message in flashes[category]
+                .alert(class=`alert-${category} alert-dismissible`, role="alert")
+                  button.close(data-dismiss="alert", aria-label="Fechar", onClick="this.parentElement.remove()")
+                    span(aria-hidden="true") &times;
+                  p= message
+      block content
+    
+    block scripts
+      script(src="/dist/App.bundle.js")

@@ -1,4 +1,4 @@
-# lop-web
+# Plataforma LoP
 
 [![commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](https://commitizen.github.io/cz-cli/)
 [![travis-ci](https://img.shields.io/travis/lar-ect/lop-web.svg)](https://travis-ci.org/)
