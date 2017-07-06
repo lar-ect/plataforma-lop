@@ -5,14 +5,14 @@ cache:
     - node_modules
 node_js:
   - 'node'
-git:
-  depth: 3
-before_deploy:
-  - npm run build
-deploy:
-  provider: pages
-  local_dir: build
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
-  on:
-    branch: master
+# git:
+#   depth: 3
+# before_deploy:
+#   - npm run build
+# deploy:
+#   provider: pages
+#   local_dir: build
+#   skip_cleanup: true
+#   github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+#   on:
+#     branch: master
