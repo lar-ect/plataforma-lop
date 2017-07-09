@@ -58,5 +58,8 @@
     "commitizen": {
       "path": "./node_modules/cz-ptbr-changelog"
     }
+  },
+  "now": {
+    "dotenv": "variables.env.now"
   }
 }

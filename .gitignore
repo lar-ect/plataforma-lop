@@ -14,6 +14,7 @@ cypress.json
 *.log
 .idea
 variables.env
+variables.env.now
 
 npm-debug.log*
 yarn-debug.log*
