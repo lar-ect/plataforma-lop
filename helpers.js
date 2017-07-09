@@ -19,5 +19,5 @@ exports.siteName = `Plataforma LoP`;
 
 exports.menu = [
   { slug: '/questoes', title: 'Questões', icon: 'questions', },
-  { slug: '/add', title: 'Add', icon: 'add', }
+  { slug: '/questao/adicionar', title: 'Adicionar Questão', icon: 'add', }
 ];

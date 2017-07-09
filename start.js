@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const autoIncrement = require('mongoose-auto-increment');
 
 // Assegura que o server está rodando com node >= 7.6
 const [major, minor] = process.versions.node.split('.').map(parseFloat);
@@ -16,9 +17,11 @@ mongoose.Promise = global.Promise; // -> queremos que o mongoose utilize promise
 mongoose.connection.on('error', (err) => {
   console.error(`🙅 🚫 🙅 🚫 🙅 🚫 🙅 🚫 → ${err.message}`);
 });
+autoIncrement.initialize(mongoose.connection);
 
 // Import todos os models
 require('./models/User');
+require('./models/Questao');
 
 // Inicialização
 const app = require('./app');

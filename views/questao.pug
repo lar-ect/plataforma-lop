@@ -1,0 +1,42 @@
+extends layout
+
+block content
+  input(type="hidden", name="questaoId", value=questao.identificador)
+  .row
+    .col-md-12
+      .well
+        h3.text-center #{questao.titulo}
+        p.text-center.text-justify #{questao.enunciado}
+        p.text-center
+          strong Exemplo de Entrada: 
+          != questao.exemploEntrada
+        p.text-center 
+          strong Saída Esperada: 
+          != questao.exemploSaida
+  .row
+    .col-md-6
+      div(id="questao-editor") // Digite seu código abaixo
+    .col-md-6
+      .row
+        .col-md-6
+          button.btn.btn-primary.btn-block(id="btn-enviar-codigo") Enviar Código
+        .col-md-6
+          button.btn.btn-info.btn-block(id="btn-reportar-problema") Reportar um problema
+      br
+      .well
+        h4.text-center Resultado
+        ul.list-group(id="resultados-container")
+        br
+      h3.text-center Funções disponíveis
+      code escreva(x) - Escreve x na tela
+      br
+      code raizQuadrada(x) - Retorna o valor da raiz quadrada de x
+      br
+      code potencia(base, expoente) - Retorna base ^ expoente
+      br
+      code divisaoInteira(a, b) - Retorna o valor inteiro da divisão de a/b
+      br
+
+block scripts
+  script(src="/dist/Editor.bundle.js")
+  

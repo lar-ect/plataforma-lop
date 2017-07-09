@@ -1,0 +1,26 @@
+mixin questaoForm(questao = {})
+  form(action=`/questao/adicionar/${questao.identificador || ''}` method='POST')
+    .form-group
+      label(for="titulo") Título:
+      input.form-control(type="text" name="titulo" value=questao.titulo)
+    .form-group
+      label(for="enunciado") Enunciado:
+      textarea.form-control(rows="4", name="enunciado")= questao.enunciado
+    .form-group
+      label(for="exemploEntrada") Exemplo de Entrada:
+      textarea.form-control(rows="4", name="exemploEntrada")= questao.exemploEntrada
+    .form-group
+      label(for="exemploSaida") Exemplo de Saída:
+      textarea.form-control(rows="4", name="exemploSaida")= questao.exemploSaida
+    .form-group
+      label(for="entrada") Entrada:
+      textarea.form-control(rows="4", name="entrada")= questao.entrada
+    .form-group
+      label(for="saidaEsperada") Saída Esperada:
+      textarea.form-control(rows="4", name="saidaEsperada")= questao.saidaEsperada
+    
+    .row
+      .col-md-4.col-md-offset-4
+        input.btn.btn-primary.btn-block(type="submit" value="Salvar")
+
+    br
