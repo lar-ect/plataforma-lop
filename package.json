@@ -6,8 +6,8 @@
     "node": ">= 7.6.0"
   },
   "scripts": {
-    "start": "node ./start.js",
-    "watch": "nodemon ./start.js --ignore public/ --ignore cypress/",
+    "start": "node ./app.js",
+    "watch": "nodemon ./app.js --ignore public/ --ignore cypress/",
     "dev": "concurrently \"npm run watch\" \"npm run assets\" --names \"💻,📦\" --prefix name",
     "assets": "webpack -w --display-max-modules 0",
     "commit": "git-cz"
@@ -31,6 +31,7 @@
     "mongoose": "4.8.7",
     "mongoose-auto-increment": "^5.0.1",
     "mongoose-mongodb-errors": "0.0.2",
+    "morgan": "^1.8.2",
     "passport": "0.3.2",
     "passport-local": "1.0.0",
     "passport-local-mongoose": "4.0.0",

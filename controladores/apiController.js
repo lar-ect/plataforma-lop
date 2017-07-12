@@ -2,25 +2,11 @@ const mongoose = require('mongoose');
 const Questao = mongoose.model('Questao');
 
 const { NodeVM } = require('vm2');
-const installHookTo = require('../handlers/installHookTo');
-const ect = require('../handlers/ect');
+const installHookTo = require('../negocio/installHookTo');
+const ect = require('../negocio/ect');
 
 const stdout = process.stdout;
 installHookTo(stdout);
-
-// exports.executarCodigo = async (req, res) => {
-//   const { codigo } = req.body;
-
-//   let resultado = [];
-//   stdout.hook('write', function(string, encoding, fd, write) {
-//     resultado.push(string);
-//   });
-
-//   await vm.run(codigo);
-  
-//   stdout.unhook('write');
-//   res.json({ resultado });
-// };
 
 const vm = new NodeVM({
   timeout: 1000,

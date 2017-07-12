@@ -1,16 +1,6 @@
 const mongoose = require('mongoose');
 const Questao = mongoose.model('Questao');
 
-exports.index = (req, res) => {
-  console.log(res.locals.flash);
-  res.render('index', { title: 'Início' });
-};
-
-exports.flash = (req, res) => {
-  req.flash('info', 'Flash is back!');
-  res.redirect('/');
-};
-
 exports.questoes = async (req, res) => {
   const questoes = await Questao.find({});
   res.render('questoes', { title: 'Questões', questoes });
