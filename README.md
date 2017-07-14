@@ -2,6 +2,7 @@
 
 [![commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](https://commitizen.github.io/cz-cli/)
 [![travis-ci](https://img.shields.io/travis/lar-ect/plataforma-lop.svg)](https://travis-ci.org/)
+[![code coverage](https://img.shields.io/codecov/c/github/lar-ect/plataforma-lop.svg)](https://codecov.io/github/lar-ect/plataforma-lop)
 
 Plataforma de gerenciamento de exercícios para a disciplina de Lógica de Programação
 
