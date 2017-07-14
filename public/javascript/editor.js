@@ -16,10 +16,12 @@ const resultadosDiv = $('#resultados-container');
 const questaoId = $('input[name="questaoId"]');
 
 $('#btn-enviar-codigo').on('click', function() {
-  swal('Hello World');
+  // swal('Hello World');
   executarCodigo(editor.getValue(), questaoId.value)
     .then(res => {
-      adicionarListaResultados(res.data.resultado);
+      console.log(res.data);
+      resultadosDiv.innerHtml = JSON.stringify(res.data, null, '  ');
+      // adicionarListaResultados(res.data.resultado);
     })
     .catch(err => {
       console.error(err);

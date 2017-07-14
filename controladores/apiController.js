@@ -1,18 +1,6 @@
 const mongoose = require('mongoose');
 const Questao = mongoose.model('Questao');
-
-const { NodeVM } = require('vm2');
-const installHookTo = require('../negocio/installHookTo');
-const ect = require('../negocio/ect');
-
-const stdout = process.stdout;
-installHookTo(stdout);
-
-const vm = new NodeVM({
-  timeout: 1000,
-  sandbox: ect,
-  console: 'inherit'
-});
+const executar = require('../negocio/executar');
 
 exports.executarCodigoQuestao = async (req, res) => {
   const { codigo, identificadorQuestao } = req.body;
@@ -22,37 +10,11 @@ exports.executarCodigoQuestao = async (req, res) => {
     return;
   }
 
-  if(questao.entrada.length !== questao.saidaEsperada.length) {
-    res.status(500).send('Questão possui número de entradas e saídas esperadas diferente');
-    return;
+  const resultadosEsperados = questao.resultados;
+  const resultados = [];
+  for(let i = 0; i < resultadosEsperados.length; i++) {
+    resultados.push(executar(resultadosEsperados[i].entradas, codigo));
   }
 
-  const entradas = questao.entrada;
-  const saidasEsperadas = questao.saidaEsperada;
-  ect.setEntradas(entradas);
-
-  let resultado = [];
-  stdout.hook('write', function(string, encoding, fd, write) {
-    resultado.push(string);
-  });
-
-  try {
-    for(var i = 0; i < entradas.length; i++) {
-      await vm.run(codigo);
-    }
-  } catch (error) {
-    stdout.write(`Error: ${error}`);
-  }
-
-  stdout.unhook('write');
-
-  resultado = resultado.map((r, i) => {
-    return {
-      entrada: entradas[i],
-      saida: r,
-      saidaEsperada: saidasEsperadas[i] 
-    }
-  });
-
-  res.json({ resultado });
+  res.json(resultados);
 }

@@ -6,7 +6,8 @@ const questaoSchema = new mongoose.Schema({
   titulo: {
     type: String,
     required: 'Forneça um título',
-    trim: true
+    trim: true,
+    unique: true
   },
   enunciado: {
     type: String,
@@ -14,21 +15,38 @@ const questaoSchema = new mongoose.Schema({
     trim: true
   },
   exemploEntrada: {
-    type: String,
+    type: [{ type: String }],
     required: 'Forneça um exemplo de entrada'
   },
   exemploSaida: {
     type: String,
     required: 'Forneça um exemplo de saída'
   },
-  entrada: {
-    type: [String],
-    required: 'Forneça uma entrada para a questão',
+  dificuldade: {
+    type: Number,
+    min: 1,
+    max: 10
   },
-  saidaEsperada: {
-    type: [String],
-    required: 'Forneça uma saída esperada para a questão'
-  }
+  tags: {
+    type: [{ type: String }]
+  },
+  likes: {
+    type: Number,
+    default: 0
+  },
+  resultados: [
+    {
+      entradas: {
+        type: [{ type: String }],
+        author: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+        required: 'Forneça um conjunto de entradas'
+      },
+      saida: {
+        type: String,
+        required: 'Forneça uma saída esperada para o vetor de entradas'
+      }
+    }
+  ]
 }, 
 { collection: 'questoes' });
 

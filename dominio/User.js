@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema({
     required: 'Forneça um nome',
     trim: true
   },
+  questoesFavoritas: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Questao' }],
   resetPasswordToken: String,
   resetPasswordExpires: Date,
 });
@@ -30,5 +31,17 @@ userSchema.virtual('gravatar').get(function() {
 
 userSchema.plugin(passportLocalMongoose, { usernameField: 'email' }); 
 userSchema.plugin(mongodbErrorHandler);
+
+userSchema.methods.favoritarQuestao = function(id) {
+  if (this.questoesFavoritas.indexOf(id) === -1) {
+    this.questoesFavoritas.push(id);
+  }
+  return this.save();
+}
+
+userSchema.methods.desfavoritarQuestao = function(id) {
+  this.questoesFavoritas.remove(id);
+  return this.save();
+}
 
 module.exports = mongoose.model('User', userSchema);
