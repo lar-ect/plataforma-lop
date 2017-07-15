@@ -8,7 +8,7 @@ exports.questoes = async (req, res) => {
 
 exports.getQuestao = async (req, res) => {
   const questao = await Questao.findOne({ identificador: req.params.identificador });
-  res.render('questao', { title: `Questão ${questao.identificador}`, questao });
+  res.render('questao/questao', { title: `Questão ${questao.identificador}`, questao });
 }
 
 exports.adicionarQuestao = (req, res) => {

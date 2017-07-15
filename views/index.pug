@@ -1,4 +1,37 @@
 extends layout
 
 block content
-  p Bem vindo ao início
+  .home-page
+    .banner
+      .container
+        h1.logo-font Bem vindo!
+        p Pronto para começar a praticar Javascript? 😁
+
+    .container.page
+      .row
+        .col-md-9
+          .feed-toggle
+            ul.nav.nav-pills.outline-active
+              li.nav-item
+                a.nav-link.active(href='') Questões
+              li.nav-item
+                a.nav-link.disabled Listas de Exercício
+          for questao in questoes
+            .article-preview
+              .article-meta
+                button.btn.btn-outline-primary.btn-sm.pull-xs-right
+                  i.ion-thumbsup
+                  |  #{questao.likes}
+              a.preview-link(href=`/questao/${questao.identificador}`)
+                h1 #{questao.identificador} - #{questao.titulo}
+                - const enunciado = questao.enunciado.split(' ').slice(0, 50).join(' ').concat('...');
+                p= enunciado
+                .info
+                  p Dificuldade: #{questao.dificuldade}/10
+
+        .col-md-3
+          .sidebar
+            p Tags
+            .tag-list
+              for tag in tags
+                a.tag-pill.tag-default(href='') #{tag}

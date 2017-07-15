@@ -1,0 +1,16 @@
+extends ../layout
+
+block content
+  .auth-page
+    .container.page
+      .row
+        .col-md-6.offset-md-3.col-xs-12
+          h1.text-xs-center Nova Senha
+          form(method="POST")
+            fieldset.form-group
+              input.form-control.form-control-lg(type="password", name="password", placeholder="Digite sua senha")
+          
+            fieldset.form-group
+              input.form-control.form-control-lg(type="password", name="password-confirm", placeholder="Digite sua senha novamente")
+
+            button.btn.btn-lg.btn-primary.btn-block(type="submit") Resetar

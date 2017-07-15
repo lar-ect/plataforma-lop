@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
     validate: [validator.isEmail, 'Email inválido'],
     required: 'Forneça um endereço de email'
   },
-  name: {
+  nome: {
     type: String,
     required: 'Forneça um nome',
     trim: true

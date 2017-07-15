@@ -18,6 +18,8 @@ exports.icon = (name) => fs.readFileSync(`./public/images/icons/${name}.svg`);
 exports.siteName = `Plataforma LoP`;
 
 exports.menu = [
-  { slug: '/questoes', title: 'Questões', icon: 'questions', },
-  { slug: '/questao/adicionar', title: 'Adicionar Questão', icon: 'add', }
+  // { slug: '/questoes', title: 'Questões' },
+  // { slug: '/questao/adicionar', title: 'Adicionar Questão', icon: 'ion-compose' },
+  { slug: '/sugerir-questao', title: 'Sugerir questão' },
+  // { slug: '/configuracoes', title: 'Config', icon: 'ion-gear-a'}
 ];

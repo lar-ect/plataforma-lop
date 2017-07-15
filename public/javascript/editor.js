@@ -19,9 +19,7 @@ $('#btn-enviar-codigo').on('click', function() {
   // swal('Hello World');
   executarCodigo(editor.getValue(), questaoId.value)
     .then(res => {
-      console.log(res.data);
-      resultadosDiv.innerHtml = JSON.stringify(res.data, null, '  ');
-      // adicionarListaResultados(res.data.resultado);
+      adicionarListaResultados(res.data);
     })
     .catch(err => {
       console.error(err);
@@ -30,24 +28,24 @@ $('#btn-enviar-codigo').on('click', function() {
 
 function adicionarListaResultados(resultado) {
   const markup = criarLinhasResultado(resultado);
+  console.log(markup);
   resultadosDiv.innerHTML = markup;
 }
 
 function criarLinhasResultado(resultado) {
-  return resultado.map(r => {
-    const acertou = r.saida === r.saidaEsperada;
-    const color = acertou ? 'green' : 'red';
-    const icon = acertou ? 'check' : 'times';
-    return (`
-      <li class="list-group-item">
-        <p class="text-center"> Entrada: <strong>${r.entrada}</strong></p>
-        <p>Saída esperada: <strong>${r.saidaEsperada}</strong></p>
-        <p>Saída obtida: <strong>${r.saida}</strong>
-          <i style="color: ${color};" class="fa fa-${icon}"></i>
-        </p>
-      </li>
-    `);
-  }).join('');
+  return resultado.map(r => `<li class="list-group-item"><samp>${r}</samp></li>`).join('');
+    // const acertou = r.saida === r.saidaEsperada;
+    // const color = acertou ? 'green' : 'red';
+    // const icon = acertou ? 'check' : 'times';
+    // return (`
+    //   <li class="list-group-item">
+    //     <p class="text-center"> Entrada: <strong>${r.entrada}</strong></p>
+    //     <p>Saída esperada: <strong>${r.saidaEsperada}</strong></p>
+    //     <p>Saída obtida: <strong>${r.saida}</strong>
+    //       <i style="color: ${color};" class="fa fa-${icon}"></i>
+    //     </p>
+    //   </li>
+    // `);
 }
 
 

@@ -1,10 +1,14 @@
 extends layout
 
-include mixins/forms/_questaoForm
+//- include mixins/forms/_questaoForm
 
 block content
   h2.text-center Adicionar nova questão
-  .row
-    .col-md-8.col-md-offset-2
-      +questaoForm(questao)
+  #app
+  //- .row
+  //-   .col-md-8.col-md-offset-2
+  //-     +questaoForm(questao)
+
+block scripts
+  script(src="/dist/Questao.bundle.js")
   

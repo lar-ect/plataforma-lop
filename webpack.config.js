@@ -1,7 +1,3 @@
-/*
-  Okay folks, want to learn a little bit about webpack?
-*/
-
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -18,27 +14,21 @@ const javascript = {
   test: /\.(js)$/, // see how we match anything that ends in `.js`? Cool
   use: [{
     loader: 'babel-loader',
-    options: { presets: ['env'] } // this is one way of passing options
+    options: { presets: ['env', 'react'] } // this is one way of passing options
   }],
 };
 
-// We can also use plugins - this one will compress the crap out of our JS
-const uglify = new webpack.optimize.UglifyJsPlugin({ // eslint-disable-line
-  compress: { warnings: false }
-});
-
 const config = {
   entry: {
-    App: './public/javascript/plataforma-lop.js',
-    Editor: './public/javascript/editor.js'
+    Editor: './public/javascript/editor.js',
+    Questao: './public/javascript/questao/App.js',
+    theme: './public/javascript/theme.js'
   },
   devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, 'public', 'dist'),
     filename: '[name].bundle.js'
   },
-
-  // remember we said webpack sees everthing as modules and how different loaders are responsible for different file types? Here is is where we implement them. Pass it the rules for our JS and our styles
   module: {
     rules: [
       javascript, 
@@ -60,12 +50,19 @@ const config = {
     ]
   },
   plugins: [
-    // here is where we tell it to output our css to a separate file
-    new ExtractTextPlugin('style.css'),
-    uglify
+    // new webpack.DefinePlugin({
+    //   'process.env': {
+    //     NODE_ENV: JSON.stringify('production')
+    //   }
+    // }),
+    new ExtractTextPlugin('main.css'),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: { warnings: false }
+    })
   ]
 };
-// webpack is cranky about some packages using a soon to be deprecated API. shhhhhhh
+
+// webpack is cranky about some packages using a soon to be deprecated API.
 process.noDeprecation = true;
 
 module.exports = config;

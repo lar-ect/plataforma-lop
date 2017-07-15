@@ -1,0 +1,26 @@
+extends ../layout
+
+block content
+  .auth-page
+    .container.page
+      .row
+        .col-md-6.offset-md-3.col-xs-12
+          h1.text-xs-center Cadastro
+          p.text-xs-center Já possui uma conta?
+            | 
+            a(href="/login") Entre
+            
+          form(action="/cadastro" method="POST")
+            fieldset.form-group
+              input.form-control.form-control-lg(type="text", name="nome", placeholder="Digite seu nome")
+
+            fieldset.form-group
+              input.form-control.form-control-lg(type="email", name="email", placeholder="Digite seu e-mail")
+          
+            fieldset.form-group
+              input.form-control.form-control-lg(type="password", name="password", placeholder="Digite sua senha")
+
+            fieldset.form-group
+              input.form-control.form-control-lg(type="password", name="password-confirm", placeholder="Digite sua senha novamente")
+
+            button.btn.btn-lg.btn-primary.pull-xs-right(type="submit") Cadastrar
