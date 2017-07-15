@@ -22,7 +22,7 @@ const config = {
   entry: {
     Editor: './public/javascript/editor.js',
     Questao: './public/javascript/questao/App.js',
-    theme: './public/javascript/theme.js'
+    main: './public/javascript/main.js'
   },
   devtool: 'source-map',
   output: {

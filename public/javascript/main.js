@@ -1,6 +1,3 @@
-import '../styles/main.css';
-import '../styles/theme.css';
-
 import { $, $$ } from './modules/bling';
 
 const alerts = $$('.flash-message');
