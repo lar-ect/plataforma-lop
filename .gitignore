@@ -11,6 +11,7 @@ cypress.json
 
 # production
 /build
+webpack-stats.json
 
 # misc
 .DS_Store

@@ -15,7 +15,7 @@ exports.dump = (obj) => JSON.stringify(obj, null, 2);
 exports.icon = (name) => fs.readFileSync(`./public/images/icons/${name}.svg`);
 
 // Some details about the site
-exports.siteName = `Plataforma LoP`;
+exports.siteName = 'Plataforma LoP';
 
 exports.menu = [
   // { slug: '/questoes', title: 'Questões' },
@@ -23,3 +23,13 @@ exports.menu = [
   { slug: '/sugerir-questao', title: 'Sugerir questão' },
   // { slug: '/configuracoes', title: 'Config', icon: 'ion-gear-a'}
 ];
+
+exports.funcoesDisponiveis = `
+  <code>escreva(x)</code> - Escreve x na saída<br>
+  <code>lerTexto()</code> - Lê uma string da entrada<br>
+  <code>lerInteiro()</code> - Lê um número inteiro da entrada<br>
+  <code>lerReal()</code> - Lê um número real da entrada<br>
+  <code>potencia(x)</code> - Retorna base elevado ao expoente<br>
+  <code>raizQuadrada(x)</code> - Retorna a raiz quadrada de x<br>
+  <code>divisaoInteira(x)</code> - Retorna o valor inteiro da divisão de a/b
+`;

@@ -4,4 +4,11 @@
   bottom: 0;
   left: 0;
   height: 500px;
+  border: 1px solid #DDD;
+  border-radius: 4px;
+  border-bottom-right-radius: 0px;
+}
+
+.saida-esperada {
+  text-decoration: underline;
 }

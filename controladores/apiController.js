@@ -13,7 +13,11 @@ exports.executarCodigoQuestao = async (req, res) => {
   const resultadosEsperados = questao.resultados;
   const resultados = [];
   for(let i = 0; i < resultadosEsperados.length; i++) {
-    resultados.push(executar(resultadosEsperados[i].entradas, codigo));
+    resultados.push({
+      entrada: resultadosEsperados[i].entradas.join(' '),
+      saida: executar(codigo, resultadosEsperados[i].entradas),
+      saidaEsperada: resultadosEsperados[i].saida
+    });
   }
 
   res.json(resultados);

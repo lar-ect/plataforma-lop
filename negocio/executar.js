@@ -5,7 +5,7 @@ let indiceEntrada;
 let resultado;
 
 const contexto = {
-  inicializar: function(valores) {
+  INIT_VM_CONTEXT: function(valores) {
     resultado = "";
     indiceEntrada = 0;
     entradas = valores;
@@ -48,8 +48,8 @@ const contexto = {
   }
 };
 
-function executar(arrayEntrada, codigo) {
-  contexto.inicializar(arrayEntrada);
+function executar(codigo, arrayEntrada) {
+  contexto.INIT_VM_CONTEXT(arrayEntrada);
 
   const vm = new NodeVM({
     timeout: 1000,

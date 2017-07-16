@@ -11,7 +11,7 @@ block content
     .row.article-content
       .col-md-12
         h5: b Enunciado
-        p.text-justify #{questao.enunciado}
+        p.text-justify(style="white-space: pre-line") #{questao.enunciado}
         p.text-center
           strong Exemplo de Entrada: 
           != questao.exemploEntrada
@@ -23,29 +23,13 @@ block content
       .col-md-6
         div(id="questao-editor")
       .col-md-6
-        .row
-          .col-md-6
-            button.btn.btn-primary.btn-block(id="btn-enviar-codigo") Executar Testes
-          .col-md-6
-            button.btn.btn-info.btn-block(id="btn-submeter") Submeter
-        br
-        h3.text-center Funções disponíveis
-        code escreva(x)
-        |  Escreve x na saída
-        br
-        code raizQuadrada(x)
-        |  Retorna o valor da raiz quadrada de x
-        br
-        code potencia(base, expoente)
-        |  Retorna base elevado ao expoente
-        br
-        code divisaoInteira(a, b)
-        |  Retorna o valor inteiro da divisão de a/b
-        br
-        br
-        .well
-          h4.text-center Saída
-          ul.list-group(id="resultados-container")
+        .btn-group.btn-block(role="group")
+          button.btn.btn-outline-primary(id="btn-enviar-codigo") Executar
+          button.btn.btn-outline-primary(id="btn-submeter") Submeter
+          button.btn.btn-outline-primary.btn-tooltip(data-theme="light", title=h.funcoesDisponiveis) Ver funções disponíveis
+        
+        h4(style="margin-top: 10px;") Saída
+        ul.list-group(id="resultados-container")
 
 block scripts
   script(src="/dist/Editor.bundle.js")

@@ -14,14 +14,8 @@ const questaoSchema = new mongoose.Schema({
     required: 'Forneça um enunciado para a questão',
     trim: true
   },
-  exemploEntrada: {
-    type: [{ type: String }],
-    required: 'Forneça um exemplo de entrada'
-  },
-  exemploSaida: {
-    type: String,
-    required: 'Forneça um exemplo de saída'
-  },
+  exemploEntrada: [String],
+  exemploSaida: String,
   dificuldade: {
     type: Number,
     min: 1,
@@ -39,7 +33,6 @@ const questaoSchema = new mongoose.Schema({
       entradas: {
         type: [{ type: String }],
         author: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-        required: 'Forneça um conjunto de entradas'
       },
       saida: {
         type: String,

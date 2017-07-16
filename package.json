@@ -12,7 +12,9 @@
     "assets": "webpack -w --display-max-modules 0",
     "commit": "git-cz",
     "test": "jest --coverage",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "generate-webpack-stats": "webpack --profile --json > webpack-stats.json",
+    "analyze-bundle": "npx webpack-bundle-analyzer webpack-stats.json public/dist"
   },
   "browserslist": "last 2 versions",
   "dependencies": {
