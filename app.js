@@ -2,24 +2,24 @@
  * Script de inicialização do sistema.
  * Todas as configurações para iniciar o servidor são feitas abaixo.
  */
-const path = require('path');
+const path = require("path");
 
-const express = require('express');
-const session = require('express-session');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const expressValidator = require('express-validator');
-const flash = require('connect-flash');
-const passport = require('passport');
-const mongoose = require('mongoose');
-const autoIncrement = require('mongoose-auto-increment');
-const MongoStore = require('connect-mongo')(session);
-const promisify = require('es6-promisify');
-const helpers = require('./helpers');
-const errorHandlers = require('./negocio/errorHandlers');
+const express = require("express");
+const session = require("express-session");
+const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
+const expressValidator = require("express-validator");
+const flash = require("connect-flash");
+const passport = require("passport");
+const mongoose = require("mongoose");
+const autoIncrement = require("mongoose-auto-increment");
+const MongoStore = require("connect-mongo")(session);
+const promisify = require("es6-promisify");
+const helpers = require("./helpers");
+const errorHandlers = require("./negocio/errorHandlers");
 
 // Assegura que o servidor está rodando com node >= 7.6
-const [major, minor] = process.versions.node.split('.').map(parseFloat);
+const [major, minor] = process.versions.node.split(".").map(parseFloat);
 if (major < 7 || (major === 7 && minor <= 5)) {
   console.log(`
     🛑 O servidor está rodando com Node.js em uma versão menor do que 7.6
@@ -31,12 +31,12 @@ if (major < 7 || (major === 7 && minor <= 5)) {
 
 // Importa as variáveis de ambiente do arquivo variables.env
 // Variáveis podem ser acessadas através de process.env.NOME_DA_VARIAVEL
-require('dotenv').config({ path: 'variables.env' });
+require("dotenv").config({ path: "variables.env" });
 
 // Conecta com o banco de dados e lida com problemas de conexão
 mongoose.connect(process.env.DATABASE);
 mongoose.Promise = global.Promise; // → queremos que o mongoose utilize promises ES6
-mongoose.connection.on('error', (err) => {
+mongoose.connection.on("error", err => {
   console.error(`🙅 🚫 → ${err.message}`);
 });
 
@@ -45,11 +45,11 @@ mongoose.connection.on('error', (err) => {
 autoIncrement.initialize(mongoose.connection);
 
 // Import todos os models do projeto para que possamos utilizar em qualquer parte do sistema
-require('./dominio/User');
-require('./dominio/Questao');
+require("./dominio/User");
+require("./dominio/Questao");
 
-// Configura estratégia de autenticação local com passport.js 
-const User = mongoose.model('User');
+// Configura estratégia de autenticação local com passport.js
+const User = mongoose.model("User");
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
@@ -70,18 +70,18 @@ passport.deserializeUser(User.deserializeUser());
 const app = express();
 
 // Utilizamos o pug como engine de templates
-app.set('views', path.join(__dirname, 'views')); // → Arquivos .pug ficam na pasta views
-app.set('view engine', 'pug');
+app.set("views", path.join(__dirname, "views")); // → Arquivos .pug ficam na pasta views
+app.set("view engine", "pug");
 
 // Serve arquivos estáticos na pasta public
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
 // Transforma as requisições do tipo raw em propriedades do request em req.body
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Loga todos os requests em desenvolvimento
-app.use(require('morgan')('dev'));
+app.use(require("morgan")("dev"));
 
 // Habilita o uso de métodos para validação direto pelo objeto req de uma requisição
 // Ex.: isEmail, sanitizeBody, etc...
@@ -94,15 +94,17 @@ app.use(cookieParser());
  * Sessões permitem que as informações dos visitantes sejam guardadas em cada request
  * Utilizado para manter os usuários logados e possibilitar o uso de mensagens de flash
  */
-app.use(session({
-  secret: process.env.SECRET,
-  key: process.env.KEY,
-  resave: false,
-  saveUninitialized: false,
-  store: new MongoStore({ mongooseConnection: mongoose.connection })
-}));
+app.use(
+  session({
+    secret: process.env.SECRET,
+    key: process.env.KEY,
+    resave: false,
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
+  })
+);
 
-// O projeto utiliza passport.js para autenticação 
+// O projeto utiliza passport.js para autenticação
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -132,8 +134,8 @@ app.use((req, res, next) => {
 });
 
 // Finalmente, definimos nossas próprias rotas depois de passar por todos os middlewares acima
-const rotas = require('./rotas/index');
-app.use('/', rotas);
+const rotas = require("./rotas/index");
+app.use("/", rotas);
 
 // Se a url não bater com nenhuma das nossas rotas, envia um erro 404
 app.use(errorHandlers.notFound);
@@ -142,7 +144,7 @@ app.use(errorHandlers.notFound);
 app.use(errorHandlers.flashValidationErrors);
 
 // Algo de errado aconteceu. Exibe o erro caso estejamos em desenvolvimento
-if (app.get('env') === 'development') {
+if (app.get("env") === "development") {
   /* Erro em desenvolvimento, imprime a stack trace na tela */
   app.use(errorHandlers.developmentErrors);
 }
@@ -150,9 +152,8 @@ if (app.get('env') === 'development') {
 // Handler para erros em produção
 app.use(errorHandlers.productionErrors);
 
-
 // Finalmenteeeeee, inicializa o servidor 😄
-app.set('port', process.env.PORT || 8080);
-const server = app.listen(app.get('port'), () => {
+app.set("port", process.env.PORT || 8080);
+const server = app.listen(app.get("port"), () => {
   console.log(`Servidor rodando na porta: ${server.address().port}`);
 });
