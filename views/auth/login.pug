@@ -17,7 +17,19 @@ block content
             fieldset.form-group
               input.form-control.form-control-lg(type="password", name="password", placeholder="Digite sua senha")
 
-            button.btn.btn-lg.btn-primary.btn-block(type="submit") Entrar
+            .btn-group.btn-group-lg.full-width(role="group")
+              a.btn.btn-secondary(href="/auth/github") Entrar com Github
+                |  
+                i(class="ion-social-github")
+              button.btn.btn-primary(type="submit") Entrar
+
+            //- .row
+            //-   .col-md-6
+            //-     a.btn.btn-secondary.btn-block(href="/auth/github") Entrar com Github
+            //-       |  
+            //-       i(class="ion-social-github")
+            //-   .col-md-6
+            //-     button.btn.btn-primary.btn-block(type="submit") Entrar
 
           br
           h3.text-xs-center Esqueceu sua senha?

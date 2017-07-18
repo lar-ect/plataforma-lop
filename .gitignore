@@ -23,3 +23,7 @@ variables.env.now
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# custom
+load-data.js
+questoes.json

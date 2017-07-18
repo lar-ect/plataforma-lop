@@ -11,6 +11,7 @@ const bodyParser = require("body-parser");
 const expressValidator = require("express-validator");
 const flash = require("connect-flash");
 const passport = require("passport");
+const GitHubStrategy = require("passport-github2").Strategy;
 const mongoose = require("mongoose");
 const autoIncrement = require("mongoose-auto-increment");
 const MongoStore = require("connect-mongo")(session);
@@ -51,6 +52,7 @@ require("./dominio/Questao");
 // Configura estratégia de autenticação local com passport.js
 const User = mongoose.model("User");
 passport.use(User.createStrategy());
+require("./negocio/auth/github");
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 

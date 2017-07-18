@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const passport = require("passport");
 const { catchErrors } = require("../negocio/errorHandlers");
 const indexController = require("../controladores/indexController");
 const questaoController = require("../controladores/questaoController");
@@ -9,6 +10,18 @@ const userController = require("../controladores/userController");
 
 // Definição de rotas
 router.get("/", indexController.index);
+
+// Github auth
+router.get("/auth/github", 
+  passport.authenticate("github", { scope: [ "user:email" ]})
+);
+
+router.get("/auth/github/callback",
+  passport.authenticate("github", { failureRedirect: "/login" }),
+  (req, res) => {
+    res.redirect("/");
+  }
+);
 
 // Usuário
 router.get("/login", userController.loginForm);

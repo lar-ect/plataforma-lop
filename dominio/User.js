@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema({
     required: "Forneça um nome",
     trim: true
   },
+  githubData: {}, // qualquer coisa
   questoesFavoritas: [{ type: mongoose.Schema.Types.ObjectId, ref: "Questao" }],
   resetPasswordToken: String,
   resetPasswordExpires: Date
