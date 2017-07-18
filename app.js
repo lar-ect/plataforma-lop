@@ -11,7 +11,6 @@ const bodyParser = require("body-parser");
 const expressValidator = require("express-validator");
 const flash = require("connect-flash");
 const passport = require("passport");
-const GitHubStrategy = require("passport-github2").Strategy;
 const mongoose = require("mongoose");
 const autoIncrement = require("mongoose-auto-increment");
 const MongoStore = require("connect-mongo")(session);
