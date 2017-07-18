@@ -22,3 +22,8 @@ exports.executarCodigoQuestao = async (req, res) => {
 
   res.json(resultados);
 }
+
+exports.getTags = async (req, res) => {
+  const tags = await Questao.find().distinct('tags');
+  res.json(tags);
+}

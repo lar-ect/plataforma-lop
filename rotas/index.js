@@ -67,5 +67,6 @@ router.post(
   "/api/v1/executar/questao",
   catchErrors(apiController.executarCodigoQuestao)
 );
+router.get("/api/v1/tags", catchErrors(apiController.getTags));
 
 module.exports = router;

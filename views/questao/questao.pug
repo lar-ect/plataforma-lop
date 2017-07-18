@@ -14,7 +14,7 @@ block content
         p.text-justify(style="white-space: pre-line") #{questao.enunciado}
         p.text-center
           strong Exemplo de Entrada: 
-          != questao.exemploEntrada
+          != questao.exemploEntrada.join(' ')
         p.text-center 
           strong Saída Esperada: 
           != questao.exemploSaida

@@ -1,14 +1,51 @@
 extends layout
 
-//- include mixins/forms/_questaoForm
-
 block content
-  h2.text-center Adicionar nova questão
   #app
-  //- .row
-  //-   .col-md-8.col-md-offset-2
-  //-     +questaoForm(questao)
+  .container.page
+    .row
+      .col-md-10.offset-md-1.col-xs-12
+        h1.text-xs-center Nova questão
+        - const q = questao || {};
+        form(id="form-questao" action=`/questao/adicionar/${q.identificador || ''}` method='POST')
+          .form-group
+            input.form-control.form-control-lg(type="text" name="titulo" value=q.titulo placeholder="Título")
+          .form-group
+            textarea.form-control(rows="5", name="enunciado", placeholder="Enunciado")= q.enunciado
+          .form-group
+            label(for="dificuldade") Dificuldade
+            select.form-control(name="dificuldade" placeholder="Selecione a dificuldade")
+              option 1
+              option 2
+              option 3
+              option 4
+              option 5
+              option 6
+              option 7
+              option 8
+              option 9
+              option 10
+          .form-group
+            label(for="tags") Tags
+            select.form-control(name="tags" placeholder="Selecione tags" multiple)
+          h4.text-xs-center Entrada e Saída
+          .alert.alert-info(role="alert") 
+            | Cadastre as entradas e saídas esperadas para a questão abaixo.
+            br  
+            strong Nota: 
+            |  Exemplo de entrada e exemplo de saída não são obrigatórios. Vetor de resultados é obrigatório.
+          #json_editor(style="width: 100%; height: 400px;")
+          br
+          .row
+            .col-md-4.col-md-offset-4
+              input.btn.btn-primary.btn-block(type="submit" value="Salvar")
+
+block styles
+  link(href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet")
+  link(rel="stylesheet" href="/dist/jsoneditor/dist/jsoneditor.min.css")
 
 block scripts
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js")
+  script(src="/dist/jsoneditor/dist/jsoneditor.min.js")
   script(src="/dist/Questao.bundle.js")
   

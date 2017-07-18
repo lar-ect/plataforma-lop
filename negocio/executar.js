@@ -1,4 +1,4 @@
-const { NodeVM } = require('vm2');
+const { NodeVM } = require("vm2");
 
 let entradas = [];
 let indiceEntrada;
@@ -13,26 +13,26 @@ const contexto = {
   escreva: function(valor, novaLinha) {
     resultado = resultado.concat(valor);
     if (novaLinha) {
-      resultado = resultado.concat('\n');
+      resultado = resultado.concat("\n");
     }
   },
   lerTexto: function() {
     if (indiceEntrada >= entradas.length) {
-      throw new Error('Entrada indisponível');
+      throw new Error("Entrada indisponível");
       return;
     }
     return String.valueOf(entradas[indiceEntrada++]);
   },
   lerInteiro: function() {
     if (indiceEntrada >= entradas.length) {
-      throw new Error('Entrada indisponível');
+      throw new Error("Entrada indisponível");
       return;
     }
     return parseInt(entradas[indiceEntrada++]);
   },
   lerReal: function() {
     if (indiceEntrada >= entradas.length) {
-      throw new Error('Entrada indisponível');
+      throw new Error("Entrada indisponível");
       return;
     }
     return parseFloat(entradas[indiceEntrada++]);
@@ -44,7 +44,7 @@ const contexto = {
     return Math.pow(base, expoente);
   },
   divisaoInteira: function(x, y) {
-    return Math.floor(x/y);
+    return Math.floor(x / y);
   }
 };
 
@@ -54,7 +54,7 @@ function executar(codigo, arrayEntrada) {
   const vm = new NodeVM({
     timeout: 1000,
     sandbox: contexto,
-    console: 'off',
+    console: "off"
   });
 
   try {

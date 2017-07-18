@@ -30,6 +30,7 @@
     "express-session": "1.15.1",
     "express-validator": "3.1.2",
     "fixture-stdout": "^0.2.1",
+    "jsoneditor": "5.9.2",
     "md5": "2.2.1",
     "moment": "2.17.1",
     "mongoose": "4.8.7",
@@ -65,10 +66,12 @@
     "eslint-plugin-jsx-a11y": "5.1.1",
     "eslint-plugin-react": "7.1.0",
     "extract-text-webpack-plugin": "2.1.0",
+    "file-loader": "0.11.2",
     "jest": "^20.0.4",
     "jest-cli": "20.0.4",
     "nodemon": "1.11.0",
     "style-loader": "^0.18.2",
+    "url-loader": "0.5.9",
     "webpack": "^3.0.0"
   },
   "config": {
