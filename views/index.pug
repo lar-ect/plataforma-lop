@@ -19,9 +19,18 @@ block content
           for questao in questoes
             .article-preview
               .article-meta
-                button.btn.btn-outline-primary.btn-sm.pull-xs-right
-                  i.ion-thumbsup
-                  |  #{questao.likes}
+                if user
+                  form(name="favoritar-questao-form" method="POST" action=`/api/v1/questoes/${questao._id}/favoritar`)
+                    - const questoesFavoritas = user.questoesFavoritas.map(obj => obj.toString())
+                    - const btnClass = questoesFavoritas.includes(questao._id.toString()) ? 'btn-primary favoritado' : 'btn-outline-primary'
+                    button.btn.btn-sm.pull-xs-right(class=btnClass type="submit" name="btn_favoritar")
+                      i.ion-thumbsup
+                      |  
+                      span(name="btn_favoritar_likes") #{questao.likes}
+                else 
+                  button.btn.btn-sm.btn-outline-primary.pull-xs-right(name="btn-favoritar-no-user")
+                      i.ion-thumbsup
+                      |  #{questao.likes}
               a.preview-link(href=`/questao/${questao.identificador}`)
                 h1 #{questao.identificador} - #{questao.titulo}
                 - const enunciado = questao.enunciado.split(' ').slice(0, 50).join(' ').concat('...');
@@ -35,3 +44,6 @@ block content
             .tag-list
               for tag in tags
                 a.tag-pill.tag-default(href='') #{tag}
+
+block scripts
+  script(src="/dist/index.bundle.js")

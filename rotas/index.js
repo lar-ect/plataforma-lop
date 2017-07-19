@@ -62,6 +62,7 @@ router.get(
 );
 
 // API v1
+router.post("/api/v1/questoes/:id/favoritar", questaoController.favoritarQuestao);
 router.post("/api/v1/executar", catchErrors(apiController.executarCodigo));
 router.post(
   "/api/v1/executar/questao",

@@ -24,7 +24,8 @@ const config = {
   entry: {
     Editor: "./public/javascript/editor.js",
     Questao: "./public/javascript/questao/App.js",
-    main: "./public/javascript/main.js"
+    main: "./public/javascript/main.js",
+    index: "./public/javascript/index.js"
   },
   devtool: "source-map",
   output: {

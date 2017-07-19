@@ -12,3 +12,7 @@ if (alerts.length > 0) {
 }
 
 tippy(".btn-tooltip");
+
+$(".btn").mouseup(function(){
+    $(this).blur();
+});
