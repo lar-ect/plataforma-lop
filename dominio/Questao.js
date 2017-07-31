@@ -1,28 +1,30 @@
-const mongoose = require("mongoose");
-const autoIncrement = require("mongoose-auto-increment");
+const mongoose = require('mongoose');
+const autoIncrement = require('mongoose-auto-increment');
 mongoose.Promise = global.Promise;
+
+const dificuldades = ['Muito fácil', 'Fácil', 'Médio', 'Difícil', 'Muito difícil'];
 
 const questaoSchema = new mongoose.Schema(
   {
     titulo: {
       type: String,
-      required: "Forneça um título",
+      required: 'Forneça um título',
       trim: true,
       unique: true
     },
     enunciado: {
       type: String,
-      required: "Forneça um enunciado para a questão",
+      required: 'Forneça um enunciado para a questão',
       trim: true
     },
     exemploEntrada: [String],
     exemploSaida: String,
     dificuldade: {
-      type: Number,
-      min: 1,
-      max: 10
+      type: String,
+      enum: dificuldades,
+      required: 'Por favor escolha uma dificuldade'
     },
-    author: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     tags: {
       type: [{ type: String }]
     },
@@ -37,18 +39,22 @@ const questaoSchema = new mongoose.Schema(
         },
         saida: {
           type: String,
-          required: "Forneça uma saída esperada para o vetor de entradas"
+          required: 'Forneça uma saída esperada para o vetor de entradas'
         }
       }],
-      required: "Forneça um array de resultados"
+      required: 'Forneça um array de resultados'
     }
   },
-  { collection: "questoes" }
+  { collection: 'questoes' }
 );
 
 questaoSchema.plugin(autoIncrement.plugin, {
-  model: "Questao",
-  field: "identificador"
+  model: 'Questao',
+  field: 'identificador'
 });
 
-module.exports = mongoose.model("Questao", questaoSchema);
+questaoSchema.statics.getDificuldades = function() {
+  return dificuldades;
+};
+
+module.exports = mongoose.model('Questao', questaoSchema);
