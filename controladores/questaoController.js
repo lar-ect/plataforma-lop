@@ -1,24 +1,27 @@
-const mongoose = require("mongoose");
-const Questao = mongoose.model("Questao");
-const User = mongoose.model("User");
+const mongoose = require('mongoose');
+const Questao = mongoose.model('Questao');
+const User = mongoose.model('User');
 
 exports.questoes = async (req, res) => {
   const questoes = await Questao.find({});
-  res.render("questoes", { title: "Questões", questoes });
+  res.render('questoes', { title: 'Questões', questoes });
 };
 
 exports.getQuestao = async (req, res) => {
   const questao = await Questao.findOne({
     identificador: req.params.identificador
   });
-  res.render("questao/questao", {
+  res.render('questao/questao', {
     title: `Questão ${questao.identificador}`,
     questao
   });
 };
 
 exports.adicionarQuestao = (req, res) => {
-  res.render("editarQuestao", { title: "Adicionar Questão" });
+  res.render('editarQuestao', { 
+    title: 'Adicionar Questão', 
+    dificuldades: Questao.getDificuldades() 
+  });
 };
 
 exports.criarQuestao = async (req, res) => {
@@ -29,7 +32,7 @@ exports.criarQuestao = async (req, res) => {
     titulo: req.body.titulo,
     enunciado: req.body.enunciado,
     tags: req.body.tags,
-    dificuldade: +req.body.dificuldade,
+    dificuldade: req.body.dificuldade,
     exemploEntrada,
     exemploSaida,
     resultados
