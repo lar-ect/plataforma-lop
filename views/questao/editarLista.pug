@@ -1,0 +1,28 @@
+extends ../layout
+
+block content
+	#app
+	.container.page
+		.row
+			.col-md-10.offset-md-1.col-xs-12
+				h1.text-xs-center Nova lista de exercícios
+					- const l = lista || {}
+					form(id="form-lista" action=`/listas/adicionar/${l.identificador || ''}` method='POST')
+						.form-group
+							label(for="titulo") Título
+							input.form-control.form-control-lg(type="text" name="titulo" value=l.titulo placeholder="Título")
+						.form-group
+							label(for="questoes") Questões
+							select.form-control.form-control-lg(name="questoes" placeholder="Selecione questões" multiple)
+						br
+						.row
+							.col-md-4.col-md-offset-4
+								input.btn.btn-primary.btn-block(type="submit" value="Salvar")
+
+block styles
+	link(href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet")
+	link(href="/styles/select2-bootstrap.min.css" rel="stylesheet")
+
+block scripts
+	script(src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js")
+	script(src="/dist/Lista.bundle.js")

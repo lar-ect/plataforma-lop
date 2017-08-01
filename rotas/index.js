@@ -7,6 +7,7 @@ const questaoController = require('../controladores/questaoController');
 const apiController = require('../controladores/apiController');
 const authController = require('../controladores/authController');
 const userController = require('../controladores/userController');
+const listaExercicioController = require('../controladores/listaExercicioController');
 
 // Definição de rotas
 router.get('/', indexController.index);
@@ -71,6 +72,12 @@ router.get(
   catchErrors(questaoController.getQuestao)
 );
 
+// Listas de exercícios
+router.get('/listas', catchErrors(listaExercicioController.getListas));
+router.get('/lista/:id', catchErrors(listaExercicioController.getLista));
+router.get('/listas/adicionar', listaExercicioController.adicionarLista);
+router.post('/listas/adicionar', catchErrors(listaExercicioController.criarLista));
+
 // API v1
 router.post('/api/v1/questoes/:id/favoritar', questaoController.favoritarQuestao);
 router.post('/api/v1/executar', catchErrors(apiController.executarCodigo));
@@ -79,5 +86,6 @@ router.post(
   catchErrors(apiController.executarCodigoQuestao)
 );
 router.get('/api/v1/tags', catchErrors(apiController.getTags));
+router.get('/api/v1/questoes', catchErrors(apiController.getQuestoes));
 
 module.exports = router;
