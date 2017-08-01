@@ -32,11 +32,11 @@ block content
                       i.ion-thumbsup
                       |  #{questao.likes}
               a.preview-link(href=`/questao/${questao.identificador}`)
-                h1 #{questao.identificador} - #{questao.titulo}
+                h1 #{questao.titulo}
                 - const enunciado = questao.enunciado.split(' ').slice(0, 50).join(' ').concat('...');
                 p= enunciado
                 .info
-                  p Dificuldade: #{questao.dificuldade}/10
+                  p Dificuldade: #{questao.dificuldade}
 
         .col-md-3
           .sidebar

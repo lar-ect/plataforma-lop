@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Questao = mongoose.model('Questao');
 const User = mongoose.model('User');
+const ListaExercicio = mongoose.model('ListaExercicio');
 
 exports.questoes = async (req, res) => {
   const questoes = await Questao.find({});
@@ -11,16 +12,19 @@ exports.getQuestao = async (req, res) => {
   const questao = await Questao.findOne({
     identificador: req.params.identificador
   });
+  const solucao = questao.solucao || null;
   res.render('questao/questao', {
     title: `Questão ${questao.identificador}`,
-    questao
+    questao,
+    solucao
   });
 };
 
 exports.adicionarQuestao = (req, res) => {
   res.render('editarQuestao', { 
     title: 'Adicionar Questão', 
-    dificuldades: Questao.getDificuldades() 
+    dificuldades: Questao.getDificuldades(),
+    classificacoes: Questao.getClassificacoes()
   });
 };
 
@@ -33,6 +37,7 @@ exports.criarQuestao = async (req, res) => {
     enunciado: req.body.enunciado,
     tags: req.body.tags,
     dificuldade: req.body.dificuldade,
+    classificacao: req.body.classificacao,
     exemploEntrada,
     exemploSaida,
     resultados

@@ -1,6 +1,6 @@
-const path = require("path");
-const webpack = require("webpack");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const env = process.env.NODE_ENV;
 
 /*
@@ -14,23 +14,24 @@ const javascript = {
   test: /\.(js)$/, // see how we match anything that ends in `.js`? Cool
   use: [
     {
-      loader: "babel-loader",
-      options: { presets: ["env", "react"] } // this is one way of passing options
+      loader: 'babel-loader',
+      options: { presets: ['env', 'react'] } // this is one way of passing options
     }
   ]
 };
 
 const config = {
   entry: {
-    Editor: "./public/javascript/editor.js",
-    Questao: "./public/javascript/questao/App.js",
-    main: "./public/javascript/main.js",
-    index: "./public/javascript/index.js"
+    Editor: './public/javascript/editor.js',
+    Questao: './public/javascript/questao/App.js',
+    main: './public/javascript/main.js',
+    index: './public/javascript/index.js',
+    Lista: './public/javascript/ListaExercicio/index.js'
   },
-  devtool: "source-map",
+  devtool: 'source-map',
   output: {
-    path: path.resolve(__dirname, "public", "dist"),
-    filename: "[name].bundle.js"
+    path: path.resolve(__dirname, 'public', 'dist'),
+    filename: '[name].bundle.js'
   },
   module: {
     rules: [
@@ -38,16 +39,16 @@ const config = {
       {
         test: /\.css$/,
         use:
-          env === "production"
+          env === 'production'
             ? ExtractTextPlugin.extract({
-                fallback: "style-loader",
-                use: ["css-loader"]
+                fallback: 'style-loader',
+                use: ['css-loader']
               })
-            : ["style-loader", "css-loader"]
+            : ['style-loader', 'css-loader']
       },
       {
         test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
-        loader: "url-loader",
+        loader: 'url-loader',
         options: {
           limit: 10000
         }
@@ -56,11 +57,11 @@ const config = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      "process.env": {
-        NODE_ENV: JSON.stringify("production")
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
       }
     }),
-    new ExtractTextPlugin("main.css"),
+    new ExtractTextPlugin('main.css'),
     new webpack.optimize.UglifyJsPlugin({
       compress: { warnings: false }
     })

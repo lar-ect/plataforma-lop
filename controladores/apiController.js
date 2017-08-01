@@ -27,3 +27,8 @@ exports.getTags = async (req, res) => {
   const tags = await Questao.find().distinct('tags');
   res.json(tags);
 }
+
+exports.getQuestoes = async (req, res) => {
+  const questoes = await Questao.find();
+  res.json(questoes);
+}

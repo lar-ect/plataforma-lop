@@ -47,6 +47,7 @@ autoIncrement.initialize(mongoose.connection);
 // Import todos os models do projeto para que possamos utilizar em qualquer parte do sistema
 require('./dominio/User');
 require('./dominio/Questao');
+require('./dominio/ListaExercicio');
 
 // Configura estratégia de autenticação local com passport.js
 const User = mongoose.model('User');

@@ -3,6 +3,7 @@ const autoIncrement = require('mongoose-auto-increment');
 mongoose.Promise = global.Promise;
 
 const dificuldades = ['Muito fácil', 'Fácil', 'Médio', 'Difícil', 'Muito difícil'];
+const classificacoes = ['Fixação', 'Complementar', 'Avançado'];
 
 const questaoSchema = new mongoose.Schema(
   {
@@ -19,6 +20,12 @@ const questaoSchema = new mongoose.Schema(
     },
     exemploEntrada: [String],
     exemploSaida: String,
+    solucao: String,
+    classificacao: {
+      type: String,
+      enum: classificacoes,
+      required: 'Por favor escolha uma classificação',
+    },
     dificuldade: {
       type: String,
       enum: dificuldades,
@@ -55,6 +62,10 @@ questaoSchema.plugin(autoIncrement.plugin, {
 
 questaoSchema.statics.getDificuldades = function() {
   return dificuldades;
+};
+
+questaoSchema.statics.getClassificacoes = function() {
+  return classificacoes;
 };
 
 module.exports = mongoose.model('Questao', questaoSchema);

@@ -13,6 +13,11 @@ block content
           .form-group
             textarea.form-control(rows="5", name="enunciado", placeholder="Enunciado")= q.enunciado
           .form-group
+            label(for="classificacao") Classificação
+            select.form-control(name="classificacao" placeholder="Selecione a classificação")
+              for classificacao in classificacoes
+                option #{classificacao}
+          .form-group
             label(for="dificuldade") Dificuldade
             select.form-control(name="dificuldade" placeholder="Selecione a dificuldade")
               for dificuldade in dificuldades

@@ -6,6 +6,10 @@ const mongodbErrorHandler = require('mongoose-mongodb-errors');
 const passportLocalMongoose = require('passport-local-mongoose');
 
 const userSchema = new mongoose.Schema({
+  admin: {
+    type: Boolean,
+    default: false
+  },
   matricula: {
     type: String,
     unique: true,
@@ -27,6 +31,7 @@ const userSchema = new mongoose.Schema({
   githubData: {}, // qualquer coisa
   sigaa: {},
   questoesFavoritas: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Questao' }],
+  listasFavoritas: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ListaExercicio' }],
   resetPasswordToken: String,
   resetPasswordExpires: Date
 });

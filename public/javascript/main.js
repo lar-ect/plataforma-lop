@@ -1,8 +1,8 @@
-import "tippy.js/dist/tippy.css";
-import "tippy.js/dist/tippy.min.js";
-import tippy from "tippy.js";
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/dist/tippy.min.js';
+import tippy from 'tippy.js';
 
-const alerts = $(".flash-message");
+const alerts = $('.flash-message');
 if (alerts.length > 0) {
   setTimeout(() => {
     alerts.each(alert => {
@@ -11,8 +11,8 @@ if (alerts.length > 0) {
   }, 3000);
 }
 
-tippy(".btn-tooltip");
+tippy('.btn-tooltip');
 
-$(".btn").mouseup(function(){
+$('.btn').mouseup(function(){
     $(this).blur();
 });
