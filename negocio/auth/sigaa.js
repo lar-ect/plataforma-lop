@@ -7,8 +7,8 @@ const SIGAA = require('./sigaa-api');
 passport.use(new OAuth2Strategy({
     authorizationURL: 'http://apitestes.info.ufrn.br/authz-server/oauth/authorize',
     tokenURL: 'http://apitestes.info.ufrn.br/authz-server/oauth/token',
-    clientID: 'sgqlp-id',
-    clientSecret: 'segredo',
+    clientID: process.env.SIGAA_CLIENT_ID,
+    clientSecret: process.env.SIGAA_CLIENT_SECRET,
     callbackURL: "http://localhost:8080/auth/sigaa/callback"
   },
   async (accessToken, refreshToken, sigaaData, data, done) => {
