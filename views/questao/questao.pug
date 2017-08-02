@@ -10,7 +10,7 @@ block content
   .container.page
     .row.article-content
       .col-md-12
-        if user.admin
+        if user && user.admin
           pre(style="white-space:pre;") #{solucao}
         h5: b Enunciado
         p.text-justify(style="white-space: pre-line") #{questao.enunciado}
