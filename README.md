@@ -6,6 +6,6 @@
 
 Plataforma de gerenciamento de exercícios para a disciplina de Lógica de Programação
 
-Você pode testar a plataforma no seguinte link [http://plataforma-lop.ddns.net](http://plataforma-lop.ddns.net)
+Você pode testar a plataforma no seguinte link [http://lop.ect.ufrn.br](http://lop.ect.ufrn.br)
 
 Se você deseja contribuir para o projeto, siga para a [Wiki](https://github.com/lar-ect/plataforma-lop) onde há instruções de como contribuir e documentação sobre o projeto.
