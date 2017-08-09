@@ -9,7 +9,7 @@ const { catchErrors } = require('../negocio/errorHandlers');
 router.get('/questoes', catchErrors(questaoController.questoes));
 
 router.get('/questao/adicionar', authController.isLoggedIn,
-  authController.podeAdicionarQuestao, questaoController.adicionarQuestao);
+  authController.temPermissao('CREATE_QUESTAO'), questaoController.adicionarQuestao);
 
 router.post('/questao/adicionar', catchErrors(questaoController.criarQuestao));
 

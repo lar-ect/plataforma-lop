@@ -5,11 +5,9 @@ const validator = require('validator');
 const mongodbErrorHandler = require('mongoose-mongodb-errors');
 const passportLocalMongoose = require('passport-local-mongoose');
 
+const Permissoes = require('./permissoes');
+
 const userSchema = new mongoose.Schema({
-  admin: {
-    type: Boolean,
-    default: false
-  },
   matricula: {
     type: String,
     unique: true,
@@ -28,7 +26,13 @@ const userSchema = new mongoose.Schema({
     required: 'Forneça um nome',
     trim: true
   },
-  githubData: {}, // qualquer coisa
+  grupos: {
+    type: [String],
+    enum: Permissoes.grupos,
+    default: ['USUARIO'],
+    required: true
+  },
+  // githubData: {},
   sigaa: {},
   questoesFavoritas: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Questao' }],
   listasFavoritas: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ListaExercicio' }],

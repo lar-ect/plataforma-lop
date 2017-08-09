@@ -13,15 +13,20 @@ router.get('/cadastro', userController.cadastroForm);
 
 router.get('/perfil', authController.isLoggedIn, userController.perfil);
 
-// Github
-router.get('/auth/github', passport.authenticate('github', { scope: [ 'user:email' ]}));
+/**
+ * A autenticação com o github foi retirada para 
+ * diminuir a complexidade do fluxo de autenticação do sistema
+ */
 
-router.get('/auth/github/callback', 
-	passport.authenticate('github', { failureRedirect: '/login' }),
-  (req, res) => {
-    res.redirect('/');
-  }
-);
+// router.get('/auth/github', passport.authenticate('github', { scope: [ 'user:email' ]}));
+
+// router.get('/auth/github/callback', 
+// 	passport.authenticate('github', { failureRedirect: '/login' }),
+//   (req, res) => {
+//     res.redirect('/');
+//   }
+// );
+
 
 // Sigaa
 router.get('/auth/sigaa', passport.authenticate('oauth2'));

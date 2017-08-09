@@ -9,12 +9,10 @@ exports.questoes = async (req, res) => {
 };
 
 exports.getQuestao = async (req, res) => {
-  const questao = await Questao.findOne({
-    identificador: req.params.identificador
-  });
+  const questao = await Questao.findOne({ _id: req.params.id });
   const solucao = questao.solucao || null;
   res.render('questao/questao', {
-    title: `Questão ${questao.identificador}`,
+    title: `Questão ${questao}`,
     questao,
     solucao
   });

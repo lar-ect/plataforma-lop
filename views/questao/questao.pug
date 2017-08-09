@@ -1,17 +1,17 @@
 extends ../layout
 
 block content
-  input(type="hidden", name="questaoId", value=questao.identificador)
+  input(type="hidden", name="questaoId", value=questao._id)
   .article-page
     .banner
       .container
-        h3 Questão #{questao.identificador} - #{questao.titulo}
+        h3 Questão #{questao.titulo}
 
   .container.page
     .row.article-content
       .col-md-12
-        if user && user.admin
-          pre(style="white-space:pre;") #{solucao}
+        if user && user.isAdministrador()
+          pre(style="white-space:pre;") #{questao.solucao}
         h5: b Enunciado
         p.text-justify(style="white-space: pre-line") #{questao.enunciado}
         p.text-center

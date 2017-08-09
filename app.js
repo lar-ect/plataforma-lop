@@ -16,6 +16,7 @@ const autoIncrement = require('mongoose-auto-increment');
 const MongoStore = require('connect-mongo')(session);
 const promisify = require('es6-promisify');
 const helpers = require('./helpers');
+const permissoes = require('./dominio/Permissoes');
 const errorHandlers = require('./negocio/errorHandlers');
 
 // Assegura que o servidor está rodando com node >= 7.6
@@ -53,7 +54,7 @@ require('./dominio/ListaExercicio');
 const User = mongoose.model('User');
 passport.use(User.createStrategy());
 // require('./negocio/auth/sigaa');
-require('./negocio/auth/github');
+// require('./negocio/auth/github');
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -127,6 +128,7 @@ app.use((req, res, next) => {
   res.locals.flashes = req.flash();
   res.locals.user = req.user || null;
   res.locals.currentPath = req.path;
+  res.locals.permissoes = permissoes;
   next();
 });
 
@@ -142,6 +144,7 @@ app.use('/api', require('./rotas/api'));
 app.use('/', require('./rotas/auth'));
 app.use('/', require('./rotas/questao'));
 app.use('/', require('./rotas/listasExercicio'));
+app.use('/gerenciador', require('./rotas/gerenciador'));
 
 // Se a url não bater com nenhuma das nossas rotas, envia um erro 404
 app.use(errorHandlers.notFound);

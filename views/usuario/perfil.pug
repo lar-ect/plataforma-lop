@@ -8,11 +8,11 @@ block content
           .col-xs-12.col-md-10.offset-md-1
             img.user-img(src=user.gravatar)
             h4= user.nome
-            //- p
-            //-   | Cofounder @GoThinkster, lived in Aol's HQ for a few months, kinda looks like Peeta from the Hunger Games
-            //- button.btn.btn-sm.btn-outline-secondary.action-btn
-            //-   i.ion-plus-round
-            //-   |             Follow Eric Simons
+            if user.sigaa
+              p Usuário vínculado ao sigaa com matrícula 
+                b #{user.sigaa.matricula}
+            else
+              a.btn.btn-secondary(href="/auth/sigaa") Vincular ao sigaa
     .container
       .row
         .col-xs-12.col-md-10.offset-md-1

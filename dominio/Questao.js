@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const autoIncrement = require('mongoose-auto-increment');
 mongoose.Promise = global.Promise;
 
 const dificuldades = ['Muito fácil', 'Fácil', 'Médio', 'Difícil', 'Muito difícil'];
@@ -54,11 +53,6 @@ const questaoSchema = new mongoose.Schema(
   },
   { collection: 'questoes' }
 );
-
-questaoSchema.plugin(autoIncrement.plugin, {
-  model: 'Questao',
-  field: 'identificador'
-});
 
 questaoSchema.statics.getDificuldades = function() {
   return dificuldades;

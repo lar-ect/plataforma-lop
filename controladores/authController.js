@@ -3,6 +3,19 @@ const crypto = require('crypto');
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const promisify = require('es6-promisify');
+const permissoes = require('../dominio/Permissoes');
+
+exports.temPermissao = (permissao) => {
+  return (req, res, next) => {
+    if (req.user && permissoes.temPermissao(req.user.grupos, permissao)) {
+      next();
+    }
+    else {
+      req.flash('warning', 'Oops, você não pode acessar essa página');
+      res.redirect('back');
+    }
+  };
+};
 
 exports.login = passport.authenticate('local', {
   failuteRedirect: '/login',

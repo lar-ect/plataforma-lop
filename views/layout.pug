@@ -5,7 +5,6 @@ html
     link(rel="stylesheet", href="/styles/main.css", type="text/css")
     link(rel="stylesheet", href="/styles/custom.css", type="text/css")
     link(href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css", rel="stylesheet", type="text/css")
-    //- link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css", integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ", crossorigin="anonymous")
     link(href="https://fonts.googleapis.com/css?family=Titillium+Web:700|Source+Serif+Pro:400,700|Merriweather+Sans:400,700|Source+Sans+Pro:400,300,600,700,300italic,400italic,600italic,700italic", rel="stylesheet", type="text/css")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     meta(http-equiv="Content-Type" content="text/html;charset=utf-8")
@@ -18,15 +17,10 @@ html
             | 
             small(style="color: gray;") alpha
           ul.nav.navbar-nav.pull-xs-right
-            each item in h.menu
-              li.nav-item
-                a.nav-link(href=item.slug, class=(currentPath.startsWith(item.slug) ? 'active' : ''))
-                  if item.icon
-                    i(class=item.icon)
-                    |  #{item.title}
-                  else
-                    != item.title
+            li.nav-item: a.nav-link(href="/sugestao", class=(currentPath.startsWith("/sugerir-questao") ? 'active' : '')) Sugestão
             if user
+              if permissoes.temPermissao(user.grupos, 'VER_GERENCIADOR')
+                li.nav-item: a.nav-link(href="/gerenciador", class=(currentPath.startsWith("/gerenciador") ? 'active' : '')) Gerenciador
               li.nav-item: a.nav-link(href="/perfil", class=(currentPath.startsWith("/perfil") ? 'active' : '')) Perfil
               li.nav-item: a.nav-link(href="/logout") Sair
             else
