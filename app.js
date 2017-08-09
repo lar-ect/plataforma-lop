@@ -52,7 +52,7 @@ require('./dominio/ListaExercicio');
 // Configura estratégia de autenticação local com passport.js
 const User = mongoose.model('User');
 passport.use(User.createStrategy());
-require('./negocio/auth/sigaa');
+// require('./negocio/auth/sigaa');
 require('./negocio/auth/github');
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
@@ -137,8 +137,11 @@ app.use((req, res, next) => {
 });
 
 // Finalmente, definimos nossas próprias rotas depois de passar por todos os middlewares acima
-const rotas = require('./rotas/index');
-app.use('/', rotas);
+app.use('/', require('./rotas/index'));
+app.use('/api', require('./rotas/api'));
+app.use('/', require('./rotas/auth'));
+app.use('/', require('./rotas/questao'));
+app.use('/', require('./rotas/listasExercicio'));
 
 // Se a url não bater com nenhuma das nossas rotas, envia um erro 404
 app.use(errorHandlers.notFound);
