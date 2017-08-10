@@ -35,7 +35,7 @@ block content
                   tbody
                     for submissao in submissoes
                       tr 
-                        td #{submissao.data}
+                        td #{h.moment(submissao.data).format('DD/MM/YYYY - HH:ss')}
                         td #{submissao.questao.titulo}
                         td #{submissao.resultados.length}
                         td #{submissao.porcentagemAcerto}%
