@@ -19,37 +19,24 @@ block content
           .articles-toggle
             ul.nav.nav-pills.outline-active
               li.nav-item
-                a.nav-link.active(href='') Submissões recentes
-              //- li.nav-item
-              //-   a.nav-link(href='') Favorited Articles
-          //- .article-preview
-          //-   .article-meta
-          //-     a(href='')
-          //-       img(src='http://i.imgur.com/Qr71crq.jpg')
-          //-     .info
-          //-       a.author(href='') Eric Simons
-          //-       span.date January 20th
-          //-     button.btn.btn-outline-primary.btn-sm.pull-xs-right
-          //-       i.ion-heart
-          //-       |  29
-          //-   a.preview-link(href='')
-          //-     h1 How to build webapps that scale
-          //-     p This is the description for the post.
-          //-     span Read more...
-          //- .article-preview
-          //-   .article-meta
-          //-     a(href='')
-          //-       img(src='http://i.imgur.com/N4VcUeJ.jpg')
-          //-     .info
-          //-       a.author(href='') Albert Pai
-          //-       span.date January 20th
-          //-     button.btn.btn-outline-primary.btn-sm.pull-xs-right
-          //-       i.ion-heart
-          //-       |  32
-          //-   a.preview-link(href='')
-          //-     h1 The song you won't ever stop singing. No matter how hard you try.
-          //-     p This is the description for the post.
-          //-     span Read more...
-          //-     ul.tag-list
-          //-       li.tag-default.tag-pill.tag-outline Music
-          //-       li.tag-default.tag-pill.tag-outline Song
+                a.nav-link.active(data-toggle="tab" href="#submissoes_recentes" role="tab") Submissões recentes
+            
+            .tab-content
+              .tab-pane.active(id="submissoes_recentes" role="tabpanel")
+                br
+                table.table.table-bordered.table-hover.table-sm
+                  thead
+                    tr
+                      th Data
+                      th Título
+                      th Qnt. Testes
+                      th Acerto (%)
+                      th Tempo de execução
+                  tbody
+                    for submissao in submissoes
+                      tr 
+                        td #{submissao.data}
+                        td #{submissao.questao.titulo}
+                        td #{submissao.resultados.length}
+                        td #{submissao.porcentagemAcerto}%
+                        td #{submissao.tempo}

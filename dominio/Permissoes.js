@@ -1,22 +1,19 @@
 const grupos = ['USUARIO', 'ALUNO', 'PROFESSOR', 'MONITOR', 'ADMINISTRADOR'];
 
 const gruposPorPermissao = {
-	READ_QUESTAO: ['USUARIO', 'ALUNO', 'PROFESSOR', 'MONITOR', 'ADMINISTRADOR'],
+	READ_QUESTAO: ['USUARIO', 'ALUNO', 'MONITOR', 'PROFESSOR', 'ADMINISTRADOR'],
 	CREATE_QUESTAO: ['ADMINISTRADOR'],
 	UPDATE_QUESTAO: ['ADMINISTRADOR'],
 	DELETE_QUESTAO: ['ADMINISTRADOR'],
-	VER_GERENCIADOR: ['ADMINISTRADOR']
+	VER_GERENCIADOR: ['ADMINISTRADOR'],
+	VER_SOLUCAO_QUESTAO: ['MONITOR', 'PROFESSOR', 'ADMINISTRADOR']
 };
 
 exports.grupos = grupos;
 
-exports.isAdministrador = (grupos) => {
-	return grupos.includes('ADMINISTRADOR');
-};
-
-exports.temPermissao = (grupos, permissao) => {
+exports.temPermissao = (user, permissao) => {
 	let retorno = false;
-	grupos.forEach(grupo => {
+	user.grupos.forEach(grupo => {
 		if (gruposPorPermissao[permissao].includes(grupo)) {
 			retorno = true;
 		}

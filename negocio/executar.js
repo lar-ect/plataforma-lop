@@ -1,4 +1,5 @@
 const { NodeVM } = require('vm2');
+const moment = require('moment');
 
 let entradas = [];
 let indiceEntrada;
@@ -57,10 +58,17 @@ function executar(codigo, arrayEntrada) {
     console: 'off'
   });
 
+  const inicio = moment();
+  let fim;
   try {
     vm.run(codigo);
+    fim = moment();
   } catch (error) {
     resultado = `Erro: ${error.message}`;
+  }
+
+  if (fim) {
+    console.log(`Tempo de execução: ${fim.diff(inicio)}`);
   }
 
   return resultado;

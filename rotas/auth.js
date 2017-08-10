@@ -11,7 +11,7 @@ router.get('/login', userController.loginForm);
 
 router.get('/cadastro', userController.cadastroForm);
 
-router.get('/perfil', authController.isLoggedIn, userController.perfil);
+router.get('/perfil', authController.isLoggedIn, catchErrors(userController.perfil));
 
 /**
  * A autenticação com o github foi retirada para 

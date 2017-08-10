@@ -49,6 +49,7 @@ autoIncrement.initialize(mongoose.connection);
 require('./dominio/User');
 require('./dominio/Questao');
 require('./dominio/ListaExercicio');
+require('./dominio/Submissao');
 
 // Configura estratégia de autenticação local com passport.js
 const User = mongoose.model('User');
@@ -140,7 +141,7 @@ app.use((req, res, next) => {
 
 // Finalmente, definimos nossas próprias rotas depois de passar por todos os middlewares acima
 app.use('/', require('./rotas/index'));
-app.use('/api', require('./rotas/api'));
+app.use('/', require('./rotas/api'));
 app.use('/', require('./rotas/auth'));
 app.use('/', require('./rotas/questao'));
 app.use('/', require('./rotas/listasExercicio'));

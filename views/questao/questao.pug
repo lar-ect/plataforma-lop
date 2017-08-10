@@ -10,16 +10,16 @@ block content
   .container.page
     .row.article-content
       .col-md-12
-        if user && user.isAdministrador()
+        if user && permissoes.temPermissao(user, 'VER_SOLUCAO_QUESTAO')
           pre(style="white-space:pre;") #{questao.solucao}
         h5: b Enunciado
         p.text-justify(style="white-space: pre-line") #{questao.enunciado}
         p.text-center
-          strong Exemplo de Entrada: 
-          != questao.exemploEntrada.join(' ')
+          strong Exemplo de entrada: 
+        p #{questao.exemploEntrada.join(' ')}
         p.text-center 
-          strong Saída Esperada: 
-          != questao.exemploSaida
+          strong Exemplo de saída esperada: 
+        p #{questao.exemploSaida}
         
     .row
       .col-md-6
@@ -30,7 +30,7 @@ block content
           button.btn.btn-outline-primary(id="btn-submeter") Submeter
           button.btn.btn-outline-primary.btn-tooltip(data-theme="light", title=h.funcoesDisponiveis) Ver funções disponíveis
         
-        h4(style="margin-top: 10px;") Saída
+        h4(style="margin-top: 10px;") Saída do seu código
         ul.list-group(id="resultados-container")
 
 block scripts

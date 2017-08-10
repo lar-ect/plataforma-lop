@@ -2,9 +2,11 @@ const promisify = require('es6-promisify');
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const Questao = mongoose.model('Questao');
+const Submissao = mongoose.model('Submissao');
 
-exports.perfil = (req, res) => {
-  res.render('usuario/perfil', { title: 'Perfil' });
+exports.perfil = async (req, res) => {
+  const submissoes = await Submissao.find({ user: req.user });
+  res.render('usuario/perfil', { title: 'Perfil', submissoes });
 };
 
 exports.loginForm = (req, res) => {

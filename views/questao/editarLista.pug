@@ -7,7 +7,7 @@ block content
 			.col-md-10.offset-md-1.col-xs-12
 				h1.text-xs-center Nova lista de exercícios
 					- const l = lista || {}
-					form(id="form-lista" action=`/listas/adicionar/${l.identificador || ''}` method='POST')
+					form(id="form-lista" action=`/lista/adicionar/${l.identificador || ''}` method='POST')
 						.form-group
 							label(for="titulo") Título
 							input.form-control.form-control-lg(type="text" name="titulo" value=l.titulo placeholder="Título")

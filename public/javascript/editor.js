@@ -3,9 +3,9 @@ import '../styles/editor.css';
 import ace from 'brace';
 import 'brace/mode/javascript';
 import 'brace/theme/ambiance';
-import executarCodigo from './modules/executarCodigo';
-// import swal from 'sweetalert';
-// import 'sweetalert/dist/sweetalert.css';
+import ex from './modules/execucao';
+import swal from 'sweetalert';
+import 'sweetalert/dist/sweetalert.css';
 
 import tippy from 'tippy.js';
 
@@ -18,15 +18,60 @@ const $resultadosDiv = $('#resultados-container');
 const $questaoId = $('input[name=\'questaoId\']');
 
 $('#btn-enviar-codigo').on('click', function() {
-  // swal('Hello World');
-  executarCodigo(editor.getValue(), $questaoId.val())
+  const $btn = $(this);
+  $btn.prop('disabled', true);
+  $btn.removeClass('btn-outline-primary');
+  ex.executarCodigo(editor.getValue(), $questaoId.val())
     .then(res => {
       adicionarListaResultados(res.data);
       tippy('.saida-esperada');
     })
     .catch(err => {
       console.error(err);
+    })
+    .then(() => {
+      $btn.prop('disabled', false);
+      $btn.addClass('btn-outline-primary');
     });
+});
+
+$('#btn-submeter').on('click', function() {
+  const $btn = $(this);
+  $btn.prop('disabled', true);
+  $btn.removeClass('btn-outline-primary');
+
+  swal({
+    title: 'Deseja submeter seu código?',
+    text: 'Você pode submeter quantas vezes desejar',
+    type: 'info',
+    showCancelButton: true,
+    closeOnConfirm: false
+  }, function() {
+    ex.submeterCodigo(editor.getValue(), $questaoId.val())
+    .then(res => {
+      console.log(res.data);
+      if (res.data.porcentagemAcerto === 100) {
+        swal(`${res.data.porcentagemAcerto}% de acerto`, 
+        'Submissão enviada com sucesso', 'success');
+      }
+      else if (res.data.porcentagemAcerto > 0) {
+        swal(`${res.data.porcentagemAcerto}% de acerto`, 
+        'Submissão enviada com sucesso', 'warning');
+      }
+      else {
+        swal(`${res.data.porcentagemAcerto}% de acerto`, 
+        'Submissão enviada com sucesso', 'error');
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      swal('Oops...', 'Ocorreu algum erro ao enviar a submissão', 'error');
+    })
+    .then(() => {
+      $btn.prop('disabled', false);
+      $btn.addClass('btn-outline-primary');
+    });
+  });
 });
 
 function adicionarListaResultados(resultados) {
@@ -48,10 +93,10 @@ function criarLinhasResultado(resultado) {
       <li class="list-group-item">
         <samp>${r.saida}</samp>
         <span class="saida-esperada pull-xs-right" 
-          title="<strong>Entrada:</strong> ${r.entrada}<br><strong>Saída:</strong> ${r.saidaEsperada}">
-          Esperado
+          title="<strong>Entrada:</strong><br>${r.entrada}<br><strong>Saída esperada:</strong><br>${r.saidaEsperada}">
+          Ver detalhes
         </span>
-        <i style="color: ${color};" class="${icon} pull-xs-right">&nbsp;</i>
+        <i style="color: ${color};" class="${icon} pull-xs-left">&nbsp;</i>
       </li>
     `;
     })

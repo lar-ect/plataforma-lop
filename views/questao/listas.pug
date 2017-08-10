@@ -15,7 +15,7 @@ block content
 						.article-preview
 							.article-meta
 								if user
-									form(name="favoritar-lista-form" method="POST" action=`/api/v1/listas/${lista._id}/favoritar`)
+									form(name="favoritar-lista-form" method="POST" action=`/api/v1/lista/${lista._id}/favoritar`)
 										- const listasFavoritas = user.listasFavoritas.map(obj => obj.toString())
 										- const btnClass = listasFavoritas.includes(lista._id.toString()) ? 'btn-primary favoritado' : 'btn-outline-primary'
 										button.btn.btn-sm.pull-xs-right(class=btnClass type="submit" name="btn_favoritar")

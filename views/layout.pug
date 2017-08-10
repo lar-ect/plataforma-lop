@@ -19,7 +19,7 @@ html
           ul.nav.navbar-nav.pull-xs-right
             li.nav-item: a.nav-link(href="/sugestao", class=(currentPath.startsWith("/sugerir-questao") ? 'active' : '')) Sugestão
             if user
-              if permissoes.temPermissao(user.grupos, 'VER_GERENCIADOR')
+              if permissoes.temPermissao(user, 'VER_GERENCIADOR')
                 li.nav-item: a.nav-link(href="/gerenciador", class=(currentPath.startsWith("/gerenciador") ? 'active' : '')) Gerenciador
               li.nav-item: a.nav-link(href="/perfil", class=(currentPath.startsWith("/perfil") ? 'active' : '')) Perfil
               li.nav-item: a.nav-link(href="/logout") Sair
