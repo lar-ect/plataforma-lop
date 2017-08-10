@@ -5,7 +5,7 @@ const validator = require('validator');
 const mongodbErrorHandler = require('mongoose-mongodb-errors');
 const passportLocalMongoose = require('passport-local-mongoose');
 
-const Permissoes = require('./permissoes');
+const Permissoes = require('./Permissoes');
 
 const userSchema = new mongoose.Schema({
   matricula: {
