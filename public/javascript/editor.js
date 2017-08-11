@@ -5,7 +5,6 @@ import 'brace/mode/javascript';
 import 'brace/theme/ambiance';
 import ex from './modules/execucao';
 import swal from 'sweetalert';
-import 'sweetalert/dist/sweetalert.css';
 
 import tippy from 'tippy.js';
 
