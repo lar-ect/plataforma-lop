@@ -25,6 +25,10 @@ exports.executarCodigoQuestao = async (req, res) => {
 };
 
 exports.submeterCodigoQuestao = async (req, res) => {
+  if (!req.user) {
+    res.status(500).send('Você precisa estar logado para submeter questões');
+    return;
+  }
   const { codigo, id } = req.body;
   const questao = await Questao.findOne({ _id: id });
   if (!questao) {
