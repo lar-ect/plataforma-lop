@@ -1,42 +1,57 @@
 extends ../layout
 
 block content
-  .profile-page
-    .user-info
-      .container
-        .row
-          .col-xs-12.col-md-10.offset-md-1
-            img.user-img(src=user.gravatar)
-            h4= user.nome
-            if user.sigaa
-              p Usuário vínculado ao sigaa com matrícula 
-                b #{user.sigaa.matricula}
-            else
-              a.btn.btn-secondary(href="/auth/sigaa") Vincular ao sigaa
-    .container
-      .row
-        .col-xs-12.col-md-10.offset-md-1
-          .articles-toggle
-            ul.nav.nav-pills.outline-active
-              li.nav-item
-                a.nav-link.active(data-toggle="tab" href="#submissoes_recentes" role="tab") Submissões recentes
-            
-            .tab-content
-              .tab-pane.active(id="submissoes_recentes" role="tabpanel")
-                br
-                table.table.table-bordered.table-hover.table-sm
-                  thead
-                    tr
-                      th Data
-                      th Título
-                      th Qnt. Testes
-                      th Acerto (%)
-                      th Tempo de execução
-                  tbody
-                    for submissao in submissoes
-                      tr 
-                        td #{h.moment(submissao.data).format('DD/MM/YYYY - HH:ss')}
-                        td #{submissao.questao.titulo}
-                        td #{submissao.resultados.length}
-                        td #{submissao.porcentagemAcerto}%
-                        td #{submissao.tempo}
+	.profile-page
+		.user-info
+			.container
+				.row
+					.col-xs-12.col-md-10.offset-md-1
+						img.user-img(src=user.gravatar)
+						h4= user.nome
+						if user.sigaa
+							p Usuário vínculado ao sigaa com matrícula 
+								b #{user.sigaa.matricula || user.matricula}
+						else
+							a.btn.btn-secondary(href="/auth/sigaa") Vincular ao sigaa
+		.container
+			.row
+				.col-xs-12.col-md-10.offset-md-1
+					.articles-toggle
+						- const professor = (user && permissoes.isProfessor(user))
+						ul.nav.nav-pills.outline-active
+							li.nav-item
+								a.nav-link.active(data-toggle="tab" href="#submissoes_recentes" role="tab") Submissões recentes
+							if professor
+								li.nav-item
+									a.nav-link(data-toggle="tab" href="#minhas_turmas" role="tab") Minhas turmas
+								
+						
+						.tab-content
+							if professor
+								.tab-pane(id="minhas_turmas" role="tabpanel")
+									.row
+										for turma in turmas
+											.col-md-6
+												.card.text-center: .card-block
+													h4.card-title #{turma.codigoString}
+													h6.card-subtitle.mb-2.text-muted #{turma.descricaoComponente}
+													a.card-link(href=`/turma/${turma._id}`) Ver turma
+
+							.tab-pane.active(id="submissoes_recentes" role="tabpanel")
+								br
+								table.table.table-bordered.table-hover.table-sm
+									thead
+										tr
+											th Data
+											th Título
+											th Qnt. Testes
+											th Acerto (%)
+											th Ações
+									tbody
+										for submissao in submissoes
+											tr
+												td #{h.moment(submissao.data).format('DD/MM/YYYY - HH:ss')}
+												td #{submissao.questao.titulo}
+												td #{submissao.resultados.length}
+												td #{submissao.porcentagemAcerto}%
+												td: a(href=`/submissao/${submissao._id}`) Visualizar

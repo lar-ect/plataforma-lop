@@ -11,6 +11,10 @@ const gruposPorPermissao = {
 
 exports.grupos = grupos;
 
+exports.isProfessor = (user) => {
+	return user.grupos.includes('PROFESSOR');
+};
+
 exports.temPermissao = (user, permissao) => {
 	let retorno = false;
 	user.grupos.forEach(grupo => {

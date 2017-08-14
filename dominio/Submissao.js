@@ -3,6 +3,7 @@ mongoose.Promise = global.Promise;
 
 const submissaoSchema = new mongoose.Schema(
   {
+		codigo: String,
 		data: {
 			type: Date,
 			default: Date.now

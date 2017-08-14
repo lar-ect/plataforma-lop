@@ -7,7 +7,7 @@ const permissoes = require('../dominio/Permissoes');
 
 exports.temPermissao = (permissao) => {
   return (req, res, next) => {
-    if (req.user && permissoes.temPermissao(req.user.grupos, permissao)) {
+    if (req.user && permissoes.temPermissao(req.user, permissao)) {
       next();
     }
     else {

@@ -33,7 +33,9 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   // githubData: {},
-  sigaa: {},
+  sigaa: {
+    turmas: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Turma' }]
+  },
   questoesFavoritas: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Questao' }],
   listasFavoritas: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ListaExercicio' }],
   resetPasswordToken: String,

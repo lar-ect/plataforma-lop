@@ -12,7 +12,6 @@ const expressValidator = require('express-validator');
 const flash = require('connect-flash');
 const passport = require('passport');
 const mongoose = require('mongoose');
-const autoIncrement = require('mongoose-auto-increment');
 const MongoStore = require('connect-mongo')(session);
 const promisify = require('es6-promisify');
 const helpers = require('./helpers');
@@ -41,16 +40,13 @@ mongoose.connection.on('error', err => {
   console.error(`🙅 🚫 → ${err.message}`);
 });
 
-// Inicializa o plugin auto-increment do mongoose para que possamos dar um id
-// auto incrementável para cada questão cadastrada no sistema
-autoIncrement.initialize(mongoose.connection);
-
 // Import todos os models do projeto para que possamos utilizar em qualquer parte do sistema
 require('./dominio/User');
 require('./dominio/Questao');
 require('./dominio/ListaExercicio');
 require('./dominio/Submissao');
 require('./dominio/Sugestao');
+require('./dominio/Turma');
 
 // Configura estratégia de autenticação local com passport.js
 const User = mongoose.model('User');
@@ -147,6 +143,8 @@ app.use('/', require('./rotas/auth'));
 app.use('/', require('./rotas/questao'));
 app.use('/', require('./rotas/listasExercicio'));
 app.use('/gerenciador', require('./rotas/gerenciador'));
+app.use('/', require('./rotas/turma'));
+app.use('/', require('./rotas/submissao'));
 
 // Se a url não bater com nenhuma das nossas rotas, envia um erro 404
 app.use(errorHandlers.notFound);

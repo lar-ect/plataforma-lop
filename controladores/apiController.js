@@ -52,6 +52,7 @@ exports.submeterCodigoQuestao = async (req, res) => {
   const porcentagemAcerto = Math.trunc(acertos*100/resultados.length);
 
   const submissao = new Submissao({
+    codigo,
     questao: questao._id,
     resultados,
     porcentagemAcerto,

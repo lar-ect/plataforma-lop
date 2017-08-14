@@ -5,13 +5,13 @@ import swal from 'sweetalert';
 import 'sweetalert/dist/sweetalert.css';
 import axios from 'axios';
 
-const alerts = $('.flash-message');
-if (alerts.length > 0) {
+const $alerts = $('.flash-message');
+if ($alerts.length > 0) {
   setTimeout(() => {
-    alerts.each(alert => {
-      alert.childNodes[0].click();
+    $alerts.each(function() {
+      $(this).children(':first').click();
     });
-  }, 3000);
+  }, 2000);
 }
 
 tippy('.btn-tooltip');

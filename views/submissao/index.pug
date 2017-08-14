@@ -1,0 +1,45 @@
+extends ../layout
+
+block content
+	.article-page
+		.banner
+			.container
+				h3 Submissão #{submissao._id}
+	
+	.container.page
+		.row
+			.col-md-8.offset-md-2
+				.card
+					.card-header #{h.moment(submissao.data).format('DD/MM/YYYY - HH:MM:ss')}
+					.card-block
+						.row
+							.col-md-6
+								p
+									b Nome: 
+									| #{submissao.user.nome} 
+								p
+									b Matrícula: 
+									| #{submissao.user.matricula}
+							.col-md-6
+								p Porcentagem de acerto: 
+									b #{submissao.porcentagemAcerto}%
+		.row
+			.col-md-6
+				h5 Código
+				pre: code.javascript(style='white-space: pre-line') #{submissao.codigo}
+			.col-md-6
+				h5 Resultados
+				table.table.table-bordered.table-sm
+					thead: tr
+						th Entradas
+						th Saída esperada
+						th Saída
+					tbody
+						for res in submissao.resultados
+							tr
+								td #{res.entradas}
+								td #{res.saidaEsperada}
+								td #{res.saida}
+
+block scripts
+	script(src="/dist/submissoes.bundle.js")

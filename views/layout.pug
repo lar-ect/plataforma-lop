@@ -17,6 +17,7 @@ html
             | 
             small(style="color: gray;") alpha
           ul.nav.navbar-nav.pull-xs-right
+            li.nav-item: a.nav-link(href="/") Início
             li.nav-item: a.nav-link(href="" id="btn-sugestao") Sugestão
             if user
               if permissoes.temPermissao(user, 'VER_GERENCIADOR')

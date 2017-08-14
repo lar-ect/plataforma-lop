@@ -1,0 +1,1456 @@
+[
+    {
+        "id": 57605622,
+        "idTurmaAgrupadora": 57605621,
+        "ano": 2017,
+        "codigo": "01A",
+        "local": "ECT - Auditório A",
+        "qtdMatriculados": 27,
+        "horariosTurma": [
+            {
+                "dia": "2",
+                "inicio": 36000000,
+                "fim": 39000000,
+                "turno": 1,
+                "dataInicio": "2017-07-24",
+                "dataFim": "2017-11-26",
+                "id": 10095264,
+                "descricaoTurno": "Manhã"
+            },
+            {
+                "dia": "2",
+                "inicio": 39000000,
+                "fim": 42000000,
+                "turno": 1,
+                "dataInicio": "2017-07-24",
+                "dataFim": "2017-11-26",
+                "id": 10095265,
+                "descricaoTurno": "Manhã"
+            },
+            {
+                "dia": "2",
+                "inicio": 57600000,
+                "fim": 60600000,
+                "turno": 2,
+                "dataInicio": "2017-07-24",
+                "dataFim": "2017-11-26",
+                "id": 10095266,
+                "descricaoTurno": "Tarde"
+            },
+            {
+                "dia": "2",
+                "inicio": 60600000,
+                "fim": 63600000,
+                "turno": 2,
+                "dataInicio": "2017-07-24",
+                "dataFim": "2017-11-26",
+                "id": 10095267,
+                "descricaoTurno": "Tarde"
+            },
+            {
+                "dia": "4",
+                "inicio": 36000000,
+                "fim": 39000000,
+                "turno": 1,
+                "dataInicio": "2017-07-24",
+                "dataFim": "2017-11-26",
+                "id": 10095268,
+                "descricaoTurno": "Manhã"
+            },
+            {
+                "dia": "4",
+                "inicio": 39000000,
+                "fim": 42000000,
+                "turno": 1,
+                "dataInicio": "2017-07-24",
+                "dataFim": "2017-11-26",
+                "id": 10095269,
+                "descricaoTurno": "Manhã"
+            }
+        ],
+        "descricaoHorario": "24M12  2T12 (24/07/2017 - 26/11/2017)",
+        "nomeComponente": "LÓGICA DE PROGRAMAÇÃO",
+        "codigoComponente": "ECT2203",
+        "descricaoComponente": "ECT2203 - LÓGICA DE PROGRAMAÇÃO",
+        "anoPeriodoString": "2017.2",
+        "descricaoCompleta": "ECT2203 - LÓGICA DE PROGRAMAÇÃO (2017.2 - T01A)",
+        "codigoString": "Turma 01A",
+        "descricaoTurma": "LÓGICA DE PROGRAMAÇÃO - Turma 01A",
+		"descricao": "ECT2203 - LÓGICA DE PROGRAMAÇÃO - Turma 01A",
+		"dicentes": [
+			{
+				"matricula": 20170106538,
+				"nome": "ALEFF RAMON DA SILVA COSTA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170039453,
+				"nome": "AMANDA CILENE FERREIRA DE AZEVEDO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170044776,
+				"nome": "BRUNA ALICE OLIVEIRA DE BRITO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170031473,
+				"nome": "BRUNA DE SOUZA PEREIRA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170032274,
+				"nome": "DAVI DE MACEDO SIDRIM",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170043939,
+				"nome": "GABRIELLY DE SOUSA PINTO DANTAS",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170031698,
+				"nome": "GABRIEL VICTOR DE MEDEIROS ASPAS",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170033674,
+				"nome": "HENRY COUTINHO LAMAS",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170042314,
+				"nome": "JOAO VICTOR MOURA LUCAS DA SILVA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "N",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170036390,
+				"nome": "JONATHAN ALBERTO TOLEDO SILVA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170039972,
+				"nome": "KERYSON DE SOUSA FERNANDES",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170034555,
+				"nome": "LARISSA DE OLIVEIRA BEZERRA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170095050,
+				"nome": "LEANDRO DE SOUZA RODRIGUES",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170096736,
+				"nome": "LUCAS ALVES DANTAS",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170097537,
+				"nome": "LUIZ FERNANDO CARBONERA FILHO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170037234,
+				"nome": "LUIZ PAULO DE CARVALHO ALVES",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170109100,
+				"nome": "MACKSON OLIVEIRA SILVA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170044711,
+				"nome": "MANOEL SABINO DE ARAUJO NETO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170036872,
+				"nome": "MARIA EDUARDA GOMES FRANÇA DOS SANTOS",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 2015092933,
+				"nome": "NAYARA GALVAO MARTINS RODRIGUES",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "N",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170042332,
+				"nome": "NEUZA MARIA DANTAS",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170097214,
+				"nome": "PRISCILA TENÓRIO SILVA DE SOUSA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170044130,
+				"nome": "RAFAEL FERNANDES DA FONSECA SOARES",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170036513,
+				"nome": "RAFAEL FURTADO DE SENA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170038797,
+				"nome": "SAMUEL VICTOR MACIEL DA SILVA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170032238,
+				"nome": "TOBIAS AGUIAR SILVA DE ALMEIDA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170041291,
+				"nome": "VINICIUS NASCIMENTO DE AZEVEDO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			}
+		]
+    },
+    {
+        "id": 57605623,
+        "idTurmaAgrupadora": 57605621,
+        "ano": 2017,
+        "codigo": "01B",
+        "local": "ECT - Auditório A",
+        "qtdMatriculados": 29,
+        "horariosTurma": [
+            {
+                "dia": "2",
+                "inicio": 36000000,
+                "fim": 39000000,
+                "turno": 1,
+                "dataInicio": "2017-07-24",
+                "dataFim": "2017-11-26",
+                "id": 10095270,
+                "descricaoTurno": "Manhã"
+            },
+            {
+                "dia": "2",
+                "inicio": 39000000,
+                "fim": 42000000,
+                "turno": 1,
+                "dataInicio": "2017-07-24",
+                "dataFim": "2017-11-26",
+                "id": 10095271,
+                "descricaoTurno": "Manhã"
+            },
+            {
+                "dia": "2",
+                "inicio": 57600000,
+                "fim": 60600000,
+                "turno": 2,
+                "dataInicio": "2017-07-24",
+                "dataFim": "2017-11-26",
+                "id": 10095272,
+                "descricaoTurno": "Tarde"
+            },
+            {
+                "dia": "2",
+                "inicio": 60600000,
+                "fim": 63600000,
+                "turno": 2,
+                "dataInicio": "2017-07-24",
+                "dataFim": "2017-11-26",
+                "id": 10095273,
+                "descricaoTurno": "Tarde"
+            },
+            {
+                "dia": "4",
+                "inicio": 36000000,
+                "fim": 39000000,
+                "turno": 1,
+                "dataInicio": "2017-07-24",
+                "dataFim": "2017-11-26",
+                "id": 10095274,
+                "descricaoTurno": "Manhã"
+            },
+            {
+                "dia": "4",
+                "inicio": 39000000,
+                "fim": 42000000,
+                "turno": 1,
+                "dataInicio": "2017-07-24",
+                "dataFim": "2017-11-26",
+                "id": 10095275,
+                "descricaoTurno": "Manhã"
+            }
+        ],
+        "descricaoHorario": "24M12  2T12 (24/07/2017 - 26/11/2017)",
+        "nomeComponente": "LÓGICA DE PROGRAMAÇÃO",
+        "codigoComponente": "ECT2203",
+        "descricaoComponente": "ECT2203 - LÓGICA DE PROGRAMAÇÃO",
+        "anoPeriodoString": "2017.2",
+        "descricaoCompleta": "ECT2203 - LÓGICA DE PROGRAMAÇÃO (2017.2 - T01B)",
+        "codigoString": "Turma 01B",
+        "descricaoTurma": "LÓGICA DE PROGRAMAÇÃO - Turma 01B",
+		"descricao": "ECT2203 - LÓGICA DE PROGRAMAÇÃO - Turma 01B",
+		"dicentes": [
+			{
+				"matricula": 2014096268,
+				"nome": "ALISSON NELSON MACEDO DE BARROS",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "N",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170033057,
+				"nome": "ANDREIA MATIAS DE LIRA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170001812,
+				"nome": "ANDREY COSTA DE OLIVEIRA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20160143251,
+				"nome": "BÁRBARA DE OLIVEIRA CRISPIM",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "N",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 2015014276,
+				"nome": "BRENA LARISSA FIGUEIRA BELO DOS SANTOS",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170035211,
+				"nome": "DAYANNE GABRIELLA DA SILVA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170038394,
+				"nome": "EMANOEL FERNANDES PEREIRA DA ROCHA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170035356,
+				"nome": "EVELYN LIVIA NICACIO BATISTA LEMOS",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170033478,
+				"nome": "EWERTON MATHEUS TEIXEIRA NASCIMENTO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170102735,
+				"nome": "FERNANDA MENDONCA FONTES GALVAO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170030690,
+				"nome": "GABRIELA DE LIMA GUEDES",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170043394,
+				"nome": "GABRIEL MEDEIROS DINIZ",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170030832,
+				"nome": "GILVANDRO CESAR DE MEDEIROS",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170038699,
+				"nome": "GUSTAVO CARVALHO DE OLIVEIRA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170041219,
+				"nome": "IAGO DIOGO PROCOPIO SANTANA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170035632,
+				"nome": "ISAAC MELO LEAO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170043590,
+				"nome": "JAYEDSON RODRIGUES DE BRITO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170035310,
+				"nome": "JOAO VICTOR NORONHA CUNHA SANTIAGO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170038133,
+				"nome": "JOSÉ VICTOR ABDON DE PONTES SILVA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170038993,
+				"nome": "LOIC JACQUES DE MEDEIROS PERRIN",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170033950,
+				"nome": "LUCAS MARINHO GILA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170031393,
+				"nome": "LUCAS OLIVEIRA NERY DE ARAUJO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170031419,
+				"nome": "LUIS IZAIAS VALENTIM DE AQUINO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170099110,
+				"nome": "MARCONDES LINHARES DE PAIVA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170034976,
+				"nome": "MARIA EDUARDA FRANKLIN DA COSTA DE PAULA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170038311,
+				"nome": "MARLUCY BARBOSA COSTA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170033093,
+				"nome": "MATHEUS DE OLIVEIRA CAMELO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170043133,
+				"nome": "RONY DE SENA LOURENCO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170033772,
+				"nome": "THUANNY RAMOS MACHADO DE SOUZA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			}
+		]
+    },
+    {
+        "id": 57605624,
+        "idTurmaAgrupadora": 57605621,
+        "ano": 2017,
+        "codigo": "01C",
+        "local": "ECT - Auditório A",
+        "qtdMatriculados": 25,
+        "horariosTurma": [
+            {
+                "dia": "2",
+                "inicio": 36000000,
+                "fim": 39000000,
+                "turno": 1,
+                "dataInicio": "2017-07-24",
+                "dataFim": "2017-11-26",
+                "id": 10095276,
+                "descricaoTurno": "Manhã"
+            },
+            {
+                "dia": "2",
+                "inicio": 39000000,
+                "fim": 42000000,
+                "turno": 1,
+                "dataInicio": "2017-07-24",
+                "dataFim": "2017-11-26",
+                "id": 10095277,
+                "descricaoTurno": "Manhã"
+            },
+            {
+                "dia": "2",
+                "inicio": 64500000,
+                "fim": 67500000,
+                "turno": 2,
+                "dataInicio": "2017-07-24",
+                "dataFim": "2017-11-26",
+                "id": 10095278,
+                "descricaoTurno": "Tarde"
+            },
+            {
+                "dia": "2",
+                "inicio": 67500000,
+                "fim": 70500000,
+                "turno": 2,
+                "dataInicio": "2017-07-24",
+                "dataFim": "2017-11-26",
+                "id": 10095279,
+                "descricaoTurno": "Tarde"
+            },
+            {
+                "dia": "4",
+                "inicio": 36000000,
+                "fim": 39000000,
+                "turno": 1,
+                "dataInicio": "2017-07-24",
+                "dataFim": "2017-11-26",
+                "id": 10095280,
+                "descricaoTurno": "Manhã"
+            },
+            {
+                "dia": "4",
+                "inicio": 39000000,
+                "fim": 42000000,
+                "turno": 1,
+                "dataInicio": "2017-07-24",
+                "dataFim": "2017-11-26",
+                "id": 10095281,
+                "descricaoTurno": "Manhã"
+            }
+        ],
+        "descricaoHorario": "24M12  2T34 (24/07/2017 - 26/11/2017)",
+        "nomeComponente": "LÓGICA DE PROGRAMAÇÃO",
+        "codigoComponente": "ECT2203",
+        "descricaoComponente": "ECT2203 - LÓGICA DE PROGRAMAÇÃO",
+        "anoPeriodoString": "2017.2",
+        "descricaoCompleta": "ECT2203 - LÓGICA DE PROGRAMAÇÃO (2017.2 - T01C)",
+        "codigoString": "Turma 01C",
+        "descricaoTurma": "LÓGICA DE PROGRAMAÇÃO - Turma 01C",
+		"descricao": "ECT2203 - LÓGICA DE PROGRAMAÇÃO - Turma 01C",
+		"dicentes": [
+			{
+				"matricula": 20170032013,
+				"nome": "ALISSON SOARES DA SILVA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 2016091467,
+				"nome": "ALYSSON MATHEUS DE MORAIS PINHEIRO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170030476,
+				"nome": "ANA CASSIA VASCONCELOS CRUZ",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 2016098708,
+				"nome": "BRENDO CARLOS DE SOUSA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 2015007950,
+				"nome": "EFREN TANI",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "N",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170038590,
+				"nome": "EMERSON LUIZ RODRIGUES ALVES",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170042154,
+				"nome": "FELIPE DANTAS RAMALHO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170001536,
+				"nome": "GABRIEL CARLOS ROCHA DE ALMEIDA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 2014085219,
+				"nome": "GUILHERME ARAÚJO GARCIA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "N",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170030494,
+				"nome": "HANIEL DA COSTA OLIVEIRA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20160108261,
+				"nome": "HENDRICK IAGO AQUINO COSTA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 2015092352,
+				"nome": "JARDEL HENZIO FIGUEIREDO SANTOS VARELA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20150125447,
+				"nome": "JOÃO VICTOR DA FONSECA DIONISIO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "CANCELADO"
+			},
+			{
+				"matricula": 20160141810,
+				"nome": "LEILTON HONORATO DE FRANÇA JÚNIOR",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20160107881,
+				"nome": "LUCAS BARBOSA DE BARROS",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 2016012454,
+				"nome": "LUCAS FERNANDES DE QUEIROZ CARVALHO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170038035,
+				"nome": "LUCAS VINÍCIUS DANTAS DE OLIVEIRA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170032935,
+				"nome": "MATEUS JONATAS GOMES DOS SANTOS",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170030618,
+				"nome": "MOHAMAD SADEQUE ABOU ALI",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20150127067,
+				"nome": "NELDSON JEAN FERNANDES DA ROCHA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "N",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170003414,
+				"nome": "PEDRO AUGUSTO CORDEIRO COSTA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170034519,
+				"nome": "RAISSA VILLAR RODRIGUES",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170034994,
+				"nome": "REYNE JASSON MARCELINO DE BRITO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170036012,
+				"nome": "THIAGO MICHEL DE FRANCA CORTEZ INACIO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 2016017110,
+				"nome": "VICTOR CAMARA DE SOUZA BARBALHO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20160158254,
+				"nome": "VICTOR IGOR CARVALHO DE ARAUJO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			}
+		]
+    },
+    {
+        "id": 57605625,
+        "idTurmaAgrupadora": 57605621,
+        "ano": 2017,
+        "codigo": "01D",
+        "local": "ECT - Auditório A",
+        "qtdMatriculados": 29,
+        "horariosTurma": [
+            {
+                "dia": "2",
+                "inicio": 36000000,
+                "fim": 39000000,
+                "turno": 1,
+                "dataInicio": "2017-07-24",
+                "dataFim": "2017-11-26",
+                "id": 10095282,
+                "descricaoTurno": "Manhã"
+            },
+            {
+                "dia": "2",
+                "inicio": 39000000,
+                "fim": 42000000,
+                "turno": 1,
+                "dataInicio": "2017-07-24",
+                "dataFim": "2017-11-26",
+                "id": 10095283,
+                "descricaoTurno": "Manhã"
+            },
+            {
+                "dia": "2",
+                "inicio": 64500000,
+                "fim": 67500000,
+                "turno": 2,
+                "dataInicio": "2017-07-24",
+                "dataFim": "2017-11-26",
+                "id": 10095284,
+                "descricaoTurno": "Tarde"
+            },
+            {
+                "dia": "2",
+                "inicio": 67500000,
+                "fim": 70500000,
+                "turno": 2,
+                "dataInicio": "2017-07-24",
+                "dataFim": "2017-11-26",
+                "id": 10095285,
+                "descricaoTurno": "Tarde"
+            },
+            {
+                "dia": "4",
+                "inicio": 36000000,
+                "fim": 39000000,
+                "turno": 1,
+                "dataInicio": "2017-07-24",
+                "dataFim": "2017-11-26",
+                "id": 10095286,
+                "descricaoTurno": "Manhã"
+            },
+            {
+                "dia": "4",
+                "inicio": 39000000,
+                "fim": 42000000,
+                "turno": 1,
+                "dataInicio": "2017-07-24",
+                "dataFim": "2017-11-26",
+                "id": 10095287,
+                "descricaoTurno": "Manhã"
+            }
+        ],
+        "descricaoHorario": "24M12  2T34 (24/07/2017 - 26/11/2017)",
+        "nomeComponente": "LÓGICA DE PROGRAMAÇÃO",
+        "codigoComponente": "ECT2203",
+        "descricaoComponente": "ECT2203 - LÓGICA DE PROGRAMAÇÃO",
+        "anoPeriodoString": "2017.2",
+        "descricaoCompleta": "ECT2203 - LÓGICA DE PROGRAMAÇÃO (2017.2 - T01D)",
+        "codigoString": "Turma 01D",
+        "descricaoTurma": "LÓGICA DE PROGRAMAÇÃO - Turma 01D",
+		"descricao": "ECT2203 - LÓGICA DE PROGRAMAÇÃO - Turma 01D",
+		"dicentes": [
+			{
+				"matricula": 20170030556,
+				"nome": "ABRAAO ALIPIO SILVA DA SILVEIRA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170035131,
+				"nome": "ALVARO HENRIQUE DE OLIVEIRA PINHEIRO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "CANCELADO"
+			},
+			{
+				"matricula": 20170032096,
+				"nome": "ANNA BEATRIZ SOUZA MELO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170097617,
+				"nome": "ARIANE DE ASSIS COSTA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 2016014575,
+				"nome": "CARLOS EDUARDO ROCHA DE PAIVA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170095579,
+				"nome": "DANIEL ALBUERNE DINIZ BEZERRA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170035697,
+				"nome": "DANIEL MENDES DESTERRO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170095873,
+				"nome": "DARA CHRISTINE SILVA SOUTO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170031052,
+				"nome": "DIEGO RODRIGUES MEDEIROS",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20160108940,
+				"nome": "EMANUEL FERNANDES ANDRIOLA JUNIOR",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170034850,
+				"nome": "EMILLY VIEIRA NERI",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170034878,
+				"nome": "FERNANDA RAQUEL RAMOS HO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170042092,
+				"nome": "GERALDO CARLOS DA ROCHA NETO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "N",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170034573,
+				"nome": "GUSTAVO GOMES",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170039810,
+				"nome": "ILANA MARIA DA SILVA SANTOS",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 2016098440,
+				"nome": "ISRAEL AMARO DE SOUZA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170102753,
+				"nome": "IURY OLIVEIRA DE SOUSA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170036219,
+				"nome": "JOÃO PAULO SOARES DE ALENCAR GOMES",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170035777,
+				"nome": "JUCIARA NAYARA DA SILVA MELO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170044097,
+				"nome": "JULIANO FERNANDES DIAS TAVEIRA DE BRITO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170040552,
+				"nome": "KAROLYNNE EMANUELLE ALVES RODRIGUES",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170033039,
+				"nome": "LUCAS ARAUJO DE SOUZA BARBOSA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170043035,
+				"nome": "LUIS FERNANDO TAVARES",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170044177,
+				"nome": "MARIA EDUARDA ALBUQUERQUE DOS SANTOS",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170033496,
+				"nome": "NICHOLAS FALCAO MINETTO DE MEDEIROS",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170034330,
+				"nome": "NICOLAS SERGEI CORREIA SEABRA DE MELO",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20160108889,
+				"nome": "PEDRO AFONSO SPINOLA ARAUJO DA SILVA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170033235,
+				"nome": "REBECA BELISARIO DOS SANTOS",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170044650,
+				"nome": "SAVIO EUDES DA SILVA SOUSA",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			},
+			{
+				"matricula": 20170035679,
+				"nome": "VINICIUS RORY SCHWARZ",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "CANCELADO"
+			},
+			{
+				"matricula": 20170031295,
+				"nome": "WILLIAN ALBER DA SILVA FARIAS",
+				"curso": "CIÊNCIAS E TECNOLOGIA",
+				"municipio": "NATAL",
+				"grauAcademico": "grau",
+				"modalidade": "Presencial",
+				"turno": "MT",
+				"status": "MATRICULADO"
+			}
+		]
+    }
+]

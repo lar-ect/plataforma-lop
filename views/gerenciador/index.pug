@@ -1,4 +1,26 @@
 extends ../layout
 
 block content
-	h1= title
+	.article-page
+		.banner
+			.container
+				h3 Gerenciador
+
+	.container.page
+		.row
+			.col-md-12
+				ul.nav.nav-pills.outline-active
+					li.nav-item
+						a.nav-link.active(data-toggle="tab" href="#geral" role="tab") Geral
+					li.nav-item
+						a.nav-link(data-toggle="tab" href="#relatorios" role="tab") Relatórios
+					li.nav-item
+						a.nav-link(data-toggle="tab" href="#configuracoes" role="tab") Configurações
+					li.nav-item
+						a.nav-link(data-toggle="tab" href="#questoes-listas" role="tab") Questões/Listas
+				
+				.tab-content
+					.tab-pane.active(id="geral" role="tabpanel")
+					.tab-pane(id="relatorios" role="tabpanel")
+					.tab-pane(id="configuracoes" role="tabpanel")
+					.tab-pane(id="questoes-listas" role="tabpanel")

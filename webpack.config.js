@@ -26,7 +26,8 @@ const config = {
     Questao: './public/javascript/questao/App.js',
     main: './public/javascript/main.js',
     index: './public/javascript/index.js',
-    Lista: './public/javascript/ListaExercicio/index.js'
+    Lista: './public/javascript/ListaExercicio/index.js',
+    submissoes: './public/javascript/submissoes.js'
   },
   devtool: 'source-map',
   output: {

@@ -3,10 +3,19 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const Questao = mongoose.model('Questao');
 const Submissao = mongoose.model('Submissao');
+const Turma = mongoose.model('Turma');
+
+const permissoes = require('../dominio/Permissoes');
 
 exports.perfil = async (req, res) => {
+  let turmas = null;
+  if (req.user && permissoes.isProfessor(req.user)) {
+    turmas = await Turma.find({
+      _id: { $in: req.user.sigaa.turmas }
+    }, 'descricaoComponente codigoString qtdMatriculados _id id');
+  }
   const submissoes = await Submissao.find({ user: req.user });
-  res.render('usuario/perfil', { title: 'Perfil', submissoes });
+  res.render('usuario/perfil', { title: 'Perfil', submissoes, turmas });
 };
 
 exports.loginForm = (req, res) => {
