@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const promisify = require('es6-promisify');
 const permissoes = require('../dominio/Permissoes');
+const mailController = require('./mailController');
 
 exports.temPermissao = (permissao) => {
   return (req, res, next) => {
@@ -51,8 +52,14 @@ exports.esqueceuSenha = async (req, res) => {
   await user.save();
 
   const resetUrl = `http://${req.headers.host}/conta/resetar-senha/${user.resetPasswordToken}`;
-  // email
-  req.flash('success', `Visite a seguinte url para resetar sua senha ${resetUrl}`);
+  try {
+    await mailController.sendResetPwdMail(user.email, resetUrl);
+    req.flash('success', `Um e-mail de alteração de senha foi enviado para você!`);
+  }
+  catch(err) {
+    console.error(err);
+    req.flash('danger', 'Ocorreu algum erro ao enviar seu email de alteração de senha, contate o administrador do sistema');
+  }
   res.redirect('/login');
 };
 

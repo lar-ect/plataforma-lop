@@ -11,7 +11,7 @@ if ($alerts.length > 0) {
     $alerts.each(function() {
       $(this).children(':first').click();
     });
-  }, 2000);
+  }, 3000);
 }
 
 tippy('.btn-tooltip');
