@@ -1,5 +1,4 @@
 const { NodeVM } = require('vm2');
-const moment = require('moment');
 
 let entradas = [];
 let indiceEntrada;
@@ -17,12 +16,22 @@ const contexto = {
       resultado = resultado.concat('\n');
     }
   },
+  prompt: function() {
+    if (indiceEntrada >= entradas.length) {
+      throw new Error('Entrada indisponível');
+      return;
+    }
+    return entradas[indiceEntrada++];
+  },
+  alert: function(valor) {
+    resultado = resultado.concat(valor);
+  },
   lerTexto: function() {
     if (indiceEntrada >= entradas.length) {
       throw new Error('Entrada indisponível');
       return;
     }
-    return String.valueOf(entradas[indiceEntrada++]);
+    return entradas[indiceEntrada++];
   },
   lerInteiro: function() {
     if (indiceEntrada >= entradas.length) {
