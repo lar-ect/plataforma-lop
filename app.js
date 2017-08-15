@@ -6,6 +6,7 @@ const path = require('path');
 
 const express = require('express');
 const session = require('express-session');
+const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
@@ -82,8 +83,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Loga todos os requests em desenvolvimento
-app.use(require('morgan')('dev'));
+// Biblioteca de logs
+app.set('trust proxy', true);
+app.use(morgan('tiny'));
 
 // Habilita o uso de métodos para validação direto pelo objeto req de uma requisição
 // Ex.: isEmail, sanitizeBody, etc...
