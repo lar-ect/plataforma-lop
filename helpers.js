@@ -18,11 +18,11 @@ exports.icon = name => fs.readFileSync(`./public/images/icons/${name}.svg`);
 exports.siteName = 'LoP';
 
 exports.funcoesDisponiveis = `
-  <code>escreva(x)</code> - Escreve x na saída<br>
+  <code>escreva(x)</code> - Escreve <b>x</b> na saída<br>
   <code>lerTexto()</code> - Lê uma string da entrada<br>
   <code>lerInteiro()</code> - Lê um número inteiro da entrada<br>
   <code>lerReal()</code> - Lê um número real da entrada<br>
-  <code>potencia(x)</code> - Retorna base elevado ao expoente<br>
-  <code>raizQuadrada(x)</code> - Retorna a raiz quadrada de x<br>
-  <code>divisaoInteira(x)</code> - Retorna o valor inteiro da divisão de a/b
+  <code>potencia(b, e)</code> - Retorna <b>b</b> elevado a <b>e</b><br>
+  <code>raizQuadrada(x)</code> - Retorna a raiz quadrada de <b>x</b><br>
+  <code>divisaoInteira(a, b)</code> - Retorna o valor inteiro da divisão de <b>a/b</b>
 `;
