@@ -12,8 +12,17 @@ exports.getTurma = async (req, res) => {
     if (nome1 > nome2) return 1;
     return 0;
   });
-  const submissoes = await Submissao.find({}).populate('user', {
-    'user.matricula': { $in: matriculas }
-  }).populate('user');
+  const submissoes = await Submissao.aggregate([
+    { 
+      $lookup: {
+          from: 'users',
+          localField: 'user',
+          foreignField: '_id',
+          as: 'user'
+      }
+    },
+    { $unwind: '$user' },
+    { $match: { 'user.matricula': { $in: matriculas } } }
+  ]);
   res.render('turma/index', { title: `Turma ${turma.descricao}`, turma, submissoes, dicentes });
 };
