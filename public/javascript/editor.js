@@ -91,11 +91,13 @@ function criarLinhasResultado(resultado) {
       return `
       <li class="list-group-item">
         <samp>${r.saida}</samp>
-        <span class="saida-esperada pull-xs-right" 
-          title="<strong>Entrada:</strong><br>${r.entrada}<br><strong>Saída esperada:</strong><br>${r.saidaEsperada}">
-          Ver detalhes
+        <span class="saida-esperada pull-xs-right"
+          title="<strong>Entrada:</strong>
+          <br>${r.entrada}<br>
+          <strong>Saída esperada:</strong><br>
+          ${r.saidaEsperada.split('\n').join('<br>')}">
+          <i style="color: ${color};" class="${icon}">&nbsp;</i> Ver detalhes
         </span>
-        <i style="color: ${color};" class="${icon} pull-xs-left">&nbsp;</i>
       </li>
     `;
     })

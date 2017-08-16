@@ -12,3 +12,7 @@
 .saida-esperada {
   text-decoration: underline;
 }
+
+ul#resultados-container samp {
+  white-space: pre;
+}
