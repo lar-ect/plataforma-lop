@@ -16,10 +16,10 @@ block content
         p.text-justify(style="white-space: pre-line") #{questao.enunciado}
         p.text-center
           strong Exemplo de entrada: 
-        p #{questao.exemploEntrada.join(' ')}
+        p(style='white-space: pre-line;') #{questao.exemploEntrada.join(' ')}
         p.text-center 
           strong Exemplo de saída esperada: 
-        p #{questao.exemploSaida}
+        p(style='white-space: pre-line;') #{questao.exemploSaida}
         
     .row
       .col-md-6
