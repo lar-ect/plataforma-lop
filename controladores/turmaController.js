@@ -22,7 +22,16 @@ exports.getTurma = async (req, res) => {
       }
     },
     { $unwind: '$user' },
-    { $match: { 'user.matricula': { $in: matriculas } } }
+    { $match: { 'user.matricula': { $in: matriculas } } },
+    {
+      $lookup: {
+        from: 'questoes',
+        localField: 'questao',
+        foreignField: '_id',
+        as: 'questao'
+      }
+    },
+    { $unwind: '$questao' }
   ]);
   res.render('turma/index', { title: `Turma ${turma.descricao}`, turma, submissoes, dicentes });
 };
