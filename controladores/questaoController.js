@@ -12,7 +12,7 @@ exports.getQuestao = async (req, res) => {
   const questao = await Questao.findOne({ _id: req.params.id });
   const solucao = questao.solucao || null;
   res.render('questao/questao', {
-    title: `Questão ${questao}`,
+    title: questao.titulo,
     questao,
     solucao
   });
@@ -27,22 +27,11 @@ exports.adicionarQuestao = (req, res) => {
 };
 
 exports.criarQuestao = async (req, res) => {
-  const { exemploEntrada, exemploSaida, resultados } = JSON.parse(
-    req.body.resultados
-  );
-  const novaQuestao = {
-    titulo: req.body.titulo,
-    enunciado: req.body.enunciado,
-    tags: req.body.tags,
-    dificuldade: req.body.dificuldade,
-    classificacao: req.body.classificacao,
-    exemploEntrada,
-    exemploSaida,
-    resultados
-  };
+  const novaQuestao = req.body;
+  novaQuestao.resultados = JSON.parse(novaQuestao.resultados);
   const questao = await new Questao(novaQuestao).save();
   req.flash("success", "Adicionou uma nova questão com sucesso!");
-  res.redirect(`/questao/${questao.identificador}`);
+  res.redirect(`/questao/${questao._id}`);
 };
 
 exports.atualizarQuestao = (req, res) => {};

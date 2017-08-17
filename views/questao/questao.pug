@@ -11,15 +11,16 @@ block content
     .row.article-content
       .col-md-12.col-sm-12.col-xs-12
         if user && permissoes.temPermissao(user, 'VER_SOLUCAO_QUESTAO')
-          pre(style="white-space:pre;") #{questao.solucao}
+          h5: b Solução
+          pre: code.javascript(style='white-space: pre-line') #{questao.solucao}
         h5: b Enunciado
         p.text-justify(style="white-space: pre-line") #{questao.enunciado}
         p.text-center
           strong Exemplo de entrada: 
-        p(style='white-space: pre-line;') #{questao.exemploEntrada.join(' ')}
+        p(style='white-space: pre-line;') #{questao.resultados[0].entradas.join(' ')}
         p.text-center 
           strong Exemplo de saída esperada: 
-        p(style='white-space: pre-line;') #{questao.exemploSaida}
+        p(style='white-space: pre-line;') #{questao.resultados[0].saida}
         
     .row
       .col-md-6.col-sm-12.col-xs-12

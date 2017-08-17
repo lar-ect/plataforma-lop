@@ -17,8 +17,6 @@ const questaoSchema = new mongoose.Schema(
       required: 'Forneça um enunciado para a questão',
       trim: true
     },
-    exemploEntrada: [String],
-    exemploSaida: String,
     solucao: String,
     classificacao: {
       type: String,

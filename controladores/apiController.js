@@ -2,6 +2,32 @@ const mongoose = require('mongoose');
 const Questao = mongoose.model('Questao');
 const Submissao = mongoose.model('Submissao');
 const executar = require('../negocio/executar');
+// const executarCodigo = require('../negocio/executar-codigo');
+
+// exports.executarCodigo = async (req, res) => {
+//   const { codigo, resultadosEsperados } = req.body;
+//   const resultados = [];
+//   res.json(executar(codigo));
+// };
+
+exports.executarCodigoComResultado = (req, res) => {
+  const { codigo, resultadosEsperados } = req.body;
+  if (!resultadosEsperados || !resultadosEsperados[0] || !resultadosEsperados[0].saida) {
+    res.status(500).send('Resultados esperados vieram nulos');
+    return;
+  }
+
+  const resultados = [];
+  for (let i = 0; i < resultadosEsperados.length; i++) {
+    resultados.push({
+      entrada: resultadosEsperados[i].entradas.join(' '),
+      saida: executar(codigo, resultadosEsperados[i].entradas),
+      saidaEsperada: resultadosEsperados[i].saida
+    });
+  }
+
+  res.json(resultados);
+};
 
 exports.executarCodigoQuestao = async (req, res) => {
   const { codigo, id } = req.body;

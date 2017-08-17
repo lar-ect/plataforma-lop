@@ -33,6 +33,15 @@ block content
             |  Exemplo de entrada e exemplo de saída não são obrigatórios. Vetor de resultados é obrigatório.
           #json_editor(style="width: 100%; height: 400px;")
           br
+          h4.text-xs-center Solução
+          .row
+            .col-md-6.col-sm-12.col-xs-12
+              div(id="questao-editor")
+            .col-md-6.col-sm-12.col-xs-12
+              button.btn.btn-outline-primary.btn-block(id="btn-enviar-codigo", type="button") Executar
+
+              h4(style="margin-top: 10px;") Saída do seu código
+              ul.list-group(id="resultados-container")
           .row
             .col-md-4.col-md-offset-4
               input.btn.btn-primary.btn-block(type="submit" value="Salvar")

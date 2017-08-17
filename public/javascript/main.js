@@ -3,6 +3,8 @@ import 'tippy.js/dist/tippy.min.js';
 import tippy from 'tippy.js';
 import swal from 'sweetalert';
 import 'sweetalert/dist/sweetalert.css';
+import hljs from 'highlight.js/lib/highlight';
+import 'highlight.js/styles/solarized-dark.css';
 import axios from 'axios';
 
 const $alerts = $('.flash-message');
@@ -49,3 +51,7 @@ $('#btn-sugestao').click((e) => {
     });
   });
 });
+
+hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'));
+
+hljs.initHighlightingOnLoad();
