@@ -42,13 +42,15 @@ block content
                         button.btn.btn-sm.btn-outline-primary.pull-xs-right(name="btn-favoritar-no-user")
                             i.ion-thumbsup
                             |  #{questao.likes}
-                    a.preview-link(href=`/questao/${questao._id}`)
-                      h1 #{questao.titulo}
-                      - const enunciado = questao.enunciado.split(' ').slice(0, 50).join(' ').concat('...');
-                      p= enunciado
-                      .info
-                        p Dificuldade: #{questao.dificuldade}
-              
+                      a.preview-link(href=`/questao/${questao._id}`)
+                        h1 #{questao.titulo}
+                        - const enunciado = questao.enunciado.split(' ').slice(0, 50).join(' ').concat('...');
+                        p= enunciado
+                        .info
+                          p Dificuldade: #{questao.dificuldade}
+                div(id="div0")
+                  a.btn.btn-outline-primary.preview-link.pull-xs-right(href='/questao/adicionar' id="adicionar_questao")
+                    |Adicionar Questão
         .col-md-3
           .sidebar
             p Tags
