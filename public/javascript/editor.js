@@ -3,13 +3,14 @@ import '../styles/editor.css';
 import ace from 'brace';
 import 'brace/mode/javascript';
 import 'brace/theme/ambiance';
+import 'brace/mode/c_cpp';
 import ex from './modules/execucao';
 import swal from 'sweetalert';
 
 import tippy from 'tippy.js';
 
 const editor = ace.edit('questao-editor');
-editor.getSession().setMode('ace/mode/javascript');
+editor.getSession().setMode('ace/mode/c_cpp');
 editor.setTheme('ace/theme/ambiance');
 editor.setFontSize(14);
 
@@ -20,7 +21,7 @@ $('#btn-enviar-codigo').on('click', function() {
   const $btn = $(this);
   $btn.prop('disabled', true);
   $btn.removeClass('btn-outline-primary');
-  ex.executarCodigo(editor.getValue(), $questaoId.val())
+  ex.executarCodigo(editor.getValue(), $questaoId.val(), 'cpp')
     .then(res => {
       adicionarListaResultados(res.data);
       tippy('.saida-esperada');

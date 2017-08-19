@@ -13,7 +13,8 @@ exports.executarCodigoComResultados = (codigo, resultadosEsperados) => {
   });
 };
 
-exports.executarCodigo = (codigo, id) => {
+exports.executarCodigo = (codigo, id, linguagem = 'javascript') => {
+  linguagem = 'cpp';
   return axios({
     url: '/api/v1/executar/questao', 
     method: 'post',
@@ -21,7 +22,7 @@ exports.executarCodigo = (codigo, id) => {
       'Content-Type': 'application/json'
     },
     data: {
-      codigo, id
+      codigo, id, linguagem
     }
   });
 };
