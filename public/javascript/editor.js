@@ -45,31 +45,37 @@ $('#btn-submeter').on('click', function() {
     type: 'info',
     showCancelButton: true,
     closeOnConfirm: false
-  }, function() {
-    ex.submeterCodigo(editor.getValue(), $questaoId.val())
-    .then(res => {
-      console.log(res.data);
-      if (res.data.porcentagemAcerto === 100) {
-        swal(`${res.data.porcentagemAcerto}% de acerto`, 
-        'Submissão enviada com sucesso', 'success');
-      }
-      else if (res.data.porcentagemAcerto > 0) {
-        swal(`${res.data.porcentagemAcerto}% de acerto`, 
-        'Submissão enviada com sucesso', 'warning');
-      }
-      else {
-        swal(`${res.data.porcentagemAcerto}% de acerto`, 
-        'Submissão enviada com sucesso', 'error');
-      }
-    })
-    .catch(err => {
-      console.error(err);
-      swal('Oops...', 'Ocorreu algum erro ao enviar a submissão', 'error');
-    })
-    .then(() => {
+  }, function(isConfirm) {
+    if (isConfirm) {
+      ex.submeterCodigo(editor.getValue(), $questaoId.val())
+      .then(res => {
+        console.log(res.data);
+        if (res.data.porcentagemAcerto === 100) {
+          swal(`${res.data.porcentagemAcerto}% de acerto`, 
+          'Submissão enviada com sucesso', 'success');
+        }
+        else if (res.data.porcentagemAcerto > 0) {
+          swal(`${res.data.porcentagemAcerto}% de acerto`, 
+          'Submissão enviada com sucesso', 'warning');
+        }
+        else {
+          swal(`${res.data.porcentagemAcerto}% de acerto`, 
+          'Submissão enviada com sucesso', 'error');
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        swal('Oops...', 'Ocorreu algum erro ao enviar a submissão', 'error');
+      })
+      .then(() => {
+        $btn.prop('disabled', false);
+        $btn.addClass('btn-outline-primary');
+      });
+    }
+    else {
       $btn.prop('disabled', false);
       $btn.addClass('btn-outline-primary');
-    });
+    }
   });
 });
 
