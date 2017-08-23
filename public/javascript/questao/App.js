@@ -9,6 +9,8 @@ import ex from '../modules/execucao';
 
 $(function() {
 
+  $('form').areYouSure();
+
   /**
    * Requisita as tags disponíveis no sistema
    */
@@ -44,6 +46,7 @@ $(function() {
   });
 
   jsonEditor.set(resultadosExemplo);
+  const lengthExemplo = JSON.stringify(jsonEditor.get()).length;
 
   /**
    * Configuração do editor de código para execução de questão e cadastro de solução
@@ -52,6 +55,18 @@ $(function() {
   editor.getSession().setMode('ace/mode/javascript');
   editor.setTheme('ace/theme/ambiance');
   editor.setFontSize(14);
+
+  window.addEventListener('beforeunload', function(e) {
+    if (editor.getValue().length > 0 || JSON.stringify(jsonEditor.get()).length > lengthExemplo) {
+      const confirmacao = 'Suas alterações serão perdidas se você sair sem submeter o código.';
+      
+      e.returnValue = confirmacao;
+      return confirmacao;
+    }
+    else {
+      return e;
+    }
+  });
 
   $('#btn-enviar-codigo').on('click', function() {
     const resultados = jsonEditor.get();

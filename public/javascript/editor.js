@@ -13,6 +13,19 @@ editor.getSession().setMode('ace/mode/javascript');
 editor.setTheme('ace/theme/ambiance');
 editor.setFontSize(14);
 
+// Pergunta se o usuário quer realmente sair da página se ele houver digitado algum código no editor
+window.addEventListener('beforeunload', function(e) {
+  if (editor.getValue().length > 0) {
+    const confirmacao = 'Suas alterações serão perdidas se você sair sem submeter o código.';
+    
+    e.returnValue = confirmacao;
+    return confirmacao;
+  }
+  else {
+    return e;
+  }
+});
+
 const $resultadosDiv = $('#resultados-container');
 const $questaoId = $('input[name=\'questaoId\']');
 
@@ -20,6 +33,8 @@ $('#btn-enviar-codigo').on('click', function() {
   const $btn = $(this);
   $btn.prop('disabled', true);
   $btn.removeClass('btn-outline-primary');
+  console.log('Chamando executar código');
+  alert('vai executar...');
   ex.executarCodigo(editor.getValue(), $questaoId.val())
     .then(res => {
       adicionarListaResultados(res.data);
