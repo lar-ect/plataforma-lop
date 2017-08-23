@@ -27,3 +27,4 @@ yarn-error.log*
 # custom
 load-data.js
 questoes.json
+package-lock.json
