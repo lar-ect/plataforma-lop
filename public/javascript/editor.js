@@ -33,8 +33,6 @@ $('#btn-enviar-codigo').on('click', function() {
   const $btn = $(this);
   $btn.prop('disabled', true);
   $btn.removeClass('btn-outline-primary');
-  console.log('Chamando executar código');
-  alert('vai executar...');
   ex.executarCodigo(editor.getValue(), $questaoId.val())
     .then(res => {
       adicionarListaResultados(res.data);
