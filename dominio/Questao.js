@@ -41,10 +41,7 @@ const questaoSchema = new mongoose.Schema(
         entradas: {
           type: [{ type: String }],
         },
-        saida: {
-          type: String,
-          required: 'Forneça uma saída esperada para o vetor de entradas'
-        }
+        saida: String,
       }],
       required: 'Forneça um array de resultados'
     }
