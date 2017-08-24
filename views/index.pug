@@ -11,14 +11,14 @@ block content
       .row
         .col-md-9
           .feed-toggle
-            ul.nav.nav-pills.outline-active
+            ul.nav.nav-pills.outline-active(role="tablist")
               li.nav-item
                 a.nav-link.active(data-toggle="tab" href="#listas_exercicio" role="tab") Listas de Exercício
               li.nav-item
                 a.nav-link(data-toggle="tab" href="#questoes" role="tab") Questões
 
             .tab-content
-              .tab-pane.active(id="listas_exercicio" role="tabpanel")
+              .tab-pane.fade.show.active(id="listas_exercicio" role="tabpanel")
                 for lista in listasExercicio
                   .article-preview
                     .article-meta
@@ -26,7 +26,7 @@ block content
                         h1 #{lista.titulo}
                         .info
                           p #{lista.questoes.length} questões
-              .tab-pane(id="questoes" role="tabpanel")
+              .tab-pane.fade(id="questoes" role="tabpanel")
                 table.table.table-sm.table-bordered.table-hover(id="questoes_table")
                   thead
                     tr

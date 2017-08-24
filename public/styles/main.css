@@ -3122,14 +3122,14 @@ input[type="button"].btn-block {
   opacity: 0;
   transition: opacity .15s linear;
 }
-.fade.in {
+.fade.show {
   opacity: 1;
 }
 
 .collapse {
   display: none;
 }
-.collapse.in {
+.collapse.show {
   display: block;
 }
 
@@ -5221,7 +5221,7 @@ button.close {
   transition: transform .3s ease-out;
   transform: translate(0, -25%);
 }
-.modal.in .modal-dialog {
+.modal.show .modal-dialog {
   transform: translate(0, 0);
 }
 
@@ -5257,7 +5257,7 @@ button.close {
 .modal-backdrop.fade {
   opacity: 0;
 }
-.modal-backdrop.in {
+.modal-backdrop.show {
   opacity: 0.5;
 }
 
@@ -5342,7 +5342,7 @@ button.close {
   word-wrap: break-word;
   opacity: 0;
 }
-.tooltip.in {
+.tooltip.show {
   opacity: 0.9;
 }
 .tooltip.tooltip-top,
