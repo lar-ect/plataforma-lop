@@ -36,4 +36,9 @@ $(function() {
         console.error(err);
       });
   });
+
+  // Tornar cada row da tabela um link para a questão desejada
+  $('#questoes_table tr').click(function() {
+    window.location = $(this).data('url');
+  });
 });

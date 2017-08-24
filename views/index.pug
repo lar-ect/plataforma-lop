@@ -27,27 +27,38 @@ block content
                         .info
                           p #{lista.questoes.length} questões
               .tab-pane(id="questoes" role="tabpanel")
-                for questao in questoes
-                  .article-preview
-                    .article-meta
-                      if user
-                        form(name="favoritar-questao-form" method="POST" action=`/api/v1/questoes/${questao._id}/favoritar`)
-                          - const questoesFavoritas = user.questoesFavoritas.map(obj => obj.toString())
-                          - const btnClass = questoesFavoritas.includes(questao._id.toString()) ? 'btn-primary favoritado' : 'btn-outline-primary'
-                          button.btn.btn-sm.pull-xs-right(class=btnClass type="submit" name="btn_favoritar")
-                            i.ion-thumbsup
-                            |  
-                            span(name="btn_favoritar_likes") #{questao.likes}
-                      else 
-                        button.btn.btn-sm.btn-outline-primary.pull-xs-right(name="btn-favoritar-no-user")
-                            i.ion-thumbsup
-                            |  #{questao.likes}
-                      a.preview-link(href=`/questao/${questao._id}`)
-                        h1 #{questao.titulo}
-                        - const enunciado = questao.enunciado.split(' ').slice(0, 50).join(' ').concat('...');
-                        p= enunciado
-                        .info
-                          p Dificuldade: #{questao.dificuldade}
+                table.table.table-sm.table-bordered.table-hover(id="questoes_table")
+                  thead
+                    tr
+                      th Título
+                      th Lista
+                      th Classificação
+                      th
+                  tbody
+                    - questoes = questoes.sort((a, b) => (b.likes - a.likes))
+                    for questao in questoes
+                      tr(data-url=`/questao/${questao._id}`)
+                        td #{questao.titulo}
+                        if questao.enunciado.startsWith('[L')
+                          - const index = questao.enunciado.indexOf(']')
+                          - const lista = questao.enunciado.substring(0, index+1)
+                          td= lista
+                        else
+                          td
+                        td #{questao.classificacao}
+                        td
+                          if user
+                            form(name="favoritar-questao-form" method="POST" action=`/api/v1/questoes/${questao._id}/favoritar`)
+                              - const questoesFavoritas = user.questoesFavoritas.map(obj => obj.toString())
+                              - const btnClass = questoesFavoritas.includes(questao._id.toString()) ? 'btn-primary favoritado' : 'btn-outline-primary'
+                              button.btn.btn-sm(class=btnClass type="submit" name="btn_favoritar")
+                                i.ion-thumbsup
+                                |  
+                                span(name="btn_favoritar_likes") #{questao.likes}
+                          else 
+                            button.btn.btn-sm.btn-outline-primary(name="btn-favoritar-no-user")
+                                i.ion-thumbsup
+                                |  #{questao.likes}
                 
                 if permissoes.temPermissao(user, 'CREATE_QUESTAO')
                   div(id="div0")

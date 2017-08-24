@@ -5,3 +5,7 @@
 .full-width .btn {
   flex: 1;
 }
+
+#questoes_table tr {
+  cursor: pointer;
+}
