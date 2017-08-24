@@ -6,6 +6,6 @@
   flex: 1;
 }
 
-#questoes_table tr {
+#questoes_table tbody tr {
   cursor: pointer;
 }
