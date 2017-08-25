@@ -1,4 +1,4 @@
-const { NodeVM } = require('vm2');
+const { VM } = require('vm2');
 
 let entradas = [];
 let indiceEntrada;
@@ -9,6 +9,11 @@ const contexto = {
     resultado = '';
     indiceEntrada = 0;
     entradas = valores;
+  },
+  console: {
+    log: function(valor) {
+      resultado = resultado.concat(valor);
+    }
   },
   escreva: function(valor, novaLinha) {
     resultado = resultado.concat(valor);
@@ -61,8 +66,8 @@ const contexto = {
 function executar(codigo, arrayEntrada) {
   contexto.INIT_VM_CONTEXT(arrayEntrada);
 
-  const vm = new NodeVM({
-    timeout: 1000,
+  const vm = new VM({
+    timeout: 2000,
     sandbox: contexto,
     console: 'off'
   });
@@ -71,6 +76,11 @@ function executar(codigo, arrayEntrada) {
     vm.run(codigo);
   } catch (error) {
     resultado = `Erro: ${error.message}`;
+  }
+
+  if (resultado === 'Erro: Script execution timed out.') {
+    resultado = resultado.replace('Script execution timed out.', 
+      'Tempo esgotado');
   }
 
   return resultado.trim();

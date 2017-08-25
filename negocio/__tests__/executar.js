@@ -21,6 +21,16 @@ describe('execução de código javascript', () => {
       const resultado = executar(codigoSomatorio, ['1', '2']);
       expect(resultado).toBe('Erro: Entrada indisponível');
     });
+
+    test('retorna erro de timeout em código com loop infinito', () => {
+      const resultado = executar(`
+        var x = lerInteiro();
+        while(x !== 0) {
+          escreva(x);
+        }
+      `, ['1']);
+      expect(resultado).toBe('Erro: Tempo esgotado');
+    });
   });
 
   describe('retorna resultado com sucesso', () => {
@@ -30,10 +40,10 @@ describe('execução de código javascript', () => {
     });
 
     test('resultado correto para escreva com múltiplas linhas', () => {
-      const resultado = executar(
-        `
+      const resultado = executar(`
         for(var i = 0; i < 3; i++) {
-          escreva(lerInteiro(), true);
+          var x = lerInteiro();
+          escreva(x + '\\n');
         }
       `,
         ['1', '2', '3']
@@ -44,6 +54,14 @@ describe('execução de código javascript', () => {
     test('resultado correto com uso de prompt e alert', () => {
       const resultado = executar(codigoAlertPrompt, ['Um', 'Dois', 'Tres']);
       expect(resultado).toBe('UmDoisTres');
+    });
+
+    test('retorna correto ao utilizar o console', () => {
+      const resultado = executar(`
+        var x = lerInteiro();
+        console.log(x);
+      `, ['1']);
+      expect(resultado).toBe('1');
     });
 
     test('ler texto lê uma variável do tipo string', () => {
