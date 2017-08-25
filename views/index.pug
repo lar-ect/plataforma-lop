@@ -26,6 +26,8 @@ block content
                         h1 #{lista.titulo}
                         .info
                           p #{lista.questoes.length} questões
+                if permissoes.temPermissao(user, 'CREATE_QUESTAO')
+                  a.btn.btn-outline-primary.pull-xs-right(href='/lista/adicionar') Adicionar Lista 
               .tab-pane.fade(id="questoes" role="tabpanel")
                 table.table.table-sm.table-bordered.table-hover(id="questoes_table")
                   thead
