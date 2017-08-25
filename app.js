@@ -129,6 +129,7 @@ app.use((req, res, next) => {
   res.locals.user = req.user || null;
   res.locals.currentPath = req.path;
   res.locals.permissoes = permissoes;
+  res.locals.env = process.env.NODE_ENV;
   next();
 });
 
