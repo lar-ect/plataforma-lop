@@ -38,7 +38,7 @@ describe('execução de código javascript', () => {
       `,
         ['1', '2', '3']
       );
-      expect(resultado).toBe('1\n2\n3\n');
+      expect(resultado).toBe('1\n2\n3');
     });
 
     test('resultado correto com uso de prompt e alert', () => {
@@ -53,6 +53,15 @@ describe('execução de código javascript', () => {
         escreva(x + ' ' + y);
       `, ['Hello', 'World']);
       expect(resultado).toBe('Hello World');
+    });
+
+    test('execução utiliza a função trim() no resultado', () => {
+      const resultado = executar(`
+        for(var i = 0; i < 3; i++) {
+          escreva(i + ' ');
+        }
+      `, []);
+      expect(resultado).toBe('0 1 2');
     });
   });
 });

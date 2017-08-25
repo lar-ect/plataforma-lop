@@ -73,7 +73,7 @@ function executar(codigo, arrayEntrada) {
     resultado = `Erro: ${error.message}`;
   }
 
-  return resultado;
+  return resultado.trim();
 }
 
 module.exports = executar;

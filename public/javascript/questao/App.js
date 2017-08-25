@@ -88,8 +88,8 @@ $(function() {
   });
 
   $('#form-questao').submit(function() {
-    const $resultados = $(`<input type='hidden' name='resultados'/>`);
-    const $solucao = $(`<input type='hidden' name='solucao'/>`);
+    const $resultados = $('<input type="hidden" name="resultados"/>');
+    const $solucao = $('<input type="hidden" name="solucao"/>');
     $resultados.val(JSON.stringify(jsonEditor.get()));
     $solucao.val(editor.getValue());
     $(this).append($resultados);
@@ -107,6 +107,8 @@ function criarLinhasResultado(resultado) {
   return resultado
     .map(r => {
       console.log(r);
+      r.saida = r.saida.trim();
+      r.saidaEsperada = r.saidaEsperada.trim();
       console.log(r.saida.length);
       console.log(r.saidaEsperada.length);
       const acertou = r.saida === r.saidaEsperada;

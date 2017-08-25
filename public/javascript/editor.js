@@ -29,6 +29,7 @@ window.addEventListener('beforeunload', function(e) {
 const $resultadosDiv = $('#resultados-container');
 const $questaoId = $('input[name=\'questaoId\']');
 
+// Execução de código
 $('#btn-enviar-codigo').on('click', function() {
   const $btn = $(this);
   $btn.prop('disabled', true);
@@ -47,6 +48,7 @@ $('#btn-enviar-codigo').on('click', function() {
     });
 });
 
+// Submissão de código
 $('#btn-submeter').on('click', function() {
   const $btn = $(this);
   $btn.prop('disabled', true);
@@ -102,6 +104,8 @@ function criarLinhasResultado(resultado) {
   return resultado
     .map(r => {
       console.log(r);
+      r.saida = r.saida.trim();
+      r.saidaEsperada = r.saidaEsperada.trim();
       console.log(r.saida.length);
       console.log(r.saidaEsperada.length);
       const acertou = r.saida === r.saidaEsperada;

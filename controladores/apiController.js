@@ -2,14 +2,11 @@ const mongoose = require('mongoose');
 const Questao = mongoose.model('Questao');
 const Submissao = mongoose.model('Submissao');
 const executar = require('../negocio/executar');
-// const executarCodigo = require('../negocio/executar-codigo');
 
-// exports.executarCodigo = async (req, res) => {
-//   const { codigo, resultadosEsperados } = req.body;
-//   const resultados = [];
-//   res.json(executar(codigo));
-// };
-
+/**
+ * Execução de código em que os resultados esperados vem na requisição
+ * Utilizado na execução presente no cadastro de questões
+ */
 exports.executarCodigoComResultado = (req, res) => {
   const { codigo, resultadosEsperados } = req.body;
   if (!resultadosEsperados || !resultadosEsperados[0] || !resultadosEsperados[0].saida) {
@@ -29,6 +26,10 @@ exports.executarCodigoComResultado = (req, res) => {
   res.json(resultados);
 };
 
+/**
+ * Execução de código em que os resultados são extraídos de uma questão específica
+ * Utilizado no editor de código da página de questões do sistema
+ */
 exports.executarCodigoQuestao = async (req, res) => {
   const { codigo, id } = req.body;
   const questao = await Questao.findOne({ _id: id });
@@ -96,9 +97,9 @@ exports.submeterCodigoQuestao = async (req, res) => {
 exports.getTags = async (req, res) => {
   const tags = await Questao.find().distinct('tags');
   res.json(tags);
-}
+};
 
 exports.getQuestoes = async (req, res) => {
   const questoes = await Questao.find();
   res.json(questoes);
-}
+};
