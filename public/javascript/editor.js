@@ -17,7 +17,7 @@ editor.setFontSize(14);
 window.addEventListener('beforeunload', function(e) {
   if (editor.getValue().length > 0) {
     const confirmacao = 'Suas alterações serão perdidas se você sair sem submeter o código.';
-    
+
     e.returnValue = confirmacao;
     return confirmacao;
   }
@@ -66,15 +66,15 @@ $('#btn-submeter').on('click', function() {
       .then(res => {
         console.log(res.data);
         if (res.data.porcentagemAcerto === 100) {
-          swal(`${res.data.porcentagemAcerto}% de acerto`, 
+          swal(`${res.data.porcentagemAcerto}% de acerto`,
           'Submissão enviada com sucesso', 'success');
         }
         else if (res.data.porcentagemAcerto > 0) {
-          swal(`${res.data.porcentagemAcerto}% de acerto`, 
+          swal(`${res.data.porcentagemAcerto}% de acerto`,
           'Submissão enviada com sucesso', 'warning');
         }
         else {
-          swal(`${res.data.porcentagemAcerto}% de acerto`, 
+          swal(`${res.data.porcentagemAcerto}% de acerto`,
           'Submissão enviada com sucesso', 'error');
         }
       })
@@ -113,7 +113,7 @@ function criarLinhasResultado(resultado) {
       const icon = acertou ? 'ion-checkmark' : 'ion-close';
       return `
       <li class="list-group-item">
-        <samp>${r.saida}</samp>
+        <samp>${ r.saida !== '' ? r.saida : ' ' }</samp>
         <span class="saida-esperada pull-xs-right"
           title="<strong>Entrada:</strong>
           <br>${r.entrada}<br>
