@@ -18,6 +18,21 @@ exports.temPermissao = (permissao) => {
   };
 };
 
+exports.isProfessor = () => {
+  
+  return (req, res, next) => {
+    
+    if (req.user && permissoes.isProfessor(req.user)) {
+      next();
+    }
+    else {
+      req.flash('warning', 'Oops, você não pode acessar essa página');
+      res.redirect('back');
+    }
+  };
+  
+};
+
 exports.login = passport.authenticate('local', {
   failuteRedirect: '/login',
   failureFlash: 'Erro ao tentar entrar no sistema',
