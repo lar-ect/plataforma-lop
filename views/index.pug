@@ -35,7 +35,9 @@ block content
                       th Título
                       th Lista
                       th Classificação
-                      th
+                      if user
+                        th Submissões
+                      th  
                   tbody
                     - questoes = questoes.sort((a, b) => (b.likes - a.likes))
                     for questao in questoes
@@ -48,6 +50,8 @@ block content
                         else
                           td
                         td #{questao.classificacao}
+                        if user
+                          td #{submissoes.has(questao._id.toString()) ? submissoes.get(questao._id.toString()) : 0}
                         td
                           if user
                             form(name="favoritar-questao-form" method="POST" action=`/api/v1/questoes/${questao._id}/favoritar`)
