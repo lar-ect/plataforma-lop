@@ -4,31 +4,36 @@ const Submissao = mongoose.model('Submissao');
 
 exports.getLista = async (req, res) => {
   const lista = await ListaExercicio.findOne({ _id: req.params.id }).populate('questoes');
-  
-  var submissoesUsuario = await Submissao.aggregate([
-    {
-      $match:
+
+  if (req.user) {
+
+    var submissoesUsuario = await Submissao.aggregate([
       {
-        user: { $eq: req.user._id },
-        questao : {$in: lista.questoes}
+        $match:
+        {
+          user: { $eq: req.user._id },
+          questao: { $in: lista.questoes }
+        }
+      },
+      {
+        $group: {
+          _id: "$questao",
+          count: { $sum: 1 }
+        }
       }
-    },
-    {
-      $group: {
-        _id: "$questao",
-        count: { $sum: 1 }
-      }
-    }
-  ]);
-  const submissoesMap = new Map(submissoesUsuario.map(sub => [sub._id.toString(), sub.count]));
-  const progresso = {};
-  const total = lista.questoes.length;
-  const quantidadeResolvidas = submissoesMap.size;
-  const porcentagem = (quantidadeResolvidas * 100) / total;
-  progresso['porcentagem'] = Math.round(porcentagem * 100)/100 // arredondando para 2 casas
-  progresso['quantidadeResolvidas'] = quantidadeResolvidas;
-  progresso['quantidadeTotal'] = total;
-  res.render('questao/lista', { title: `Lista ${lista.titulo}`, lista, progresso, submissoesMap});
+    ]);
+    const submissoesMap = new Map(submissoesUsuario.map(sub => [sub._id.toString(), sub.count]));
+    const progresso = {};
+    const total = lista.questoes.length;
+    const quantidadeResolvidas = submissoesMap.size;
+    const porcentagem = (quantidadeResolvidas * 100) / total;
+    progresso['porcentagem'] = Math.round(porcentagem)
+    progresso['quantidadeResolvidas'] = quantidadeResolvidas;
+    progresso['quantidadeTotal'] = total;
+    res.render('questao/lista', { title: `Lista ${lista.titulo}`, lista, progresso, submissoesMap });
+  } else {
+    res.render('questao/lista', { title: `Lista ${lista.titulo}`, lista });
+  }
 };
 
 exports.getListas = async (req, res) => {

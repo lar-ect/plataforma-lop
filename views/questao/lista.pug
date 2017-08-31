@@ -6,9 +6,10 @@ block content
 		.banner
 			.container
 				h3 #{lista.titulo}
-				|#{progresso['porcentagem']}% das questões resolvidas (#{progresso['quantidadeResolvidas']} de #{progresso['quantidadeTotal']}).
-				.progress4
-					.progress-bar4.progress-bar-striped4(role="progressbar" aria-valuenow="#{progresso['quantidadeResolvidas']}" aria-valuemin="0" aria-valuemax="#{progresso['quantidadeTotal']}" style=`width:${progresso['porcentagem']}%`)
+				if user
+					|#{progresso['porcentagem']}% das questões resolvidas (#{progresso['quantidadeResolvidas']} de #{progresso['quantidadeTotal']}).
+					.progress4
+						.progress-bar4.progress-bar-striped4(role="progressbar" aria-valuenow="#{progresso['quantidadeResolvidas']}" aria-valuemin="0" aria-valuemax="#{progresso['quantidadeTotal']}" style=`width:${progresso['porcentagem']}%`)
 
 	.container.page
 		.row
@@ -31,11 +32,11 @@ block content
 						a.preview-link(href=`/questao/${questao._id}`)
 							h1
 								|#{questao.titulo}  
-								if submissoesMap.has(questao._id.toString())
+								if user && submissoesMap.has(questao._id.toString())
 									i.ion-checkmark-round.check-resolvida(title="Resolvida")
 							- const enunciado = questao.enunciado.split(' ').slice(0, 50).join(' ').concat('...');
 							p= enunciado
 							.info
 								p Dificuldade: #{questao.dificuldade}
-								if submissoesMap.has(questao._id.toString())
-									p Submissões: #{submissoesMap.get(questao._id.toString())}
+								if user && submissoesMap.has(questao._id.toString())
+										p Submissões: #{submissoesMap.get(questao._id.toString())}
