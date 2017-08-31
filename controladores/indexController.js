@@ -35,7 +35,3 @@ exports.sugestao = async (req, res) => {
   await sugestao.save();
   res.status(200).send('Submissão enviada com sucesso');
 };
-
-function getSubmissoes(usuario) {
-
-}

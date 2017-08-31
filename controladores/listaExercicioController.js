@@ -1,9 +1,34 @@
 const mongoose = require('mongoose');
 const ListaExercicio = mongoose.model('ListaExercicio');
+const Submissao = mongoose.model('Submissao');
 
 exports.getLista = async (req, res) => {
   const lista = await ListaExercicio.findOne({ _id: req.params.id }).populate('questoes');
-  res.render('questao/lista', { title: `Lista ${lista.titulo}`, lista });
+  
+  var submissoesUsuario = await Submissao.aggregate([
+    {
+      $match:
+      {
+        user: { $eq: req.user._id },
+        questao : {$in: lista.questoes}
+      }
+    },
+    {
+      $group: {
+        _id: "$questao",
+        count: { $sum: 1 }
+      }
+    }
+  ]);
+  const submissoesMap = new Map(submissoesUsuario.map(sub => [sub._id.toString(), sub.count]));
+  const progresso = {};
+  const total = lista.questoes.length;
+  const quantidadeResolvidas = submissoesMap.size;
+  const porcentagem = (quantidadeResolvidas * 100) / total;
+  progresso['porcentagem'] = Math.round(porcentagem * 100)/100 // arredondando para 2 casas
+  progresso['quantidadeResolvidas'] = quantidadeResolvidas;
+  progresso['quantidadeTotal'] = total;
+  res.render('questao/lista', { title: `Lista ${lista.titulo}`, lista, progresso, submissoesMap});
 };
 
 exports.getListas = async (req, res) => {
@@ -12,9 +37,9 @@ exports.getListas = async (req, res) => {
 };
 
 exports.adicionarLista = (req, res) => {
-	res.render('questao/editarLista', {
-		title: 'Adiciona Lista de Exercícios'
-	});
+  res.render('questao/editarLista', {
+    title: 'Adiciona Lista de Exercícios'
+  });
 };
 
 exports.criarLista = async (req, res) => {
