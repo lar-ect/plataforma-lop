@@ -104,6 +104,7 @@ $('#btn-submeter').on('click', function() {
 });
 
 function redirect() {
+  editor.setValue('');
   if (!listaId) {
     window.location.href = '/';
   }
