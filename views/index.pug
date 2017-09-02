@@ -25,7 +25,14 @@ block content
                       a.preview-link(href=`/lista/${lista._id}`)
                         h1 #{lista.titulo}
                         .info
-                          p #{lista.questoes.length} questões
+                          if user
+                            - const progressoLista = filtrarSubmissoesLista(lista, submissoes);
+                            if progressoLista
+                              p Questões resolvidas: #{progressoLista['quantidadeResolvidas']} de #{lista.questoes.length} (#{progressoLista['porcentagem']}%)
+                            else
+                              p Questões: #{lista.questoes.length}, nenhuma resolvida
+                          else
+                            p Questões: #{lista.questoes.length}
                 if permissoes.temPermissao(user, 'CREATE_QUESTAO')
                   a.btn.btn-outline-primary.pull-xs-right(href='/lista/adicionar') Adicionar Lista 
               .tab-pane.fade(id="questoes" role="tabpanel")

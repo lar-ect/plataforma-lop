@@ -8,13 +8,7 @@ exports.getLista = async (req, res) => {
   if (req.user) {
 
     const submissoes = await Submissao.listarSubmissoesUsuario(req.user, lista.questoes);
-    const progresso = {};
-    const total = lista.questoes.length;
-    const quantidadeResolvidas = submissoes.size;
-    const porcentagem = (quantidadeResolvidas * 100) / total;
-    progresso['porcentagem'] = Math.round(porcentagem)
-    progresso['quantidadeResolvidas'] = quantidadeResolvidas;
-    progresso['quantidadeTotal'] = total;
+    const progresso = Submissao.calcularProgresso(lista.questoes.length, submissoes.size);
     res.render('questao/lista', { title: `Lista ${lista.titulo}`, lista, progresso, submissoes });
   } else {
     res.render('questao/lista', { title: `Lista ${lista.titulo}`, lista });
@@ -27,6 +21,7 @@ exports.getListas = async (req, res) => {
 };
 
 exports.adicionarLista = (req, res) => {
+  //TODO adicionar objeto lista
   res.render('questao/editarLista', {
     title: 'Adiciona Lista de Exercícios'
   });
