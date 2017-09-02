@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
+const uniqueValidator = require('mongoose-unique-validator');
 
 const dificuldades = ['Muito fácil', 'Fácil', 'Médio', 'Difícil', 'Muito difícil'];
 const classificacoes = ['Fixação', 'Complementar', 'Avançado'];
@@ -56,5 +57,7 @@ questaoSchema.statics.getDificuldades = function() {
 questaoSchema.statics.getClassificacoes = function() {
   return classificacoes;
 };
+
+questaoSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('Questao', questaoSchema);

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
+const uniqueValidator = require('mongoose-unique-validator');
 
 const listaSchema = new mongoose.Schema(
   {
@@ -24,5 +25,6 @@ function autopopulate(next) {
 }
 
 listaSchema.pre('findOne', autopopulate);
+listaSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('ListaExercicio', listaSchema);

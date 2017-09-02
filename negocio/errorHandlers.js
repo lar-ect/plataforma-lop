@@ -14,7 +14,6 @@ exports.catchErrors = (fn) => {
 
 /*
   Not Found Error Handler
-
   If we hit a route that is not found, we mark it as 404 and pass it along to the next error handler to display
 */
 exports.notFound = (req, res, next) => {
@@ -24,14 +23,28 @@ exports.notFound = (req, res, next) => {
 };
 
 /*
-  MongoDB Validation Error Handler
-
-  Detect if there are mongodb validation errors that we can nicely show via flash messages
+  Erros de validação do MongoDB
+  Detecta se há erros de validação do mongo e exibe mensagens de flash ao usuário
 */
 
 exports.flashValidationErrors = (err, req, res, next) => {
+  // Caso a matrícula já esteja sendo utilizada, o sistema retornará o erro abaixo
+  if (err.code === 11000) {
+    const msg = err.errmsg;
+    if (msg.includes('matricula')) {
+      req.flash('danger', 'Matrícula já está sendo utilizada, contate o administrador do sistema');
+      res.redirect('back');
+    }
+  }
+  
+  // Caso o email já esteja sendo utilizado
+  if (err.name === 'UserExistsError') {
+    req.flash('danger', err.message);
+    res.redirect('back');
+  }
+
+  // Se nenhum dos erros acima bater, retorna um flash de erro caso o objeto possua um formato característico
   if (!err.errors) return next(err);
-  // validation errors look like
   const errorKeys = Object.keys(err.errors);
   errorKeys.forEach(key => req.flash('danger', err.errors[key].message));
   res.redirect('back');
@@ -40,7 +53,6 @@ exports.flashValidationErrors = (err, req, res, next) => {
 
 /*
   Development Error Hanlder
-
   In development we show good error messages so if we hit a syntax error or any other previously un-handled error, we can show good info on what happened
 */
 exports.developmentErrors = (err, req, res, next) => {
@@ -63,7 +75,6 @@ exports.developmentErrors = (err, req, res, next) => {
 
 /*
   Production Error Handler
-
   No stacktraces are leaked to user
 */
 exports.productionErrors = (err, req, res, next) => {

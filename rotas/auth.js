@@ -44,7 +44,7 @@ router.get('/logout', authController.logout);
 router.post('/login', authController.login);
 
 router.post('/cadastro', userController.validarRegistro, 
-	userController.registrar, authController.login);
+	catchErrors(userController.registrar), authController.login);
 
 router.post('/conta/esqueceu-senha', catchErrors(authController.esqueceuSenha));
 

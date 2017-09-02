@@ -2,24 +2,24 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const md5 = require('md5');
 const validator = require('validator');
-const mongodbErrorHandler = require('mongoose-mongodb-errors');
+const uniqueValidator = require('mongoose-unique-validator');
 const passportLocalMongoose = require('passport-local-mongoose');
 
 const Permissoes = require('./Permissoes');
 
 const userSchema = new mongoose.Schema({
-  matricula: {
-    type: String,
-    unique: true,
-    trim: true
-  },
   email: {
     type: String,
-    unique: true,
+    unique: 'Email já cadastrado no sistema',
     lowercase: true,
     trim: true,
     validate: [validator.isEmail, 'Email inválido'],
     required: 'Forneça um endereço de email'
+  },
+  matricula: {
+    type: String,
+    unique: 'Matrícula já cadastrada no sistema',
+    trim: true
   },
   nome: {
     type: String,
@@ -47,8 +47,13 @@ userSchema.virtual('gravatar').get(function() {
   return `https://gravatar.com/avatar/${hash}?s=200`;
 });
 
-userSchema.plugin(passportLocalMongoose, { usernameField: 'email' });
-userSchema.plugin(mongodbErrorHandler);
+userSchema.plugin(uniqueValidator);
+userSchema.plugin(passportLocalMongoose, { 
+  usernameField: 'email',
+  errorMessages: {
+    UserExistsError: 'Já existe um usuário cadastrado com esse email'
+  }
+});
 
 userSchema.methods.favoritarQuestao = function(id) {
   if (this.questoesFavoritas.indexOf(id) === -1) {
