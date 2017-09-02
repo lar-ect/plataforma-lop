@@ -7,30 +7,15 @@ exports.getLista = async (req, res) => {
 
   if (req.user) {
 
-    var submissoesUsuario = await Submissao.aggregate([
-      {
-        $match:
-        {
-          user: { $eq: req.user._id },
-          questao: { $in: lista.questoes }
-        }
-      },
-      {
-        $group: {
-          _id: "$questao",
-          count: { $sum: 1 }
-        }
-      }
-    ]);
-    const submissoesMap = new Map(submissoesUsuario.map(sub => [sub._id.toString(), sub.count]));
+    const submissoes = await Submissao.listarSubmissoesUsuario(req.user, lista.questoes);
     const progresso = {};
     const total = lista.questoes.length;
-    const quantidadeResolvidas = submissoesMap.size;
+    const quantidadeResolvidas = submissoes.size;
     const porcentagem = (quantidadeResolvidas * 100) / total;
     progresso['porcentagem'] = Math.round(porcentagem)
     progresso['quantidadeResolvidas'] = quantidadeResolvidas;
     progresso['quantidadeTotal'] = total;
-    res.render('questao/lista', { title: `Lista ${lista.titulo}`, lista, progresso, submissoesMap });
+    res.render('questao/lista', { title: `Lista ${lista.titulo}`, lista, progresso, submissoes });
   } else {
     res.render('questao/lista', { title: `Lista ${lista.titulo}`, lista });
   }

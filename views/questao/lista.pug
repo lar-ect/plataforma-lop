@@ -32,11 +32,11 @@ block content
 						a.preview-link(href=`/questao/${questao._id}`)
 							h1
 								|#{questao.titulo}  
-								if user && submissoesMap.has(questao._id.toString())
+								if user && submissoes.has(questao._id.toString())
 									i.ion-checkmark-round.check-resolvida(title="Resolvida")
 							- const enunciado = questao.enunciado.split(' ').slice(0, 50).join(' ').concat('...');
 							p= enunciado
 							.info
 								p Dificuldade: #{questao.dificuldade}
-								if user && submissoesMap.has(questao._id.toString())
-										p Submissões: #{submissoesMap.get(questao._id.toString())}
+								if user && submissoes.has(questao._id.toString())
+										p Submissões: #{submissoes.get(questao._id.toString())}
