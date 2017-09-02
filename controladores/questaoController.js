@@ -9,12 +9,14 @@ exports.questoes = async (req, res) => {
 };
 
 exports.getQuestao = async (req, res) => {
+  const listaId = req.query.lista || null;
   const questao = await Questao.findOne({ _id: req.params.id });
   const solucao = questao.solucao || null;
   res.render('questao/questao', {
     title: questao.titulo,
     questao,
-    solucao
+    solucao,
+    listaId
   });
 };
 

@@ -28,6 +28,7 @@ window.addEventListener('beforeunload', function(e) {
 
 const $resultadosDiv = $('#resultados-container');
 const $questaoId = $('input[name=\'questaoId\']');
+const listaId = $('input[name=\'listaId\']').val() || null;
 
 // Execução de código
 $('#btn-enviar-codigo').on('click', function() {
@@ -64,18 +65,26 @@ $('#btn-submeter').on('click', function() {
     if (isConfirm) {
       ex.submeterCodigo(editor.getValue(), $questaoId.val())
       .then(res => {
-        console.log(res.data);
         if (res.data.porcentagemAcerto === 100) {
-          swal(`${res.data.porcentagemAcerto}% de acerto`,
-          'Submissão enviada com sucesso', 'success');
+          swal({
+            title: `${res.data.porcentagemAcerto}% de acerto`,
+            text: 'Submissão enviada com sucesso', 
+            type: 'success'
+          }, redirect);
         }
         else if (res.data.porcentagemAcerto > 0) {
-          swal(`${res.data.porcentagemAcerto}% de acerto`,
-          'Submissão enviada com sucesso', 'warning');
+          swal({
+            title: `${res.data.porcentagemAcerto}% de acerto`,
+            text: 'Submissão enviada com sucesso', 
+            type: 'warning'
+          }, redirect);
         }
         else {
-          swal(`${res.data.porcentagemAcerto}% de acerto`,
-          'Submissão enviada com sucesso', 'error');
+          swal({
+            title: `${res.data.porcentagemAcerto}% de acerto`,
+            text: 'Submissão enviada com sucesso', 
+            type: 'error'
+          }, redirect);
         }
       })
       .catch(err => {
@@ -93,6 +102,15 @@ $('#btn-submeter').on('click', function() {
     }
   });
 });
+
+function redirect() {
+  if (!listaId) {
+    window.location.href = '/';
+  }
+  else {
+    window.location.href = `/lista/${listaId}`;
+  }
+}
 
 function adicionarListaResultados(resultados) {
   console.log(resultados);
