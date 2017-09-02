@@ -51,6 +51,15 @@ submissaoSchema.statics.listarSubmissoesUsuario = async function (user, questoes
   return new Map(submissoes.map(sub => [sub._id.toString(), sub.count]));
 };
 
+submissaoSchema.statics.calcularProgresso = function (totalQuestoes, quantidadeResolvidas) {
+  const progresso = {};
+  const porcentagem = (quantidadeResolvidas * 100) / totalQuestoes;
+  progresso['porcentagem'] = Math.round(porcentagem);
+  progresso['quantidadeResolvidas'] = quantidadeResolvidas;
+  progresso['quantidadeTotal'] = totalQuestoes;
+  return progresso;
+};
+
 function autopopulate(next) {
   this.populate('questao');
   next();
