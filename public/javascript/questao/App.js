@@ -26,6 +26,10 @@ $(function() {
       console.error(err);
     });
 
+  const $form = $('#form-questao');
+  const $resultados = $('input[name="resultados"]');
+  const $solucao = $('textarea[name="solucao"]');
+
   /**
    * Configuração do editor de json para cadastro de resultados
    */
@@ -45,7 +49,12 @@ $(function() {
     }
   });
 
-  jsonEditor.set(resultadosExemplo);
+  if ($resultados.val()) {
+    jsonEditor.set(JSON.parse($resultados.val()));
+  }
+  else {
+    jsonEditor.set(resultadosExemplo);
+  }
   const lengthExemplo = JSON.stringify(jsonEditor.get()).length;
 
   /**
@@ -55,6 +64,10 @@ $(function() {
   editor.getSession().setMode('ace/mode/javascript');
   editor.setTheme('ace/theme/ambiance');
   editor.setFontSize(14);
+
+  if ($solucao.text()) {
+    editor.setValue($solucao.text());
+  }
 
   window.addEventListener('beforeunload', function(e) {
     if (editor.getValue().length > 0 || JSON.stringify(jsonEditor.get()).length > lengthExemplo) {
@@ -87,13 +100,11 @@ $(function() {
       });
   });
 
-  $('#form-questao').submit(function() {
-    const $resultados = $('<input type="hidden" name="resultados"/>');
-    const $solucao = $('<input type="hidden" name="solucao"/>');
+  $form.submit(function() {
     $resultados.val(JSON.stringify(jsonEditor.get()));
-    $solucao.val(editor.getValue());
-    $(this).append($resultados);
-    $(this).append($solucao);
+    $solucao.text(editor.getValue());
+    jsonEditor.set('');
+    editor.setValue('');
   });
 });
 

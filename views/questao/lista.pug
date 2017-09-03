@@ -29,7 +29,7 @@ block content
 								button.btn.btn-sm.btn-outline-primary.pull-xs-right(name="btn-favoritar-no-user")
 										i.ion-thumbsup
 										|  #{questao.likes}
-						a.preview-link(href=`/questao/${questao._id}`)
+						a.preview-link(href=`/questao/${questao._id}?lista=${lista._id}`)
 							h1
 								|#{questao.titulo}  
 								if user && submissoes.has(questao._id.toString())

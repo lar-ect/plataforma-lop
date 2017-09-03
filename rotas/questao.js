@@ -8,13 +8,23 @@ const { catchErrors } = require('../negocio/errorHandlers');
 // Questões
 router.get('/questoes', catchErrors(questaoController.questoes));
 
-router.get('/questao/adicionar', authController.isLoggedIn,
-  authController.temPermissao('CREATE_QUESTAO'), questaoController.adicionarQuestao);
+router.get('/questao/adicionar/:id', 
+  authController.isLoggedIn,
+  authController.temPermissao('CREATE_QUESTAO'), 
+  catchErrors(questaoController.adicionarQuestao));
 
-router.post('/questao/adicionar', catchErrors(questaoController.criarQuestao));
+router.post('/questao/adicionar', 
+  authController.temPermissao('CREATE_QUESTAO'), 
+  catchErrors(questaoController.criarQuestao));
 
-router.post('/questao/adicionar/:id', catchErrors(questaoController.atualizarQuestao));
+router.post('/questao/adicionar/:id', 
+  authController.temPermissao('UPDATE_QUESTAO'),
+  catchErrors(questaoController.atualizarQuestao));
 
+/**
+ * Parâmetros:
+ *  - lista: id de uma lista de exercícios
+ */
 router.get('/questao/:id', catchErrors(questaoController.getQuestao));
 
 module.exports = router;

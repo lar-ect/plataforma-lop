@@ -2,17 +2,35 @@ extends ../layout
 
 block content
   input(type="hidden", name="questaoId", value=questao._id)
+  if listaId
+    input(type="hidden", name="listaId", value=listaId)
   .article-page
     .banner
       .container
-        h3 #{questao.titulo}
+        .row
+          h3 #{questao.titulo}
 
   .container.page
+    a.text-xs-center(href=`/questao/adicionar/${questao._id}` style="display: block;") Editar questão
+    if listaId
+      .row
+        .col-md-12
+          .btn-group.pull-xs-right(role="group")
+            if listaId
+              a.btn.btn-outline-primary(href=`/lista/${listaId}`) Voltar a lista
+              if idQuestaoAnterior
+                a.btn.btn-outline-primary(href=`/questao/${idQuestaoAnterior}?lista=${listaId}`)
+                  i.ion-ios-arrow-back
+                  |  Anterior
+              if idProximaQuestao
+                a.btn.btn-outline-primary(href=`/questao/${idProximaQuestao}?lista=${listaId}`) Próxima  
+                  i.ion-ios-arrow-forward  
+          
     .row.article-content
       .col-md-12.col-sm-12.col-xs-12
         if user && permissoes.temPermissao(user, 'VER_SOLUCAO_QUESTAO')
           h5: b Solução
-          pre: code.javascript(style='white-space: pre-line') #{questao.solucao}
+          pre: code.javascript #{questao.solucao}
         h5: b Enunciado
         p.text-justify(style="white-space: pre-line") #{questao.enunciado}
         p.text-center
