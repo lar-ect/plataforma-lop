@@ -11,6 +11,7 @@ block content
           h3 #{questao.titulo}
 
   .container.page
+    a.text-xs-center(href=`/questao/adicionar/${questao._id}` style="display: block;") Editar questão
     if listaId
       .row
         .col-md-12
@@ -29,7 +30,7 @@ block content
       .col-md-12.col-sm-12.col-xs-12
         if user && permissoes.temPermissao(user, 'VER_SOLUCAO_QUESTAO')
           h5: b Solução
-          pre: code.javascript(style='white-space: pre-line') #{questao.solucao}
+          pre: code.javascript #{questao.solucao}
         h5: b Enunciado
         p.text-justify(style="white-space: pre-line") #{questao.enunciado}
         p.text-center

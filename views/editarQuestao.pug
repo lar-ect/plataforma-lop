@@ -7,7 +7,18 @@ block content
       .col-md-10.offset-md-1.col-xs-12
         h1.text-xs-center Nova questão
         - const q = questao || {};
-        form(id="form-questao" action=`/questao/adicionar/${q.identificador || ''}` method='POST')
+        form(id="form-questao" action=`/questao/adicionar/${q._id || ''}` method='POST')
+          if q
+            if q.resultados
+              input(hidden, value=JSON.stringify(q.resultados), name="resultados")
+            else 
+              input(hidden, name="resultados")
+
+            if q.solucao
+              textarea(style="display: none;", name="solucao")= q.solucao
+            else
+              textarea(style="display: none;", name="solucao")
+              
           .form-group
             input.form-control.form-control-lg(type="text" name="titulo" value=q.titulo placeholder="Título")
           .form-group
@@ -16,15 +27,23 @@ block content
             label(for="classificacao") Classificação
             select.form-control(name="classificacao" placeholder="Selecione a classificação")
               for classificacao in classificacoes
-                option #{classificacao}
+                if classificacao === q.classificacao
+                  option(selected) #{classificacao}
+                else
+                  option #{classificacao}
           .form-group
             label(for="dificuldade") Dificuldade
             select.form-control(name="dificuldade" placeholder="Selecione a dificuldade")
               for dificuldade in dificuldades
-                option #{dificuldade}
+                if dificuldade === q.dificuldade
+                  option(selected) #{dificuldade}
+                else
+                  option #{dificuldade}
           .form-group
             label(for="tags") Tags
             select.form-control(name="tags" placeholder="Selecione tags" multiple)
+              for tag in q.tags
+                option(value=tag, selected) #{tag}
           h4.text-xs-center Entrada e Saída
           .alert.alert-info(role="alert") 
             | Cadastre as entradas e saídas esperadas para a questão abaixo.

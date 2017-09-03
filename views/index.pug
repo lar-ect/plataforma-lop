@@ -15,11 +15,15 @@ block content
               li.nav-item
                 a.nav-link.active(data-toggle="tab" href="#listas_exercicio" role="tab") Listas de Exercício
               li.nav-item
+                a.nav-link(data-toggle="tab" href="#listas_laboratorio" role="tab") Listas de Laboratório
+              li.nav-item
                 a.nav-link(data-toggle="tab" href="#questoes" role="tab") Questões
 
             .tab-content
+              - const listasExercicioLaboratorio = listasExercicio.filter(l => l.titulo.includes('Laboratório'))
+              - const listasExercicioRegular = listasExercicio.filter(l => !l.titulo.includes('Laboratório'))
               .tab-pane.fade.show.active(id="listas_exercicio" role="tabpanel")
-                for lista in listasExercicio
+                for lista in listasExercicioRegular
                   .article-preview
                     .article-meta
                       a.preview-link(href=`/lista/${lista._id}`)
@@ -35,6 +39,21 @@ block content
                             p Questões: #{lista.questoes.length}
                 if permissoes.temPermissao(user, 'CREATE_QUESTAO')
                   a.btn.btn-outline-primary.pull-xs-right(href='/lista/adicionar') Adicionar Lista 
+              .tab-pane.fade(id="listas_laboratorio" role="tabpanel")
+                for lista in listasExercicioLaboratorio
+                  .article-preview
+                    .article-meta
+                      a.preview-link(href=`/lista/${lista._id}`)
+                        h1 #{lista.titulo}
+                        .info
+                          if user
+                            - const progressoLista = filtrarSubmissoesLista(lista, submissoes);
+                            if progressoLista
+                              p Questões resolvidas: #{progressoLista['quantidadeResolvidas']} de #{lista.questoes.length} (#{progressoLista['porcentagem']}%)
+                            else
+                              p Questões: #{lista.questoes.length}, nenhuma resolvida
+                          else
+                            p Questões: #{lista.questoes.length}
               .tab-pane.fade(id="questoes" role="tabpanel")
                 table.table.table-sm.table-bordered.table-hover(id="questoes_table")
                   thead

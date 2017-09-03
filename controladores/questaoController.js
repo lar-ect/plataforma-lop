@@ -35,11 +35,21 @@ exports.getQuestao = async (req, res) => {
   });
 };
 
-exports.adicionarQuestao = (req, res) => {
+exports.adicionarQuestao = async (req, res) => {
+  const questaoId = req.params.id || null;
+  let questao = null;
+  if (questaoId) {
+    questao = await Questao.findOne({ _id: questaoId });
+  }
+  // Remove o _id dos resultados para que o mesmo não apareça no editor de resultados
+  for(let i = 0; i < questao.resultados.length; i++) {
+    questao.resultados[i]._id = undefined;
+  }
   res.render('editarQuestao', { 
     title: 'Adicionar Questão', 
     dificuldades: Questao.getDificuldades(),
-    classificacoes: Questao.getClassificacoes()
+    classificacoes: Questao.getClassificacoes(),
+    questao
   });
 };
 
@@ -51,7 +61,15 @@ exports.criarQuestao = async (req, res) => {
   res.redirect(`/questao/${questao._id}`);
 };
 
-exports.atualizarQuestao = (req, res) => {};
+exports.atualizarQuestao = async (req, res) => {
+  req.body.resultados = JSON.parse(req.body.resultados);
+  const questao = await Questao.findOneAndUpdate({ _id: req.params.id }, req.body, {
+    new: true, // return the new store instead of the old one
+    runValidators: true
+  }).exec();
+  req.flash("success",`Atualizou com sucesso a questão  <strong>${questao.titulo}</strong>.`);
+  res.redirect(`/questao/${questao._id}`);
+};
 
 exports.favoritarQuestao = async (req, res) => {
   const questoesFavoritas = req.user.questoesFavoritas.map(obj => obj.toString());
