@@ -7,9 +7,24 @@ block content
   .article-page
     .banner
       .container
-        h3 #{questao.titulo}
+        .row
+          h3 #{questao.titulo}
 
   .container.page
+    if listaId
+      .row
+        .col-md-12
+          .btn-group.pull-xs-right(role="group")
+            if listaId
+              a.btn.btn-outline-primary(href=`/lista/${listaId}`) Voltar a lista
+              if idQuestaoAnterior
+                a.btn.btn-outline-primary(href=`/questao/${idQuestaoAnterior}?lista=${listaId}`)
+                  i.ion-ios-arrow-back
+                  |  Anterior
+              if idProximaQuestao
+                a.btn.btn-outline-primary(href=`/questao/${idProximaQuestao}?lista=${listaId}`) Próxima  
+                  i.ion-ios-arrow-forward  
+          
     .row.article-content
       .col-md-12.col-sm-12.col-xs-12
         if user && permissoes.temPermissao(user, 'VER_SOLUCAO_QUESTAO')

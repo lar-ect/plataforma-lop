@@ -15,6 +15,10 @@ router.post('/questao/adicionar', catchErrors(questaoController.criarQuestao));
 
 router.post('/questao/adicionar/:id', catchErrors(questaoController.atualizarQuestao));
 
+/**
+ * Parâmetros:
+ *  - lista: id de uma lista de exercícios
+ */
 router.get('/questao/:id', catchErrors(questaoController.getQuestao));
 
 module.exports = router;

@@ -9,14 +9,29 @@ exports.questoes = async (req, res) => {
 };
 
 exports.getQuestao = async (req, res) => {
-  const listaId = req.query.lista || null;
-  const questao = await Questao.findOne({ _id: req.params.id });
+  const questaoId = req.params.id;
+  let lista = null, idProximaQuestao = null, idQuestaoAnterior = null;
+  if (req.query.lista) {
+    lista = await ListaExercicio.findOne({ _id: req.query.lista });
+    const questoes = lista.questoes.map(q => q.id);
+    const questaoAtualIndex = questoes.indexOf(questaoId);
+    if (questaoAtualIndex > 0) {
+      idQuestaoAnterior = questoes[questaoAtualIndex - 1];
+    }
+    
+    if (questaoAtualIndex < questoes.length - 1) {
+      idProximaQuestao = questoes[questaoAtualIndex + 1];
+    }
+  }
+  const questao = await Questao.findOne({ _id: questaoId });
   const solucao = questao.solucao || null;
   res.render('questao/questao', {
     title: questao.titulo,
     questao,
     solucao,
-    listaId
+    listaId: lista ? lista._id : null,
+    idQuestaoAnterior,
+    idProximaQuestao
   });
 };
 
