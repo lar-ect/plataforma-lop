@@ -1,42 +1,50 @@
 extends ../layout
 
 block content
-	input(type="hidden", name="listaId", value=lista._id)
-	.article-page
-		.banner
-			.container
-				h3 #{lista.titulo}
-				if user
-					|#{progresso['porcentagem']}% das questões resolvidas (#{progresso['quantidadeResolvidas']} de #{progresso['quantidadeTotal']}).
-					.progress4
-						.progress-bar4.progress-bar-striped4(role="progressbar" aria-valuenow="#{progresso['quantidadeResolvidas']}" aria-valuemin="0" aria-valuemax="#{progresso['quantidadeTotal']}" style=`width:${progresso['porcentagem']}%`)
+  input(type="hidden", name="listaId", value=lista._id)
+  .article-page
+    .banner
+      .container
+        if user && permissoes.temPermissao(user, 'CREATE_QUESTAO')
+          a.btn.btn-primary.pull-xs-right(href=`/lista/editar/${lista._id}`, title="Editar Lista")
+            span.ion-edit  Editar
+        h3 #{lista.titulo}
+        if user && lista.questoes && progresso
+          |#{progresso['porcentagem']}% das questões resolvidas (#{progresso['quantidadeResolvidas']} de #{progresso['quantidadeTotal']}).
+          .progress4
+            .progress-bar4.progress-bar-striped4(role="progressbar" aria-valuenow="#{progresso['quantidadeResolvidas']}" aria-valuemin="0" aria-valuemax="#{progresso['quantidadeTotal']}" style=`width:${progresso['porcentagem']}%`)
 
-	.container.page
-		.row
-			.col-md-12
-				for questao in lista.questoes
-					.article-preview
-						.article-meta
-							if user
-								form(name="favoritar-questao-form" method="POST" action=`/api/v1/questoes/${questao._id}/favoritar`)
-									- const questoesFavoritas = user.questoesFavoritas.map(obj => obj.toString())
-									- const btnClass = questoesFavoritas.includes(questao._id.toString()) ? 'btn-primary favoritado' : 'btn-outline-primary'
-									button.btn.btn-sm.pull-xs-right(class=btnClass type="submit" name="btn_favoritar")
-										i.ion-thumbsup
-										|  
-										span(name="btn_favoritar_likes") #{questao.likes}
-							else 
-								button.btn.btn-sm.btn-outline-primary.pull-xs-right(name="btn-favoritar-no-user")
-										i.ion-thumbsup
-										|  #{questao.likes}
-						a.preview-link(href=`/questao/${questao._id}?lista=${lista._id}`)
-							h1
-								|#{questao.titulo}  
-								if user && submissoes.has(questao._id.toString())
-									i.ion-checkmark-round.check-resolvida(title="Resolvida")
-							- const enunciado = questao.enunciado.split(' ').slice(0, 50).join(' ').concat('...');
-							p= enunciado
-							.info
-								p Dificuldade: #{questao.dificuldade}
-								if user && submissoes.has(questao._id.toString())
-										p Submissões: #{submissoes.get(questao._id.toString())}
+      
+  .container.page
+    .row
+      .col-md-12
+        - const questoesLista = lista.questoes || [];
+          if questoesLista.length === 0
+            p Não há questões na lista.
+          else
+            for questao in questoesLista
+              .article-preview
+                .article-meta
+                  if user
+                    form(name="favoritar-questao-form" method="POST" action=`/api/v1/questoes/${questao._id}/favoritar`)
+                      - const questoesFavoritas = user.questoesFavoritas.map(obj => obj.toString())
+                      - const btnClass = questoesFavoritas.includes(questao._id.toString()) ? 'btn-primary favoritado' : 'btn-outline-primary'
+                      button.btn.btn-sm.pull-xs-right(class=btnClass type="submit" name="btn_favoritar")
+                        i.ion-thumbsup
+                        |  
+                        span(name="btn_favoritar_likes") #{questao.likes}
+                  else 
+                    button.btn.btn-sm.btn-outline-primary.pull-xs-right(name="btn-favoritar-no-user")
+                        i.ion-thumbsup
+                        |  #{questao.likes}
+                a.preview-link(href=`/questao/${questao._id}?lista=${lista._id}`)
+                  h1
+                    |#{questao.titulo}  
+                    if user && submissoes.has(questao._id.toString())
+                      i.ion-checkmark-round.check-resolvida(title="Resolvida")
+                  - const enunciado = questao.enunciado.split(' ').slice(0, 50).join(' ').concat('...');
+                  p= enunciado
+                  .info
+                    p Dificuldade: #{questao.dificuldade}
+                    if user && submissoes.has(questao._id.toString())
+                        p Submissões: #{submissoes.get(questao._id.toString())}

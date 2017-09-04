@@ -26,37 +26,48 @@ block content
                 for lista in listasExercicioRegular
                   .article-preview
                     .article-meta
-                      a.pull-xs-right(href=`/lista/editar/${lista._id}`, title="Editar Lista")
-                        i.ion-edit
-                      a.preview-link(href=`/lista/${lista._id}`)
-                        h1 #{lista.titulo}
-                    .info
-                      if user
-                        - const progressoLista = filtrarSubmissoesLista(lista, submissoes);
-                        if progressoLista
-                          p Questões resolvidas: #{progressoLista['quantidadeResolvidas']} de #{lista.questoes.length} (#{progressoLista['porcentagem']}%)
-                        else
-                          p Questões: #{lista.questoes.length}, nenhuma resolvida
-                      else
-                        p Questões: #{lista.questoes.length}
-                if permissoes.temPermissao(user, 'CREATE_QUESTAO')
-                  a.btn-adicionar-lista.btn.btn-outline-primary.pull-xs-right(href='/lista/adicionar') Adicionar Lista 
-                  a.btn.btn-outline-primary.pull-xs-right(href='/lista/adicionar') Adicionar Lista 
-              .tab-pane.fade(id="listas_laboratorio" role="tabpanel")
-                for lista in listasExercicioLaboratorio
-                  .article-preview
-                    .article-meta
+                      if permissoes.temPermissao(user, 'CREATE_QUESTAO')
+                        a.pull-xs-right(href=`/lista/editar/${lista._id}`, title="Editar Lista")
+                          i.ion-edit
                       a.preview-link(href=`/lista/${lista._id}`)
                         h1 #{lista.titulo}
                         .info
                           if user
                             - const progressoLista = filtrarSubmissoesLista(lista, submissoes);
-                            if progressoLista
-                              p Questões resolvidas: #{progressoLista['quantidadeResolvidas']} de #{lista.questoes.length} (#{progressoLista['porcentagem']}%)
+                            - questoesLista = lista.questoes || []
+                            if progressoLista && questoesLista.length > 0
+                              p Questões resolvidas: #{progressoLista['quantidadeResolvidas']} de #{questoesLista.length} (#{progressoLista['porcentagem']}%)
+                            else if questoes && questoesLista.length > 0
+                              p Questões: #{questoesLista.length}, nenhuma resolvida
                             else
-                              p Questões: #{lista.questoes.length}, nenhuma resolvida
+                              p Questões: 0
                           else
                             p Questões: #{lista.questoes.length}
+                if permissoes.temPermissao(user, 'CREATE_QUESTAO')
+                  a.btn-adicionar-lista.btn.btn-outline-primary.pull-xs-right(href='/lista/adicionar') Adicionar Lista
+              .tab-pane.fade(id="listas_laboratorio" role="tabpanel")
+                for lista in listasExercicioLaboratorio
+                  .article-preview
+                    .article-meta
+                      if permissoes.temPermissao(user, 'CREATE_QUESTAO')
+                        a.pull-xs-right(href=`/lista/editar/${lista._id}`, title="Editar Lista")
+                          i.ion-edit
+                      a.preview-link(href=`/lista/${lista._id}`)
+                        h1 #{lista.titulo}
+                        .info
+                          if user
+                            - const progressoLista = filtrarSubmissoesLista(lista, submissoes);
+                            - questoesLista = lista.questoes || []
+                            if progressoLista && questoesLista.length > 0
+                              p Questões resolvidas: #{progressoLista['quantidadeResolvidas']} de #{questoesLista.length} (#{progressoLista['porcentagem']}%)
+                            else if questoesLista && questoesLista.length > 0
+                              p Questões: #{questoesLista.length}, nenhuma resolvida
+                            else
+                              p Questões: 0
+                          else
+                            p Questões: #{lista.questoes.length}
+                if permissoes.temPermissao(user, 'CREATE_QUESTAO')
+                  a.btn-adicionar-lista.btn.btn-outline-primary.pull-xs-right(href='/lista/adicionar') Adicionar Lista
               .tab-pane.fade(id="questoes" role="tabpanel")
                 table.table.table-sm.table-bordered.table-hover(id="questoes_table")
                   thead
@@ -95,10 +106,9 @@ block content
                                 i.ion-thumbsup
                                 |  #{questao.likes}
                 
-                if permissoes.temPermissao(user, 'CREATE_QUESTAO')
-                  div(id="div0")
-                    a.btn.btn-outline-primary.pull-xs-right(href='/questao/adicionar' id="adicionar_questao")
-                      |Adicionar Questão
+                if user && permissoes.temPermissao(user, 'CREATE_QUESTAO')
+                  a.btn.btn-outline-primary.pull-xs-right(href='/questao/adicionar' id="adicionar_questao")
+                    |Adicionar Questão
         .col-md-3
           .sidebar
             p Tags

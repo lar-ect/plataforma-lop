@@ -6802,7 +6802,6 @@ footer .attribution {
   border-radius: 30px;
 }
 .article-meta .info {
-  margin: 0 1.5rem 0 0.3rem;
   display: inline-block;
   vertical-align: middle;
   line-height: 1rem;
@@ -6818,8 +6817,8 @@ footer .attribution {
 }
 
 .article-preview {
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0.8rem 0;
 }
 .article-preview .article-meta {
   margin: 0 0 1rem 0;
@@ -7061,4 +7060,12 @@ footer .attribution {
 }
 .check-resolvida {
   color: green;
+}
+
+.btn-adicionar-lista {
+  margin-top: 10px;
+}
+
+.article-preview:hover {
+  background-color: #f5f5f5;
 }

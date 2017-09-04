@@ -18,7 +18,11 @@ exports.index = async (req, res) => {
 };
 
 function filtrarSubmissoesLista(lista, submissoes) {
-  return Submissao.calcularProgresso(lista.questoes.length, lista.questoes.filter(q => submissoes.has(q.toString())).length);
+  const progresso = {};
+  if (lista.questoes || lista.questoes.length > 0) {
+    return Submissao.calcularProgresso(lista.questoes.length, lista.questoes.filter(q => submissoes.has(q.toString())).length);
+  }
+  return progresso;
 }
 
 exports.sugestao = async (req, res) => {
