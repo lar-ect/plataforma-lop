@@ -11,13 +11,14 @@ block content
           h3 #{questao.titulo}
 
   .container.page
-    a.text-xs-center(href=`/questao/adicionar/${questao._id}` style="display: block;") Editar questão
+    if user && permissoes.temPermissao(user, 'CREATE_QUESTAO')
+      a.text-xs-center(href=`/questao/adicionar/${questao._id}` style="display: block;") Editar questão
     if listaId
       .row
         .col-md-12
           .btn-group.pull-xs-right(role="group")
             if listaId
-              a.btn.btn-outline-primary(href=`/lista/${listaId}`) Voltar a lista
+              a.btn.btn-outline-primary(href=`/lista/${listaId}`) Voltar à lista
               if idQuestaoAnterior
                 a.btn.btn-outline-primary(href=`/questao/${idQuestaoAnterior}?lista=${listaId}`)
                   i.ion-ios-arrow-back
