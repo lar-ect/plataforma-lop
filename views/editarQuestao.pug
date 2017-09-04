@@ -42,8 +42,9 @@ block content
           .form-group
             label(for="tags") Tags
             select.form-control(name="tags" placeholder="Selecione tags" multiple)
-              for tag in q.tags
-                option(value=tag, selected) #{tag}
+              if q.tags
+                for tag in q.tags
+                  option(value=tag, selected) #{tag}
           h4.text-xs-center Entrada e Saída
           .alert.alert-info(role="alert") 
             | Cadastre as entradas e saídas esperadas para a questão abaixo.

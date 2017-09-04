@@ -40,11 +40,12 @@ exports.adicionarQuestao = async (req, res) => {
   let questao = null;
   if (questaoId) {
     questao = await Questao.findOne({ _id: questaoId });
+    // Remove o _id dos resultados para que o mesmo não apareça no editor de resultados
+    for(let i = 0; i < questao.resultados.length; i++) {
+      questao.resultados[i]._id = undefined;
+    }
   }
-  // Remove o _id dos resultados para que o mesmo não apareça no editor de resultados
-  for(let i = 0; i < questao.resultados.length; i++) {
-    questao.resultados[i]._id = undefined;
-  }
+  
   res.render('editarQuestao', { 
     title: 'Adicionar Questão', 
     dificuldades: Questao.getDificuldades(),

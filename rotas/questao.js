@@ -8,6 +8,11 @@ const { catchErrors } = require('../negocio/errorHandlers');
 // Questões
 router.get('/questoes', catchErrors(questaoController.questoes));
 
+router.get('/questao/adicionar',
+  authController.isLoggedIn,
+  authController.temPermissao('CREATE_QUESTAO'),
+  catchErrors(questaoController.adicionarQuestao));
+
 router.get('/questao/adicionar/:id', 
   authController.isLoggedIn,
   authController.temPermissao('CREATE_QUESTAO'), 
