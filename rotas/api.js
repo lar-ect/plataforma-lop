@@ -8,9 +8,9 @@ const { catchErrors } = require('../negocio/errorHandlers');
 // API v1
 router.post('/api/v1/questoes/:id/favoritar', questaoController.favoritarQuestao);
 
-router.post('/api/v1/executar', catchErrors(apiController.executarCodigo));
+router.post('/api/v1/executar', apiController.incrementarExecucoes, catchErrors(apiController.executarCodigo));
 
-router.post('/api/v1/executar/questao', catchErrors(apiController.executarCodigoQuestao));
+router.post('/api/v1/executar/questao', apiController.incrementarExecucoes, catchErrors(apiController.executarCodigoQuestao));
 
 router.post('/api/v1/executar/questao-com-resultados', apiController.executarCodigoComResultado);
 
