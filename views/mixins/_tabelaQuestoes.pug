@@ -25,13 +25,16 @@ mixin tabelaQuestoes(questoes)
 					td
 						if user
 							form(name="favoritar-questao-form" method="POST" action=`/api/v1/questoes/${questao._id}/favoritar`)
-							- const questoesFavoritas = user.questoesFavoritas.map(obj => obj.toString())
-							- const btnClass = questoesFavoritas.includes(questao._id.toString()) ? 'btn-primary favoritado' : 'btn-outline-primary'
-							button.btn.btn-sm(class=btnClass type="submit" name="btn_favoritar")
-								i.ion-thumbsup
-								|  
-								span(name="btn_favoritar_likes") #{questao.likes}
+								- const questoesFavoritas = user.questoesFavoritas.map(obj => obj.toString())
+								- const btnClass = questoesFavoritas.includes(questao._id.toString()) ? 'is-primary favoritado' : 'is-primary is-outlined'
+								button.button.is-small(class=btnClass type="submit" name="btn_favoritar")
+									span.icon.is-small
+										i.fa.fa-thumbs-o-up 
+									| 
+									span(name="btn_favoritar_likes") #{questao.likes}
 						else 
-							button.btn.btn-sm.btn-outline-primary(name="btn-favoritar-no-user")
-								i.ion-thumbsup
-								|  #{questao.likes}
+							button.button.is-small.is-primary.is-outlined(name="btn-favoritar-no-user")
+								span.icon.is-small
+									i.fa.fa-thumbs-o-up
+								|
+								span #{questao.likes}

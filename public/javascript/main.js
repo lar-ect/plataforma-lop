@@ -7,10 +7,10 @@ import hljs from 'highlight.js/lib/highlight';
 import 'highlight.js/styles/solarized-dark.css';
 import axios from 'axios';
 
-const $alerts = $('.flash-message');
-if ($alerts.length > 0) {
+const $notifications = $('.notification');
+if ($notifications.length > 0) {
   setTimeout(() => {
-    $alerts.each(function() {
+    $notifications.each(function() {
       $(this).children(':first').click();
     });
   }, 3000);
