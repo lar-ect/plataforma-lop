@@ -1,0 +1,22 @@
+mixin listaCard(lista)
+  .card
+    header.card-header
+      p.card-header-title #{lista.titulo}
+      a.card-header-icon
+        span.icon: i.fa.fa-angle-down
+    .card-content
+      - const questoesLista = lista.questoes || []
+      if user
+        - const progressoLista = filtrarSubmissoesLista(lista, submissoes);
+        if progressoLista && questoesLista.length > 0
+          p Questões resolvidas: #{progressoLista['quantidadeResolvidas']} de #{questoesLista.length} (#{progressoLista['porcentagem']}%)
+        else if questoes && questoesLista.length > 0
+          p Questões: #{questoesLista.length}, nenhuma resolvida.
+        else
+          p Questões: 0
+      else
+        p Questões: #{lista.questoes.length}
+    footer.card-footer
+      a.card-footer-item(href=`/lista/${lista._id}`) Ver questões
+      if permissoes.temPermissao(user, 'CREATE_QUESTAO')
+        a.card-footer-item(href=`/lista/editar/${lista._id}`, title="Editar lista") Editar
