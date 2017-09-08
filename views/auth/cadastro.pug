@@ -1,29 +1,46 @@
 extends ../layout
 
 block content
-  .auth-page
-    .container.page
-      .row
-        .col-md-6.offset-md-3.col-xs-12
-          h1.text-xs-center Cadastro
-          p.text-xs-center Já possui uma conta?
+  section.section
+    .container
+      .columns
+        .column.is-half.is-offset-one-quarter
+          h1.title Cadastro
+          p.subtitle Já possui uma conta?
             | 
             a(href="/login") Entre
             
           form(action="/cadastro" method="POST")
-            fieldset.form-group
-              input.form-control.form-control-lg(type="text", name="nome", placeholder="Digite seu nome")
-
-            fieldset.form-group
-              input.form-control.form-control-lg(type="text", name="matricula", placeholder="Digite sua matrícula")
-
-            fieldset.form-group
-              input.form-control.form-control-lg(type="email", name="email", placeholder="Digite seu e-mail")
-          
-            fieldset.form-group
-              input.form-control.form-control-lg(type="password", name="password", placeholder="Digite sua senha")
-
-            fieldset.form-group
-              input.form-control.form-control-lg(type="password", name="password-confirm", placeholder="Digite sua senha novamente")
-
-            button.btn.btn-primary.btn-block(type="submit") Cadastrar
+            .field
+              label.label Nome
+              .control.has-icons-left
+                input.input(type="text", name="nome", placeholder="Digite seu nome")
+                span.icon.is-small.is-left
+                  i.fa.fa-user
+            .field
+              label.label Matrícula
+              .control.has-icons-left
+                input.input(type="text", name="matricula", placeholder="Digite sua matrícula")
+                span.icon.is-small.is-left
+                  i.fa.fa-id-card
+            .field
+              label.label Email
+              .control.has-icons-left
+                input.input(type="email", name="email", placeholder="Digite seu e-mail")
+                span.icon.is-small.is-left
+                  i.fa.fa-envelope
+            .field
+              label.label Senha
+              .control.has-icons-left
+                input.input(type='password', name='password', placeholder='Digite sua senha')
+                span.icon.is-small.is-left
+                  i.fa.fa-lock
+            .field
+              label.label Senha
+              .control.has-icons-left
+                input.input(type='password', name='password-confirm', placeholder='Digite sua senha novamente')
+                span.icon.is-small.is-left
+                  i.fa.fa-lock
+            .field
+              .control
+                button.button.is-primary(type="submit") Cadastrar
