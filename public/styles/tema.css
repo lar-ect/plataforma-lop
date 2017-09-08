@@ -53,3 +53,11 @@ body {
 .m-b-16 {
   margin-bottom: 16px;
 }
+
+/* Perfil */
+.user-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    margin-bottom: 1rem;
+}
