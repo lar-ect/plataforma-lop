@@ -46,5 +46,10 @@ block content
       .tab-content(id="questoes")
         +tabelaQuestoes(questoes)
         
+block styles
+  link(rel="stylesheet", href="/js/vendors/footable/css/footable.standalone.min.css", type="text/css")
+
 block scripts
+  script(src="/js/vendors/footable/js/footable.min.js")
+  script(src="/js/footables.js")
   script(src="/dist/index.bundle.js")

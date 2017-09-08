@@ -1,10 +1,11 @@
 mixin tabelaQuestoes(questoes)
-	table.table.is-bordered.is-striped.is-narrow.is-fullwidth(id="questoes_table")
+	table.table.is-bordered.is-striped.is-narrow.is-fullwidth(id="questoes_tabela")
 		thead
 			tr
 			th Título
-			th Lista
+			th(data-name="lista") Lista
 			th Classificação
+			th(data-breakpoints="all") Enunciado
 			if user
 				th Submissões
 			th
@@ -20,6 +21,7 @@ mixin tabelaQuestoes(questoes)
 					else
 						td
 					td #{questao.classificacao}
+					td #{questao.enunciado}
 					if user
 						td #{submissoes.has(questao._id.toString()) ? submissoes.get(questao._id.toString()) : 0}
 					td
