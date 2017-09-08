@@ -34,7 +34,7 @@ block content
       - const listasExercicioLaboratorio = listasExercicio.filter(l => l.titulo.includes('Laboratório'))
       - const listasExercicioRegular = listasExercicio.filter(l => !l.titulo.includes('Laboratório'))
       .tab-content.current-tab(id="listas_exercicio")
-        .columns
+        .columns.is-multiline.is-tablet
           for lista in listasExercicioRegular
             .column.is-half
               +listaCard(lista)
