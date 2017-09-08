@@ -1,29 +1,42 @@
 extends ../layout
 
 block content
-  .auth-page
-    .container.page
-      .row
-        .col-md-6.offset-md-3.col-xs-12
-          h1.text-xs-center Login
-          p.text-xs-center Não possui uma conta? 
+  section.section
+    .container
+      .columns
+        .column.is-half.is-offset-one-quarter
+          h1.title Login
+          h2.subtitle Não possui uma conta?
             | 
             a(href="/cadastro") Cadastre-se
-            
-          form(action="/login" method="POST")
-            fieldset.form-group
-              input.form-control.form-control-lg(type="email", name="email", placeholder="Digite seu e-mail")
           
-            fieldset.form-group
-              input.form-control.form-control-lg(type="password", name="password", placeholder="Digite sua senha")
+          form(action="/login" method="POST")
+            .field
+              label.label Email
+              .control.has-icons-left
+                input.input(type="email", name="email", placeholder="Digite seu e-mail")
+                span.icon.is-small.is-left
+                  i.fa.fa-envelope
 
-            button.btn.btn-primary.btn-block(type="submit") Entrar
+            .field
+              label.label Senha
+              .control.has-icons-left
+                input.input(type='password', name='password', placeholder='Digite sua senha')
+                span.icon.is-small.is-left
+                  i.fa.fa-lock
 
-          br
-          h3.text-xs-center Esqueceu sua senha?
-          form.form(action="/conta/esqueceu-senha" method="POST")
-            fieldset.form-group
-              input.form-control.form-control-lg(type="email", name="email", placeholder="Digite seu email")
-
-            button.btn.btn-primary.btn-block(type="submit") Resetar senha
-        
+            .field
+              .control
+                button.button.is-primary(type="submit") Entrar
+          hr
+          h2.subtitle Esqueceu sua senha?
+          form(action="/conta/esqueceu-senha" method="POST")
+            .field
+              label.label Email
+              .control.has-icons-left
+                input.input(type="email", name="email", placeholder="Digite seu e-mail")
+                span.icon.is-small.is-left
+                  i.fa.fa-envelope
+            field
+              .control
+                button.button.is-primary(type="submit") Resetar senha

@@ -45,80 +45,12 @@ block content
               +listaCard(lista)
       .tab-content(id="questoes")
         +tabelaQuestoes(questoes)
-
-  .container.page
-    .row
-      .col-md-9
-        .feed-toggle
-          //- ul.nav.nav-pills.outline-active(role="tablist")
-            li.nav-item
-              a.nav-link.active(data-toggle="tab" href="#listas_exercicio" role="tab") Listas de Exercício
-            li.nav-item
-              a.nav-link(data-toggle="tab" href="#listas_laboratorio" role="tab") Listas de Laboratório
-            li.nav-item
-              a.nav-link(data-toggle="tab" href="#questoes" role="tab") Questões
-
-          //- .tab-content
-            - const listasExercicioLaboratorio = listasExercicio.filter(l => l.titulo.includes('Laboratório'))
-            - const listasExercicioRegular = listasExercicio.filter(l => !l.titulo.includes('Laboratório'))
-            .tab-pane.fade.show.active(id="listas_exercicio" role="tabpanel")
-              for lista in listasExercicioRegular
-                .article-preview
-                  .article-meta
-                    if permissoes.temPermissao(user, 'CREATE_QUESTAO')
-                      a.pull-xs-right(href=`/lista/editar/${lista._id}`, title="Editar Lista")
-                        i.ion-edit
-                    a.preview-link(href=`/lista/${lista._id}`)
-                      h1 #{lista.titulo}
-                      .info
-                        if user
-                          - const progressoLista = filtrarSubmissoesLista(lista, submissoes);
-                          - questoesLista = lista.questoes || []
-                          if progressoLista && questoesLista.length > 0
-                            p Questões resolvidas: #{progressoLista['quantidadeResolvidas']} de #{questoesLista.length} (#{progressoLista['porcentagem']}%)
-                          else if questoes && questoesLista.length > 0
-                            p Questões: #{questoesLista.length}, nenhuma resolvida
-                          else
-                            p Questões: 0
-                        else
-                          p Questões: #{lista.questoes.length}
-              if permissoes.temPermissao(user, 'CREATE_QUESTAO')
-                a.btn-adicionar-lista.btn.btn-outline-primary.pull-xs-right(href='/lista/adicionar') Adicionar Lista
-            .tab-pane.fade(id="listas_laboratorio" role="tabpanel")
-              for lista in listasExercicioLaboratorio
-                .article-preview
-                  .article-meta
-                    if permissoes.temPermissao(user, 'CREATE_QUESTAO')
-                      a.pull-xs-right(href=`/lista/editar/${lista._id}`, title="Editar Lista")
-                        i.ion-edit
-                    a.preview-link(href=`/lista/${lista._id}`)
-                      h1 #{lista.titulo}
-                      .info
-                        if user
-                          - const progressoLista = filtrarSubmissoesLista(lista, submissoes);
-                          - questoesLista = lista.questoes || []
-                          if progressoLista && questoesLista.length > 0
-                            p Questões resolvidas: #{progressoLista['quantidadeResolvidas']} de #{questoesLista.length} (#{progressoLista['porcentagem']}%)
-                          else if questoesLista && questoesLista.length > 0
-                            p Questões: #{questoesLista.length}, nenhuma resolvida
-                          else
-                            p Questões: 0
-                        else
-                          p Questões: #{lista.questoes.length}
-              if permissoes.temPermissao(user, 'CREATE_QUESTAO')
-                a.btn-adicionar-lista.btn.btn-outline-primary.pull-xs-right(href='/lista/adicionar') Adicionar Lista
-            .tab-pane.fade(id="questoes" role="tabpanel")
-              
-              
-              if user && permissoes.temPermissao(user, 'CREATE_QUESTAO')
-                a.btn.btn-outline-primary.pull-xs-right(href='/questao/adicionar' id="adicionar_questao")
-                  |Adicionar Questão
-      //- .col-md-3
-        .sidebar
-          p Tags
-          .tag-list
-            for tag in tags
-              a.tag-pill.tag-default(href='') #{tag}
+        
+block styles
+  link(rel="stylesheet", href="/js/vendors/footable/css/footable.standalone.min.css", type="text/css")
 
 block scripts
+  script(src="/js/vendors/footable/js/footable.min.js")
+  script(src="/js/tabelas/ListaFilter.js")
+  script(src="/js/tabelas/questoes.js")
   script(src="/dist/index.bundle.js")

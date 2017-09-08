@@ -69,7 +69,7 @@ exports.executarCodigoQuestao = async (req, res) => {
   const resultados = [];
   for (let i = 0; i < resultadosEsperados.length; i++) {
     resultados.push({
-      entrada: resultadosEsperados[i].entradas.join(" "),
+      entrada: `[${resultadosEsperados[i].entradas.join(", ")}]`,
       saida: executar(codigo, resultadosEsperados[i].entradas),
       saidaEsperada: resultadosEsperados[i].saida
     });
