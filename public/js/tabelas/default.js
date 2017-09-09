@@ -12,6 +12,7 @@ $(function() {
         sorting: {
             enabled: true
         },
-        showToggle: true
+        showToggle: true,
+        empty: 'Nenhum resultado'
     });
 });

@@ -20,7 +20,11 @@ block content
               h1.title.has-text-dark.is-size-5 Obrigado a todos pelas sugestões!
               p.has-text-justify Muitos usuários enviaram sugestões para melhorar o sistema e gostaríamos de agradecer a todos! Estamos trabalhando para implementar todas as sugestões de vocês 😁. O design do sistema também mudou! Adorariamos ouvir o que vocês acharam do novo layout. Continuem mandando feedback através do menu superior, estamos lendo tudo! 👏
               br
-              p Algumas das sugestões enviadas que foram implementadas no sistema:
+              p.has-text-justify Estamos trabalhando para adicionar novas questões, questões de desafio e questões de provas anteriores. Se você gosta de programação web e deseja ajudar de alguma forma, entre em contato com Gabriel pelo email: 
+              b.has-text-center tibuurcio@gmail.com
+              p.has-text-center Precisamos da sua ajuda! 👍
+              br
+              p(style="text-decoration: underline") Algumas das sugestões de vocês que já estão no sistema:
               ul
                 li(style="font-weight: 600;") Navegação nas listas (voltar, anterior, próxima questão)
                 li(style="font-weight: 600;") Progresso das listas de exercícios
@@ -28,17 +32,14 @@ block content
                 li(style="font-weight: 600;") Melhorias nas submissões
                 li(style="font-weight: 600;") Abrir uma nova janela com as funções disponíveis
               br
-              p.has-text-justify Se você gosta de programação web e deseja ajudar de alguma forma, entre em contato com Gabriel pelo email: 
-                b tibuurcio@gmail.com
-              p.has-text-justify Estamos trabalhando para adicionar novas questões, questões de desafio e questões de provas anteriores, entretanto esse é um trabalho que leva um pouco de tempo. Ainda há muito o que fazer, por isso precisamos da sua ajuda! 👍 
-              br
-              p Sugestões e novas funcionalidades que estão sendo trabalhadas
+              p(style="text-decoration: underline") Sugestões e novas funcionalidades que estão sendo trabalhadas:
               ul
                 li(style="font-weight: 600;") Permitir edição das informações do perfil
                 li(style="font-weight: 600;") Agrupar submissões de uma mesma questão pelo melhor resultado
                 li(style="font-weight: 600;") Adicionar conteúdos de programação em geral
                 li(style="font-weight: 600;") Mais listas e questões variadas
                 li(style="font-weight: 600;") Área de dúvidas e discussões com os monitores/professores
+                li(style="font-weight: 600;") Integração com o processing (p5.js)
           button.modal-close.is-large(aria-label="close")
 
     .hero-foot
@@ -60,6 +61,12 @@ block content
                 span.icon.is-small
                   i.fa.fa-file-text-o
                 span Questões
+            if questoesOcultas && permissoes.temPermissao(user, 'VER_QUESTOES_OCULTAS')
+              li(data-tab="questoes_ocultas")
+                a 
+                  span.icon.is-small
+                    i.fa.fa-file-text-o
+                  span Questões ocultas
             
   section.m-t-16.m-b-16
     .container.is-fluid
@@ -77,9 +84,13 @@ block content
               +listaCard(lista)
       .tab-content(id="questoes")
         +tabelaQuestoes(questoes)
+      if questoesOcultas && permissoes.temPermissao(user, 'VER_QUESTOES_OCULTAS')
+        .tab-content(id="questoes_ocultas")
+          +tabelaQuestoes(questoesOcultas)
         
 block styles
   link(rel="stylesheet", href="/js/vendors/footable/css/footable.standalone.min.css", type="text/css")
+  link(rel="stylesheet", href="/js/vendors/footable/css/footable.custom.css", type="text/css")
 
 block scripts
   script(src="/js/vendors/footable/js/footable.min.js")

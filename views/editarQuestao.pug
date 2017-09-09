@@ -1,78 +1,106 @@
 extends layout
 
+include mixins/forms/_inputs
+
 block content
-  #app
-  .container.page
-    .row
-      .col-md-10.offset-md-1.col-xs-12
-        h1.text-xs-center Nova questão
-        - const q = questao || {};
-        form(id="form-questao" action=`/questao/adicionar/${q._id || ''}` method='POST')
-          if q
-            if q.resultados
-              input(hidden, value=JSON.stringify(q.resultados), name="resultados")
-            else 
-              input(hidden, name="resultados")
+	section.hero.is-dark.shadow-inside
+		.hero-body
+			.container.has-text-centered
+				h1.title.title-with-shadow.is-size-2 Nova questão
+	
+	section.m-t-16
+		.container
+			- const q = questao || {};
+			form(id="form-questao" action=`/questao/adicionar/${q._id || ''}` method='POST')
+				if q
+					if q.resultados
+						input(hidden, value=JSON.stringify(q.resultados), name="resultados")
+					else 
+						input(hidden, name="resultados")
 
-            if q.solucao
-              textarea(style="display: none;", name="solucao")= q.solucao
-            else
-              textarea(style="display: none;", name="solucao")
-              
-          .form-group
-            input.form-control.form-control-lg(type="text" name="titulo" value=q.titulo placeholder="Título")
-          .form-group
-            textarea.form-control(rows="5", name="enunciado", placeholder="Enunciado")= q.enunciado
-          .form-group
-            label(for="classificacao") Classificação
-            select.form-control(name="classificacao" placeholder="Selecione a classificação")
-              for classificacao in classificacoes
-                if classificacao === q.classificacao
-                  option(selected) #{classificacao}
-                else
-                  option #{classificacao}
-          .form-group
-            label(for="dificuldade") Dificuldade
-            select.form-control(name="dificuldade" placeholder="Selecione a dificuldade")
-              for dificuldade in dificuldades
-                if dificuldade === q.dificuldade
-                  option(selected) #{dificuldade}
-                else
-                  option #{dificuldade}
-          .form-group
-            label(for="tags") Tags
-            select.form-control(name="tags" placeholder="Selecione tags" multiple)
-              if q.tags
-                for tag in q.tags
-                  option(value=tag, selected) #{tag}
-          h4.text-xs-center Entrada e Saída
-          .alert.alert-info(role="alert") 
-            | Cadastre as entradas e saídas esperadas para a questão abaixo.
-            br  
-            strong Nota: 
-            |  Exemplo de entrada e exemplo de saída não são obrigatórios. Vetor de resultados é obrigatório.
-          #json_editor(style="width: 100%; height: 400px;")
-          br
-          h4.text-xs-center Solução
-          .row
-            .col-md-6.col-sm-12.col-xs-12
-              div(id="questao-editor")
-            .col-md-6.col-sm-12.col-xs-12
-              button.btn.btn-outline-primary.btn-block(id="btn-enviar-codigo", type="button") Executar
+					if q.solucao
+						textarea(style="display: none;", name="solucao")= q.solucao
+					else
+						textarea(style="display: none;", name="solucao")
+					
+					.field.has-text-centered
+						input.switch(type="checkbox" name="oculta" id="questao-oculta" checked=q.oculta)
+						label(for="questao-oculta") Oculta (para uso em provas)
+						
+					+input({ 
+						label: 'Título', 
+						name: 'titulo',
+						placeholder: 'Digite o título da questão', 
+						icon: 'i-cursor', 
+						value: q.titulo 
+					})
 
-              h4(style="margin-top: 10px;") Saída do seu código
-              ul.list-group(id="resultados-container")
-          .row
-            .col-md-4.col-md-offset-4
-              input.btn.btn-primary.btn-block(type="submit" value="Salvar")
+					+textarea({
+						row: 5,
+						name: 'enunciado',
+						label: 'Enunciado',
+						value: q.enunciado
+					})
+
+					.columns
+						.column
+							+select({ 
+								name: 'classificacao',
+								label: 'Classificação', 
+								placeholder: 'Selecione a classificação', 
+								options: classificacoes, 
+								value: q.classificacao,
+								icon: 'certificate'
+							})
+						.column
+							+select({ 
+								name: 'dificuldade',
+								label: 'Dificuldade', 
+								placeholder: 'Selecione a dificuldade', 
+								options: dificuldades, 
+								value: q.dificuldade ,
+								icon: 'star'
+							})
+							
+					.field
+						label.label Tags
+						.select.is-fullwidth.is-primary
+							select(name="tags" placeholder="Selecione tags" multiple)
+								if q.tags
+									for tag in q.tags
+										option(value=tag, selected) #{tag}
+
+					h2.title.has-text-centered Entrada e Saída
+					article.message.is-info(role="alert") 
+						.message-body
+							| Cadastre as entradas e saídas esperadas para a questão abaixo.
+							br  
+							strong Nota: 
+							|  Exemplo de entrada e exemplo de saída não são obrigatórios. Vetor de resultados é obrigatório.
+
+					#json_editor(style="width: 100%; height: 400px;")
+					h4.title.has-text-centered.m-t-16 Solução
+					.container.m-t-16
+						.columns
+							.column.is-half
+								div(id="questao-editor")
+							.column.is-half
+								button.button.is-primary.is-outlined.is-fullwidth(id="btn-enviar-codigo")
+									span.icon.is-small
+										i.fa.fa-cog
+									span Executar
+          
+								h4.subtitle.m-t-16.no-margin-bottom Saída dos casos de teste
+								ul.list-group(id="resultados-container")
+					
+					input.button.is-primary.is-fullwidth.is-large.m-t-16.m-b-16(type="submit" value="Salvar")
 
 block styles
-  link(href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet")
-  link(rel="stylesheet" href="/dist/jsoneditor/dist/jsoneditor.min.css")
+	link(href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet")
+	link(rel="stylesheet" href="/dist/jsoneditor/dist/jsoneditor.min.css")
 
 block scripts
-  script(src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js")
-  script(src="/dist/jsoneditor/dist/jsoneditor.min.js")
-  script(src="/dist/jquery.are-you-sure.js")
-  script(src="/dist/Questao.bundle.js")
-  
+	script(src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js")
+	script(src="/dist/jsoneditor/dist/jsoneditor.min.js")
+	script(src="/dist/jquery.are-you-sure.js")
+	script(src="/dist/Questao.bundle.js")

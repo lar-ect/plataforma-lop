@@ -3,15 +3,28 @@ const Questao = mongoose.model('Questao');
 const ListaExercicio = mongoose.model('ListaExercicio');
 const Sugestao = mongoose.model('Sugestao');
 const Submissao = mongoose.model('Submissao');
+const permissoes = require('../dominio/Permissoes');
 
 exports.index = async (req, res) => {
-  const questoes = await Questao.find({});
+  const questoes = await Questao.find({oculta: {$in: [null, false]}});
   const listasExercicio = await ListaExercicio.find({});
   const tags = await Questao.find().distinct('tags');
   const progressoLista = new Map();
   if (req.user) {
     const submissoes = await Submissao.listarSubmissoesUsuario(req.user);
-    res.render('index', { title: 'Início', questoes, listasExercicio, tags, submissoes, filtrarSubmissoesLista });
+    let questoesOcultas = null;
+    if (permissoes.temPermissao(req.user, 'VER_QUESTOES_OCULTAS')) {
+      questoesOcultas = await Questao.find({oculta: true});
+    }
+    res.render('index', { 
+      title: 'Início', 
+      questoes, 
+      listasExercicio, 
+      tags, 
+      submissoes, 
+      filtrarSubmissoesLista,
+      questoesOcultas
+    });
   } else {
     res.render('index', { title: 'Início', questoes, listasExercicio, tags });
   }

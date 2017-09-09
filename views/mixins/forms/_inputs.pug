@@ -1,0 +1,30 @@
+mixin input({ label, type, name, placeholder, icon, value })
+	.field
+		if label
+			label.label= label
+		.control(class=`${icon ? 'has-icons-left' : ''}`)
+			input.input.is-primary(type=`${type || 'text'}`, name=name, placeholder=placeholder, value=value)
+			if icon
+			span.icon.is-small.is-left
+				i.fa(class=`fa-${icon}`)
+
+mixin textarea({ rows, name, label, placeholder, value })
+	.field
+		label.label= label
+		.control
+			textarea.textarea.is-primary(rows=rows, name=nae, placeholder=`${placeholder ? placeholder : ''}`)= value
+
+mixin select({ name, label, placeholder, options, value, icon })
+	.field
+		label.label= label
+		.control(class=`${icon ? 'has-icons-left' : ''}`)
+			.select.is-fullwidth.is-primary
+				select(name=name placeholder=placeholder)
+					for opt in options
+						if opt === value
+							option(selected) #{opt}
+						else
+							option #{opt}
+			if icon
+				.icon.is-small.is-left
+					i.fa(class=`fa-${icon}`)

@@ -6,7 +6,7 @@ const authController = require('../controladores/authController');
 const { catchErrors } = require('../negocio/errorHandlers');
 
 // Questões
-router.get('/questoes', catchErrors(questaoController.questoes));
+// router.get('/questoes', catchErrors(questaoController.questoes));
 
 router.get('/questao/adicionar',
   authController.isLoggedIn,

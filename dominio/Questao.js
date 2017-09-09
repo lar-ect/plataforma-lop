@@ -7,6 +7,12 @@ const classificacoes = ['Fixação', 'Complementar', 'Avançado'];
 
 const questaoSchema = new mongoose.Schema(
   {
+    oculta: {
+      required: true,
+      type: Boolean,
+      default: false,
+      index: true
+    },
     titulo: {
       type: String,
       required: 'Forneça um título',

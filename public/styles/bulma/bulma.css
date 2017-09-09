@@ -9585,4 +9585,437 @@ a.tag:hover {
   background-color: whitesmoke;
   padding: 3rem 1.5rem 6rem;
 }
+
+.switch[type="checkbox"] {
+  outline: 0;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  position: absolute;
+  margin-bottom: 0;
+  opacity: 0;
+  left: 0;
+}
+
+.switch[type="checkbox"][disabled] {
+  cursor: not-allowed;
+}
+
+.switch[type="checkbox"][disabled] + label {
+  opacity: 0.5;
+}
+
+.switch[type="checkbox"][disabled] + label::before {
+  opactiy: 0.5;
+}
+
+.switch[type="checkbox"][disabled] + label::after {
+  opactiy: 0.5;
+}
+
+.switch[type="checkbox"][disabled] + label:hover {
+  cursor: not-allowed;
+}
+
+.switch[type="checkbox"] + label {
+  position: relative;
+  display: inline-block;
+  font-size: 1rem;
+  padding-left: 3.5rem;
+  cursor: pointer;
+}
+
+.switch[type="checkbox"] + label::before {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 3rem;
+  height: 1.5rem;
+  border: 0.1rem solid transparent;
+  border-radius: 3px;
+  background: #b5b5b5;
+  content: '';
+}
+
+.switch[type="checkbox"] + label::after {
+  display: block;
+  position: absolute;
+  top: 0.25rem;
+  left: 0.25rem;
+  width: 1rem;
+  height: 1rem;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+  border-radius: 3px;
+  background: white;
+  -webkit-transition: all 0.25s ease-out;
+  transition: all 0.25s ease-out;
+  content: '';
+}
+
+.switch[type="checkbox"]:checked + label::before {
+  background: #006CB5;
+}
+
+.switch[type="checkbox"]:checked + label::after {
+  left: 1.625rem;
+}
+
+.switch[type="checkbox"].is-outlined + label::before {
+  background-color: transparent;
+  border-color: #b5b5b5;
+}
+
+.switch[type="checkbox"].is-outlined + label::after {
+  background: #b5b5b5;
+}
+
+.switch[type="checkbox"].is-outlined:checked + label::before {
+  background-color: transparent;
+  border-color: #006CB5;
+}
+
+.switch[type="checkbox"].is-outlined:checked + label::after {
+  background: #006CB5;
+}
+
+.switch[type="checkbox"].is-rounded + label::before {
+  border-radius: 20px;
+}
+
+.switch[type="checkbox"].is-rounded + label::after {
+  border-radius: 50%;
+}
+
+.switch[type="checkbox"].is-small + label {
+  position: relative;
+  display: inline-block;
+  font-size: 0.75rem;
+  padding-left: 2.75rem;
+  cursor: pointer;
+}
+
+.switch[type="checkbox"].is-small + label::before {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 2.25rem;
+  height: 1.125rem;
+  border: 0.1rem solid transparent;
+  border-radius: 3px;
+  background: #b5b5b5;
+  content: '';
+}
+
+.switch[type="checkbox"].is-small + label::after {
+  display: block;
+  position: absolute;
+  top: 0.25rem;
+  left: 0.25rem;
+  width: 0.625rem;
+  height: 0.625rem;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+  border-radius: 3px;
+  background: white;
+  -webkit-transition: all 0.25s ease-out;
+  transition: all 0.25s ease-out;
+  content: '';
+}
+
+.switch[type="checkbox"].is-small:checked + label::before {
+  background: #006CB5;
+}
+
+.switch[type="checkbox"].is-small:checked + label::after {
+  left: 1.25rem;
+}
+
+.switch[type="checkbox"].is-small.is-outlined + label::before {
+  background-color: transparent;
+  border-color: #b5b5b5;
+}
+
+.switch[type="checkbox"].is-small.is-outlined + label::after {
+  background: #b5b5b5;
+}
+
+.switch[type="checkbox"].is-small.is-outlined:checked + label::before {
+  background-color: transparent;
+  border-color: #006CB5;
+}
+
+.switch[type="checkbox"].is-small.is-outlined:checked + label::after {
+  background: #006CB5;
+}
+
+.switch[type="checkbox"].is-small.is-rounded + label::before {
+  border-radius: 20px;
+}
+
+.switch[type="checkbox"].is-small.is-rounded + label::after {
+  border-radius: 50%;
+}
+
+.switch[type="checkbox"].is-medium + label {
+  position: relative;
+  display: inline-block;
+  font-size: 1.25rem;
+  padding-left: 4.25rem;
+  cursor: pointer;
+}
+
+.switch[type="checkbox"].is-medium + label::before {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 3.75rem;
+  height: 1.875rem;
+  border: 0.1rem solid transparent;
+  border-radius: 3px;
+  background: #b5b5b5;
+  content: '';
+}
+
+.switch[type="checkbox"].is-medium + label::after {
+  display: block;
+  position: absolute;
+  top: 0.25rem;
+  left: 0.25rem;
+  width: 1.375rem;
+  height: 1.375rem;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+  border-radius: 3px;
+  background: white;
+  -webkit-transition: all 0.25s ease-out;
+  transition: all 0.25s ease-out;
+  content: '';
+}
+
+.switch[type="checkbox"].is-medium:checked + label::before {
+  background: #006CB5;
+}
+
+.switch[type="checkbox"].is-medium:checked + label::after {
+  left: 2rem;
+}
+
+.switch[type="checkbox"].is-medium.is-outlined + label::before {
+  background-color: transparent;
+  border-color: #b5b5b5;
+}
+
+.switch[type="checkbox"].is-medium.is-outlined + label::after {
+  background: #b5b5b5;
+}
+
+.switch[type="checkbox"].is-medium.is-outlined:checked + label::before {
+  background-color: transparent;
+  border-color: #006CB5;
+}
+
+.switch[type="checkbox"].is-medium.is-outlined:checked + label::after {
+  background: #006CB5;
+}
+
+.switch[type="checkbox"].is-medium.is-rounded + label::before {
+  border-radius: 20px;
+}
+
+.switch[type="checkbox"].is-medium.is-rounded + label::after {
+  border-radius: 50%;
+}
+
+.switch[type="checkbox"].is-large + label {
+  position: relative;
+  display: inline-block;
+  font-size: 1.5rem;
+  padding-left: 5rem;
+  cursor: pointer;
+}
+
+.switch[type="checkbox"].is-large + label::before {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 4.5rem;
+  height: 2.25rem;
+  border: 0.1rem solid transparent;
+  border-radius: 3px;
+  background: #b5b5b5;
+  content: '';
+}
+
+.switch[type="checkbox"].is-large + label::after {
+  display: block;
+  position: absolute;
+  top: 0.25rem;
+  left: 0.25rem;
+  width: 1.75rem;
+  height: 1.75rem;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+  border-radius: 3px;
+  background: white;
+  -webkit-transition: all 0.25s ease-out;
+  transition: all 0.25s ease-out;
+  content: '';
+}
+
+.switch[type="checkbox"].is-large:checked + label::before {
+  background: #006CB5;
+}
+
+.switch[type="checkbox"].is-large:checked + label::after {
+  left: 2.375rem;
+}
+
+.switch[type="checkbox"].is-large.is-outlined + label::before {
+  background-color: transparent;
+  border-color: #b5b5b5;
+}
+
+.switch[type="checkbox"].is-large.is-outlined + label::after {
+  background: #b5b5b5;
+}
+
+.switch[type="checkbox"].is-large.is-outlined:checked + label::before {
+  background-color: transparent;
+  border-color: #006CB5;
+}
+
+.switch[type="checkbox"].is-large.is-outlined:checked + label::after {
+  background: #006CB5;
+}
+
+.switch[type="checkbox"].is-large.is-rounded + label::before {
+  border-radius: 20px;
+}
+
+.switch[type="checkbox"].is-large.is-rounded + label::after {
+  border-radius: 50%;
+}
+
+.switch[type="checkbox"].is-white:checked + label::before {
+  background: white;
+}
+
+.switch[type="checkbox"].is-white.is-outlined:checked + label::before {
+  background-color: transparent;
+  border-color: white !important;
+}
+
+.switch[type="checkbox"].is-white.is-outlined:checked + label::after {
+  background: white;
+}
+
+.switch[type="checkbox"].is-black:checked + label::before {
+  background: #0a0a0a;
+}
+
+.switch[type="checkbox"].is-black.is-outlined:checked + label::before {
+  background-color: transparent;
+  border-color: #0a0a0a !important;
+}
+
+.switch[type="checkbox"].is-black.is-outlined:checked + label::after {
+  background: #0a0a0a;
+}
+
+.switch[type="checkbox"].is-light:checked + label::before {
+  background: whitesmoke;
+}
+
+.switch[type="checkbox"].is-light.is-outlined:checked + label::before {
+  background-color: transparent;
+  border-color: whitesmoke !important;
+}
+
+.switch[type="checkbox"].is-light.is-outlined:checked + label::after {
+  background: whitesmoke;
+}
+
+.switch[type="checkbox"].is-dark:checked + label::before {
+  background: #363636;
+}
+
+.switch[type="checkbox"].is-dark.is-outlined:checked + label::before {
+  background-color: transparent;
+  border-color: #363636 !important;
+}
+
+.switch[type="checkbox"].is-dark.is-outlined:checked + label::after {
+  background: #363636;
+}
+
+.switch[type="checkbox"].is-primary:checked + label::before {
+  background: #006CB5;
+}
+
+.switch[type="checkbox"].is-primary.is-outlined:checked + label::before {
+  background-color: transparent;
+  border-color: #006CB5 !important;
+}
+
+.switch[type="checkbox"].is-primary.is-outlined:checked + label::after {
+  background: #006CB5;
+}
+
+.switch[type="checkbox"].is-info:checked + label::before {
+  background: #006CB5;
+}
+
+.switch[type="checkbox"].is-info.is-outlined:checked + label::before {
+  background-color: transparent;
+  border-color: #006CB5 !important;
+}
+
+.switch[type="checkbox"].is-info.is-outlined:checked + label::after {
+  background: #006CB5;
+}
+
+.switch[type="checkbox"].is-success:checked + label::before {
+  background: #23d160;
+}
+
+.switch[type="checkbox"].is-success.is-outlined:checked + label::before {
+  background-color: transparent;
+  border-color: #23d160 !important;
+}
+
+.switch[type="checkbox"].is-success.is-outlined:checked + label::after {
+  background: #23d160;
+}
+
+.switch[type="checkbox"].is-warning:checked + label::before {
+  background: #ffdd57;
+}
+
+.switch[type="checkbox"].is-warning.is-outlined:checked + label::before {
+  background-color: transparent;
+  border-color: #ffdd57 !important;
+}
+
+.switch[type="checkbox"].is-warning.is-outlined:checked + label::after {
+  background: #ffdd57;
+}
+
+.switch[type="checkbox"].is-danger:checked + label::before {
+  background: #ff3860;
+}
+
+.switch[type="checkbox"].is-danger.is-outlined:checked + label::before {
+  background-color: transparent;
+  border-color: #ff3860 !important;
+}
+
+.switch[type="checkbox"].is-danger.is-outlined:checked + label::after {
+  background: #ff3860;
+}
 /*# sourceMappingURL=bulma.css.map */

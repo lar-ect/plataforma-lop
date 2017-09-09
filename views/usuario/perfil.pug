@@ -31,7 +31,7 @@ block content
 	section.m-t-16.m-b-16
 		.container
 			.tab-content.current-tab(id="minhas_submissoes")
-				table.table.is-fullwidth
+				table.table.is-bordered.is-fullwidth
 					thead
 						tr
 							th(data-type="date" data-format-string="DD/MM/YYYY - HH:ss") Data
@@ -60,6 +60,7 @@ block content
 
 block styles
 	link(rel="stylesheet", href="/js/vendors/footable/css/footable.standalone.min.css", type="text/css")
+	link(rel="stylesheet", href="/js/vendors/footable/css/footable.custom.css", type="text/css")
 
 block scripts
 	script(src="/js/vendors/footable/js/footable.min.js")

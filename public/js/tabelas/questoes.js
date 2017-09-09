@@ -1,5 +1,5 @@
 $(function() {
-    $('#questoes_tabela').footable({
+    $('table[name="questoes_tabela"]').footable({
         components: {
             filtering: FooTable.ListaFilter
         },
@@ -15,6 +15,7 @@ $(function() {
             enabled: true
         },
         showToggle: true,
-        toggleSelector: 'tr td:first-child,.footable-toggle'
+        toggleSelector: 'tr td:first-child,.footable-toggle',
+        empty: 'Nenhum resultado'
     });
 });
