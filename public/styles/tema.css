@@ -73,3 +73,7 @@ body {
     border-radius: 100px;
     margin-bottom: 1rem;
 }
+/* Lista de Exercícios*/
+.check-resolvida{
+  color: green;
+}
