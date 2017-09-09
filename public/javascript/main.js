@@ -18,7 +18,7 @@ if ($notifications.length > 0) {
 
 tippy('.btn-tooltip');
 
-$('.btn').mouseup(function(){
+$('.button').mouseup(function(){
     $(this).blur();
 });
 

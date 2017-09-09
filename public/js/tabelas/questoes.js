@@ -14,6 +14,7 @@ $(function() {
         sorting: {
             enabled: true
         },
-        showToggle: true
+        showToggle: true,
+        toggleSelector: 'tr td:first-child,.footable-toggle'
     });
 });

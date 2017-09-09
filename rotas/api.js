@@ -20,4 +20,6 @@ router.get('/api/v1/tags', catchErrors(apiController.getTags));
 
 router.get('/api/v1/questoes', catchErrors(apiController.getQuestoes));
 
+router.get('/api/v1/clicou-novidades', apiController.incrementarCliqueNovidades);
+
 module.exports = router;

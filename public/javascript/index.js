@@ -3,6 +3,11 @@ import swal from 'sweetalert';
 import 'sweetalert/dist/sweetalert.css';
 
 $(function() {
+
+  $('button[name="btn-novidades"]').click(function() {
+    axios.get('/api/v1/clicou-novidades');
+  });
+
   const btnFavoritarNoUser = $('button[name="btn-favoritar-no-user"]');
   btnFavoritarNoUser.click(function(e) {
     e.stopPropagation();
@@ -11,14 +16,6 @@ $(function() {
       text: 'Você precisar estar logado para favoritar uma questão 😅',
       type: 'info'
     });
-  });
-
-  /**
-   * Impede a propagação do evento de clique na row da tabela de questões 
-   * quando o usuário clica em um dos botões de like
-   */
-  $('button[name="btn_favoritar"]').click(function(e) {
-    e.stopPropagation();
   });
 
   const favoritarForms = $('form[name="favoritar-questao-form"]');
@@ -53,10 +50,5 @@ $(function() {
       .then(() => {
         $button.toggleClass('is-loading');
       });
-  });
-
-  // Tornar cada row da tabela um link para a questão desejada
-  $('#questoes_table tbody tr').click(function() {
-    window.location = $(this).data('url');
   });
 });

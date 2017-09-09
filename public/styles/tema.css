@@ -45,6 +45,10 @@ body {
   text-align: justify;
 }
 
+.has-text-justify {
+  text-align: justify;
+}
+
 /* Helpers */
 .m-t-16 {
   margin-top: 16px;
@@ -52,6 +56,14 @@ body {
 
 .m-b-16 {
   margin-bottom: 16px;
+}
+
+.m-b-8 {
+  margin-bottom: 8px !important;
+}
+
+.no-margin-bottom {
+  margin-bottom: 0px !important;
 }
 
 /* Perfil */

@@ -3,7 +3,8 @@ mongoose.Promise = global.Promise;
 
 const dataSchema = new mongoose.Schema(
   {
-    exec: Number 
+    exec: Number,
+    cliqueNovidades: Number
   },
   { collection: 'data' }
 );
