@@ -40,6 +40,10 @@ body {
   display: inherit;
 }
 
+.is-saida-codigo {
+  white-space: pre-line;
+}
+
 .enunciado-questao {
   white-space: pre-line;
   text-align: justify;
