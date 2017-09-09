@@ -4,16 +4,16 @@ block content
   input(type="hidden", name="listaId", value=lista._id)
   section.hero.is-dark.shadow-inside
     .hero-body
-        .container
-          h3.title.title-with-shadow.is-size-3 #{lista.titulo}
-          if user && lista.questoes && progresso
-            h2.subtitle #{progresso['porcentagem']}% das questões resolvidas (#{progresso['quantidadeResolvidas']} de #{progresso['quantidadeTotal']}).
-            progress.progress.is-primary(value=`${progresso['porcentagem']}` max="100")
-          if user && permissoes.temPermissao(user, 'CREATE_QUESTAO')
-            a.button.is-primary.is-outlined.is-inverted(href=`/lista/editar/${lista._id}`, title="Editar Lista")
-              span.icon.is-small
-                i.fa.fa-pencil
-              span Editar
+      .container
+        h3.title.title-with-shadow.is-size-3 #{lista.titulo}
+        if user && lista.questoes && progresso
+          h2.subtitle #{progresso['porcentagem']}% das questões resolvidas (#{progresso['quantidadeResolvidas']} de #{progresso['quantidadeTotal']}).
+          progress.progress.is-primary(value=`${progresso['porcentagem']}` max="100")
+        if user && permissoes.temPermissao(user, 'CREATE_QUESTAO')
+          a.button.is-primary.is-outlined.is-inverted(href=`/lista/editar/${lista._id}`, title="Editar Lista")
+            span.icon.is-small
+              i.fa.fa-pencil
+            span Editar
                   
   section.m-t-16.m-b-16
     .container

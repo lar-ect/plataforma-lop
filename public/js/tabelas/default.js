@@ -2,11 +2,12 @@ $(function() {
     $('.table').footable({
         paging: {
             enabled: true,
-			countFormat: '{CP} de {TP}'
+            countFormat: '{CP} de {TP}',
+            size: 12
         },
         filtering: {
             enabled: true,
-            placeholder: 'Buscar'
+            placeholder: 'Filtrar'
         },
         sorting: {
             enabled: true

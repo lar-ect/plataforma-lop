@@ -19,19 +19,19 @@ block content
 						li.is-active(data-tab="minhas_submissoes")
 							a 
 								span.icon.is-small
-									i.fa.fa-file-text-o
+									i.fa.fa-floppy-o
 								span Minhas submissões
 						if professor
 							li(data-tab="minhas_turmas")
 								a
 									span.icon.is-small
-										i.fa.fa-file-text-o
+										i.fa.fa-users
 									span Minhas turmas
 
 	section.m-t-16.m-b-16
 		.container
 			.tab-content.current-tab(id="minhas_submissoes")
-				table.table.is-bordered.is-fullwidth
+				table.table.is-fullwidth
 					thead
 						tr
 							th(data-type="date" data-format-string="DD/MM/YYYY - HH:ss") Data
