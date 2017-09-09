@@ -34,7 +34,7 @@ block content
 				table.table.is-bordered.is-fullwidth
 					thead
 						tr
-							th Data
+							th(data-type="date" data-format-string="DD/MM/YYYY - HH:ss") Data
 							th Título
 							th Qnt. Testes
 							th Acerto (%)
@@ -42,7 +42,7 @@ block content
 					tbody
 						for submissao in submissoes
 							tr
-								td #{h.moment(submissao.data).format('DD/MM/YYYY - HH:ss')}
+								td(data-sort-value=`${+h.moment(submissao.data)}`) #{h.moment(submissao.data).format('DD/MM/YYYY - HH:ss')}
 								td #{submissao.questao.titulo}
 								td #{submissao.resultados.length}
 								td #{submissao.porcentagemAcerto}%

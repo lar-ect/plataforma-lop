@@ -44,3 +44,5 @@ mixin tabelaQuestoes(questoes)
 						//- 		span #{questao.likes}
 					td
 						a.button.is-primary(href=`/questao/${questao._id}`) Visualizar
+						if user && permissoes.temPermissao(user, 'CREATE_QUESTAO')
+							a.button.is-link(href=`questao/adicionar/${questao._id}`) Editar

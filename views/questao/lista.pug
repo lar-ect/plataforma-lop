@@ -5,7 +5,7 @@ block content
   section.hero.is-dark.shadow-inside
     .hero-body
         .container
-          h3.title.title-with-shadow.is-size-2 #{lista.titulo}
+          h3.title.title-with-shadow.is-size-3 #{lista.titulo}
           if user && lista.questoes && progresso
             h2.subtitle #{progresso['porcentagem']}% das questões resolvidas (#{progresso['quantidadeResolvidas']} de #{progresso['quantidadeTotal']}).
             progress.progress.is-primary(value=`${progresso['porcentagem']}` max="100")
@@ -44,11 +44,16 @@ block content
                       - const enunciado = questao.enunciado;
                         p= enunciado
                       
-                          
                   footer.card-footer
-                    if user && submissoes.has(questao._id.toString())
-                    span.card-footer-item Classificação: #{questao.dificuldade}
+                    span.card-footer-item #{questao.classificacao}
                     span.card-footer-item Submissões: #{submissoes && submissoes.has(questao._id.toString()) ? submissoes.get(questao._id.toString()) : 0}
+                    if user && permissoes.temPermissao(user, 'CREATE_QUESTAO')
+                      span.card-footer-item
+                        a(href=`questao/adicionar/${questao._id}`) 
+                          span.icon.is-small
+                            i.fa.fa-edit
+                          | 
+                          span Editar
                     span.card-footer-item
                       if user
                         form(name="favoritar-questao-form" method="POST" action=`/api/v1/questoes/${questao._id}/favoritar`)
