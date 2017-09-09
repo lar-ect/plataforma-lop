@@ -8,7 +8,7 @@ mixin tabelaQuestoes(questoes)
 			th(data-breakpoints="all") Enunciado
 			if user
 				th Submissões
-			th
+			th Likes
 		tbody
 			- questoes = questoes.sort((a, b) => (b.likes - a.likes))
 			for questao in questoes

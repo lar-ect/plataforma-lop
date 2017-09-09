@@ -25,18 +25,19 @@ html
             span
         .navbar-menu(id="navMenu")
           .navbar-start
-            if user
-              a.navbar-item(href="/perfil", class=(currentPath.startsWith("/perfil") ? 'is-active' : '')) Perfil
-              if permissoes.temPermissao(user, 'VER_GERENCIADOR')
-                a.navbar-item(href="/gerenciador", class=(currentPath.startsWith("/gerenciador") ? 'is-active' : '')) Gerenciador
-            else
-              a.navbar-item(href="/cadastro", class=(currentPath.startsWith("/cadastro") ? 'is-active' : '')) Cadastro
-              a.navbar-item(href="/login", class=(currentPath.startsWith("/login") ? 'is-active' : '')) Login
+            a.navbar-item(href="/processing", class=(currentPath.startsWith("/processing") ? 'is-active' : '')) Processing
+            if user && permissoes.temPermissao(user, 'VER_GERENCIADOR')
+              a.navbar-item(href="/gerenciador", class=(currentPath.startsWith("/gerenciador") ? 'is-active' : '')) Gerenciador
+              
           .navbar-end
             a.navbar-item(href="/") Início
             a.navbar-item(href="" id="btn-sugestao") Sugestão
             if user
+              a.navbar-item(href="/perfil", class=(currentPath.startsWith("/perfil") ? 'is-active' : '')) Perfil
               a.navbar-item(href="/logout") Sair
+            else 
+              a.navbar-item(href="/login", class=(currentPath.startsWith("/login") ? 'is-active' : '')) Login
+              a.navbar-item(href="/cadastro", class=(currentPath.startsWith("/cadastro") ? 'is-active' : '')) Cadastro
 
     block messages
       if locals.flashes

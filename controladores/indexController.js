@@ -30,3 +30,7 @@ exports.sugestao = async (req, res) => {
   await sugestao.save();
   res.status(200).send('Submissão enviada com sucesso');
 };
+
+exports.processing = (req, res) => {
+  res.render('processing', { title: 'Processing.js' });
+}
