@@ -1,0 +1,17 @@
+extends layout
+
+block content
+	section.hero.is-primary.shadow-inside
+		.hero-body
+			.container.has-text-centered
+				h1.title.title-with-shadow.is-size-2 Processing Playground
+				h2.subtitle Utilizando a biblioteca
+					| 
+					a.is-link(href="https://p5js.org/" style="text-decoration: underline") p5.js
+	
+	section.m-t-16.m-b-16
+		.container.is-fluid
+			script(type="text/p5" data-autoplay src="/js/p5/hello-world.js" data-preview-width="500" data-height="600")
+
+block scripts
+	script(src="//toolness.github.io/p5.js-widget/p5-widget.js")

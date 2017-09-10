@@ -1,56 +1,66 @@
 extends ../layout
 
 block content
-	.article-page
-		.banner
+	section.hero.is-dark.shadow-inside
+		.hero-body
 			.container
-				h3 #{turma.descricao}
+				h3.title.title-with-shadow.is-size-4.has-text-centered #{turma.descricao}
+		.hero-foot
+			.container
+				nav.tabs.is-boxed.is-centered
+					ul
+						li.is-active(data-tab="submissoes")
+							a 
+								span.icon.is-small
+									i.fa.fa-floppy-o
+								span Submissões
+						li(data-tab="alunos")
+							a
+								span.icon.is-small
+									i.fa.fa-graduation-cap
+								span Alunos
 
-	.container.page
-		.row
-			.col-md-12
-				.feed-toggle
-					ul.nav.nav-pills.outline-active
-						li.nav-item
-							a.nav-link.active(data-toggle="tab" href="#submissoes" role="tab") Submissões
-						li.nav-item
-							a.nav-link(data-toggle="tab" href="#alunos" role="tab") Alunos
+	section.m-t-16.m-b-16
+		.container
+			.tab-content.current-tab(id="submissoes")
+				if submissoes.length === 0
+					p Nenhuma submissão recente.
+				else
+					table.table.is-fullwidth
+						thead
+							tr
+								th Matrícula
+								th Aluno
+								th(data-type="date" data-format-string="DD/MM/YYYY - HH:ss") Data
+								th Questão
+								th Acerto (%)
+								th Ações
+						tbody
+							for submissao in submissoes
+								tr 
+									td #{submissao.user.matricula}
+									td: a(href=`/perfil/${user._id}`) #{submissao.user.nome}
+									td(data-sort-value=`${+h.moment(submissao.data)}`) #{h.moment(submissao.data).format('DD/MM/YYYY - HH:ss')}
+									td: a(href=`/questao/${submissao.questao._id}`) #{submissao.questao.titulo}
+									td #{submissao.porcentagemAcerto}%
+									td: a(href=`/submissao/${submissao._id}`) Visualizar
+			.tab-content(id="alunos")
+				table.table.is-fullwidth
+					thead
+						tr
+							th Matrícula
+							th Nome
+							th Ações
+					tbody
+						for aluno in dicentes
+							tr
+								td #{aluno.matricula}
+								td #{aluno.nome}
+								td: a(href='/') Ver aluno
 
-					.tab-content
-						.tab-pane.active(id="submissoes" role="tabpanel")
-							br
-							if submissoes.length === 0
-								p Nenhuma submissão recente.
-							else
-								table.table.table-bordered.table-hover.table-sm
-									thead
-										tr
-											th Aluno
-											th Data
-											th Questão
-											th Qnt. Testes
-											th Acerto (%)
-											th Ações
-									tbody
-										for submissao in submissoes
-											tr 
-												td: a(href='/') #{submissao.user.nome}
-												td #{h.moment(submissao.data).format('DD/MM/YYYY - HH:ss')}
-												td: a(href=`/questao/${submissao.questao._id}`) #{submissao.questao.titulo}
-												td #{submissao.resultados.length}
-												td #{submissao.porcentagemAcerto}%
-												td: a(href=`/submissao/${submissao._id}`) Visualizar
-						.tab-pane(id="alunos" role="tabpanel")
-							br
-							table.table.table-bordered.table-hover.table-sm
-								thead
-									tr
-										th Matrícula
-										th Nome
-										th Ações
-								tbody
-									for aluno in dicentes
-										tr
-											td #{aluno.matricula}
-											td #{aluno.nome}
-											td: a(href='/') Ver aluno
+block styles
+	link(rel="stylesheet", href="/js/vendors/footable/css/footable.standalone.min.css", type="text/css")
+
+block scripts
+	script(src="/js/vendors/footable/js/footable.min.js")
+	script(src="/js/tabelas/default.js")

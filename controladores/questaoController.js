@@ -3,10 +3,10 @@ const Questao = mongoose.model('Questao');
 const User = mongoose.model('User');
 const ListaExercicio = mongoose.model('ListaExercicio');
 
-exports.questoes = async (req, res) => {
-  const questoes = await Questao.find({});
-  res.render('questoes', { title: 'Questões', questoes });
-};
+// exports.questoes = async (req, res) => {
+//   const questoes = await Questao.find({oculta: {$in: [null, false]}});t
+//   res.render('questoes', { title: 'Questões', questoes });
+// };
 
 exports.getQuestao = async (req, res) => {
   const questaoId = req.params.id;
@@ -55,6 +55,7 @@ exports.adicionarQuestao = async (req, res) => {
 };
 
 exports.criarQuestao = async (req, res) => {
+  req.body = validarQuestaoOculta(req.body);
   const novaQuestao = req.body;
   novaQuestao.resultados = JSON.parse(novaQuestao.resultados);
   const questao = await new Questao(novaQuestao).save();
@@ -63,6 +64,7 @@ exports.criarQuestao = async (req, res) => {
 };
 
 exports.atualizarQuestao = async (req, res) => {
+  req.body = validarQuestaoOculta(req.body);
   req.body.resultados = JSON.parse(req.body.resultados);
   const questao = await Questao.findOneAndUpdate({ _id: req.params.id }, req.body, {
     new: true, // return the new store instead of the old one
@@ -93,3 +95,13 @@ exports.favoritarQuestao = async (req, res) => {
     res.status(500).send(err);
   }
 };
+
+/**
+ * Por padrão, input(type="checkbox") não retorna nenhum dado caso o atributo checked não esteja
+ * marcado, por isso é necessário transformar o valor para false quando o mesmo vier undefined.
+ * @param {Object} body - body do request da requisição
+ */
+function validarQuestaoOculta(body) {
+  body.oculta = !!body.oculta;
+  return body;
+}

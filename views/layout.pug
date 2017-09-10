@@ -2,52 +2,66 @@ doctype html
 html
   head
     title= `${title} | ${h.siteName}`
-    link(rel="stylesheet", href="/styles/main.css", type="text/css")
-    link(rel="stylesheet", href="/styles/custom.css", type="text/css")
-    link(href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css", rel="stylesheet", type="text/css")
-    link(href="https://fonts.googleapis.com/css?family=Titillium+Web:700|Source+Serif+Pro:400,700|Merriweather+Sans:400,700|Source+Sans+Pro:400,300,600,700,300italic,400italic,600italic,700italic", rel="stylesheet", type="text/css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css")
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
+    link(rel="stylesheet", href="/styles/bulma/bulma.css", type="text/css")
+    link(rel="stylesheet", href="/styles/tema.css", type="text/css")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     meta(http-equiv="Content-Type" content="text/html;charset=utf-8")
     block styles
   body
     block navbar
-      nav.navbar.navbar-light
-        .container
-          a.navbar-brand(href='/') #{h.siteName}
+      nav.navbar.is-transparent
+        .navbar-brand
+          a.navbar-item.has-text-primary(href='/') #{h.siteName}
             | 
             small(style="color: gray;") alpha
-          ul.nav.navbar-nav.pull-xs-right
-            li.nav-item: a.nav-link(href="/") Início
-            li.nav-item: a.nav-link(href="" id="btn-sugestao") Sugestão
+          a.navbar-item(href='https://github.com/lar-ect/plataforma-lop', target='_blank')
+            span.icon(style='color: #333;')
+              i.fa.fa-github
+          .navbar-burger(data-target="navMenu")
+            span
+            span
+            span
+        .navbar-menu(id="navMenu")
+          .navbar-start
+            a.navbar-item(href="/processing", class=(currentPath.startsWith("/processing") ? 'is-active' : '')) Processing
+            if user && permissoes.temPermissao(user, 'VER_GERENCIADOR')
+              a.navbar-item(href="/gerenciador", class=(currentPath.startsWith("/gerenciador") ? 'is-active' : '')) Gerenciador
+              
+          .navbar-end
+            a.navbar-item(href="/") Início
+            a.navbar-item(href="" id="btn-sugestao") Feedback
             if user
-              if permissoes.temPermissao(user, 'VER_GERENCIADOR')
-                li.nav-item: a.nav-link(href="/gerenciador", class=(currentPath.startsWith("/gerenciador") ? 'active' : '')) Gerenciador
-              li.nav-item: a.nav-link(href="/perfil", class=(currentPath.startsWith("/perfil") ? 'active' : '')) Perfil
-              li.nav-item: a.nav-link(href="/logout") Sair
-            else
-              li.nav-item: a.nav-link(href="/cadastro", class=(currentPath.startsWith("/cadastro") ? 'active' : '')) Cadastro
-              li.nav-item: a.nav-link(href="/login", class=(currentPath.startsWith("/login") ? 'active' : '')) Login
+              a.navbar-item(href="/perfil", class=(currentPath.startsWith("/perfil") ? 'is-active' : '')) Perfil
+              a.navbar-item(href="/logout") Sair
+            else 
+              a.navbar-item(href="/login", class=(currentPath.startsWith("/login") ? 'is-active' : '')) Login
+              a.navbar-item(href="/cadastro", class=(currentPath.startsWith("/cadastro") ? 'is-active' : '')) Cadastro
 
     block messages
       if locals.flashes
         .container
-          .row
-            .col-md-8.offset-md-2.col-xs-12
+          .columns
+            .column.is-half.is-offset-one-quarter
               - const categories = Object.keys(locals.flashes)
               each category in categories
                 each message in flashes[category]
-                  .alert(class=`flash-message alert-${category} alert-dismissible`, role="alert")
-                    button.close(data-dismiss="alert", aria-label="Fechar", onClick="this.parentElement.remove()")
-                      span(aria-hidden="true") &times;
+                  .notification.m-b-16(class=`is-${category}`, role="alert")
+                    button.delete(aria-label="Fechar", onClick="this.parentElement.remove()")
                     != message
                   
-    block content
+    .content-block
+      block content
 
     block footer
-      footer
-        .container
-          a(href="/" class="logo-font") #{h.siteName}
-          span.attribution Plataforma open-source de gerenciamento de exercícios de programação
+      footer.hero.is-dark
+        .hero-body
+          .container.has-text-centered
+            p
+              a.icon(href="https://github.com/lar-ect/plataforma-lop")
+                i.fa.fa-github
+              | Plataforma open-source de gerenciamento de exercícios de programação
     
     if env === 'production'
       script.
@@ -59,8 +73,12 @@ html
         ga('send', 'pageview');
         
     script(src="http://code.jquery.com/jquery-3.2.1.min.js", integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=", crossorigin="anonymous")
+    script(src="/js/vendors/jquery.matchHeight.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js", integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb", crossorigin="anonymous")
-    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js", integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn", crossorigin="anonymous")
     script(src="/dist/main.bundle.js")
+    script(src="/js/navbar.js")
+    script(src="/js/tabs.js")
+    script(src="/js/cards.js")
+    script(src="/js/modal.js")
     block scripts
       

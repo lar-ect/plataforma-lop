@@ -25,7 +25,7 @@ exports.siteName = 'LoP';
 // `;
 
 exports.funcoesDisponiveis = `
-  <table class="table table-sm">
+  <table class="table is-bordered is-striped is-narrow is-fullwidth">
     <thead><tr><th style="text-align: center;">Função</th><th style="text-align: center;">Descrição</th></tr></thead>
     <tbody>
       <tr><td><code>prompt()</code></td><td>Lê uma string da entrada</td></tr>

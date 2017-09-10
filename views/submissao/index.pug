@@ -1,42 +1,36 @@
 extends ../layout
 
 block content
-	.article-page
-		.banner
+	section.hero.is-dark.shadow-inside
+		.hero-body
 			.container
-				h3 Submissão #{submissao._id}
+				h3.title.title-with-shadow.is-size-4.has-text-centered Submissão #{submissao._id}
 	
-	.container.page
-		.row
-			.col-md-8.offset-md-2
-				.card
-					.card-header #{h.moment(submissao.data).format('DD/MM/YYYY - HH:MM:ss')}
-					.card-block
-						.row
-							.col-md-6
-								p
-									b Nome: 
-									| #{submissao.user.nome} 
-								p
-									b Matrícula: 
-									| #{submissao.user.matricula}
-							.col-md-6
-								p Porcentagem de acerto: 
-									b #{submissao.porcentagemAcerto}%
-		.row
-			.col-md-6
-				h5 Código
-				pre: code.javascript #{submissao.codigo}
-			.col-md-6
-				h5 Resultados
-				table.table.table-bordered.table-sm
-					thead: tr
-						th Entradas
-						th Saída esperada
-						th Saída
-					tbody
-						for res in submissao.resultados
-							tr
-								td #{res.entradas}
-								td #{res.saidaEsperada}
-								td #{res.saida}
+	section.m-t-16.m-b-16
+		.container
+			.panel
+				.panel-heading: b Data: 
+					| #{h.moment(submissao.data).format('DD/MM/YYYY - HH:MM:ss')}
+					span.is-pulled-right Acerto: #{submissao.porcentagemAcerto}%
+				.panel-block
+					.container
+						.columns
+							.column.is-half
+								p.subtitle.no-margin-bottom Código
+								pre: code.javascript #{submissao.codigo}
+							.column.is-half
+								p.is-bold Nome: 
+								p #{submissao.user.nome}
+								p.is-bold Matrícula: 
+								p #{submissao.user.matricula}
+								table.table.is-bordered.is-narrow.is-fullwidth
+									thead: tr
+										th Entradas
+										th Saída esperada
+										th Saída
+									tbody
+										for res in submissao.resultados
+											tr
+												td #{res.entradas}
+												td.is-saida-codigo #{res.saidaEsperada}
+												td.is-saida-codigo #{res.saida}

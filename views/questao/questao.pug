@@ -4,55 +4,114 @@ block content
   input(type="hidden", name="questaoId", value=questao._id)
   if listaId
     input(type="hidden", name="listaId", value=listaId)
-  .article-page
-    .banner
+  section.hero.is-dark
+    .hero-body
       .container
-        .row
-          h3 #{questao.titulo}
+        p.title #{questao.titulo}
+        p.subtitle Classificação: #{questao.classificacao}
 
-  .container.page
-    if user && permissoes.temPermissao(user, 'CREATE_QUESTAO')
-      a.text-xs-center(href=`/questao/adicionar/${questao._id}` style="display: block;") Editar questão
-    if listaId
-      .row
-        .col-md-12
-          .btn-group.pull-xs-right(role="group")
-            if listaId
-              a.btn.btn-outline-primary(href=`/lista/${listaId}`) Voltar à lista
+  section.m-t-16
+    .container
+      nav.level
+        .level-left
+          .level-item
+            .field.has-addons
+              .control
+                a.button.is-static Linguagem
+              .control.has-icons-left
+                .select.is-primary
+                  select
+                    option Javascript
+                span.icon.is-small.is-left
+                  i.fa.fa-code
+              .control
+                button.button.is-primary.is-outlined(data-toggle="modal" data-target="#modal-funcoes-disponiveis") Ver funções disponíveis
+                .modal(id="modal-funcoes-disponiveis")
+                  .modal-background
+                  .modal-content
+                    != h.funcoesDisponiveis
+                  button.modal-close.is-large(aria-label="close")
+        .level-right
+          .level-item
+            .field.has-addons
+              if user && permissoes.temPermissao(user, 'CREATE_QUESTAO')
+                p.control
+                  a.button.is-primary.is-outlined(href=`/questao/adicionar/${questao._id}`)
+                    span.icon.is-small
+                      i.fa.fa-pencil
+                    span Editar
+              if listaId
+                p.control
+                  a.button.is-primary.is-outlined(href=`/lista/${listaId}`)
+                    span.icon.is-small
+                      i.fa.fa-file-text-o
+                    span Voltar à lista
               if idQuestaoAnterior
-                a.btn.btn-outline-primary(href=`/questao/${idQuestaoAnterior}?lista=${listaId}`)
-                  i.ion-ios-arrow-back
-                  |  Anterior
+                p.control
+                  a.button.is-primary.is-outlined(href=`/questao/${idQuestaoAnterior}?lista=${listaId}`)
+                    span.icon.is-small
+                      i.fa.fa-chevron-left
+                    span Anterior
               if idProximaQuestao
-                a.btn.btn-outline-primary(href=`/questao/${idProximaQuestao}?lista=${listaId}`) Próxima  
-                  i.ion-ios-arrow-forward  
+                p.control
+                  a.button.is-primary.is-outlined(href=`/questao/${idProximaQuestao}?lista=${listaId}`)
+                    span Próxima
+                    span.icon.is-small
+                      i.fa.fa-chevron-right
+  section    
+    .container.m-t-16
+      .columns
+        .column.is-two-thirds
+          .box(data-mh="grupo-mh-enunciado-exemplos")
+            h6.is-size-5.is-bold Enunciado
+            hr.is-marginless
+            p.enunciado-questao #{questao.enunciado}
+          //- article.message.is-primary(data-mh="grupo-mh-enunciado-exemplos")
+          //-   .message-header
+          //-     p Enunciado
+          //-   .message-body
+          //-     p.enunciado-questao #{questao.enunciado}
+        .column
+          .box.has-text-centered(data-mh="grupo-mh-enunciado-exemplos")
+            p: b Exemplo de entrada:
+            p(style='white-space: pre-line;') #{questao.resultados[0].entradas.join(' ')}
+            p: b Exemplo de saída esperada: 
+            p(style='white-space: pre-line;') #{questao.resultados[0].saida}
+    
+    .container.m-t-16
+      .columns
+        .column.is-half
+          div(id="questao-editor")
+        .column.is-half
+          .level
+            .level-left
+              .level-item
+                .field.has-addons
+                  .control
+                    button.button.is-primary.is-outlined(id="btn-rodar-codigo" disabled)
+                      span.icon.is-small
+                        i.fa.fa-play
+                      span Rodar
+                  .control
+                    button.button.is-primary.is-outlined(id="btn-enviar-codigo")
+                      span.icon.is-small
+                        i.fa.fa-cog
+                      span Executar
+                  .control
+                    button.button.is-primary.is-outlined(id="btn-submeter" disabled=!user)
+                      span.icon.is-small
+                        i.fa.fa-floppy-o
+                      span Submeter
           
-    .row.article-content
-      .col-md-12.col-sm-12.col-xs-12
-        if user && permissoes.temPermissao(user, 'VER_SOLUCAO_QUESTAO')
-          h5: b Solução
-          pre: code.javascript #{questao.solucao}
-        h5: b Enunciado
-        p.text-justify(style="white-space: pre-line") #{questao.enunciado}
-        p.text-center
-          strong Exemplo de entrada: 
-        p(style='white-space: pre-line;') #{questao.resultados[0].entradas.join(' ')}
-        p.text-center 
-          strong Exemplo de saída esperada: 
-        p(style='white-space: pre-line;') #{questao.resultados[0].saida}
-        
-    .row
-      .col-md-6.col-sm-12.col-xs-12
-        div(id="questao-editor")
-      .col-md-6.col-sm-12.col-xs-12
-        .btn-group.btn-block(role="group")
-          button.btn.btn-outline-primary(id="btn-enviar-codigo") Executar
-          button.btn.btn-outline-primary(id="btn-submeter" disabled=!user) Submeter
-          button.btn.btn-outline-primary.btn-tooltip(data-theme="light" data-size="small", title=h.funcoesDisponiveis) Ver funções disponíveis
-        
-        h4(style="margin-top: 10px;") Saída do seu código
-        ul.list-group(id="resultados-container")
+          h4.subtitle Saída dos casos de teste
+          ul.list-group(id="resultados-container")
+    
+    if user && permissoes.temPermissao(user, 'VER_SOLUCAO_QUESTAO')
+      .container.m-b-16.m-t-16
+        h4.is-size-5 Solução
+        pre: code.javascript #{questao.solucao}
 
 block scripts
+  script(src="/js/ect.js")
   script(src="/dist/Editor.bundle.js")
   

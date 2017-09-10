@@ -1,120 +1,100 @@
 extends layout
 
+include mixins/_listaCard
+include mixins/_tabelaQuestoes
+
 block content
-  .home-page
-    .banner
+  section.hero.is-primary.shadow-inside
+    .hero-body
+      .container.has-text-centered
+        h1.title.title-with-shadow.is-size-2 Bem vindo!
+        h2.subtitle.m-b-8 Pronto para começar a praticar programação? 😁
+        button.button.is-warning(name="btn-novidades" data-toggle="modal" data-target="#modal-novidades")
+          span.icon
+            i.fa.fa-rss
+          span Novidades
+        .modal(id="modal-novidades")
+          .modal-background
+          .modal-content
+            .box
+              h1.title.has-text-dark.is-size-5 Obrigado a todos pelas sugestões!
+              p.has-text-justify Muitos usuários enviaram sugestões para melhorar o sistema e gostaríamos de agradecer a todos! Estamos trabalhando para implementar todas as sugestões de vocês 😁. O design do sistema também mudou! Adorariamos ouvir o que vocês acharam do novo layout. Continuem mandando feedback através do menu superior, estamos lendo tudo! 👏
+              br
+              p.has-text-justify Estamos trabalhando para adicionar novas questões, questões de desafio e questões de provas anteriores. Se você gosta de programação web e deseja ajudar de alguma forma, entre em contato com Gabriel pelo email: 
+              b.has-text-center tibuurcio@gmail.com
+              p.has-text-center Precisamos da sua ajuda! 👍
+              br
+              p(style="text-decoration: underline") Algumas das sugestões de vocês que já estão no sistema:
+              ul
+                li(style="font-weight: 600;") Navegação nas listas (voltar, anterior, próxima questão)
+                li(style="font-weight: 600;") Progresso das listas de exercícios
+                li(style="font-weight: 600;") Identifica questões já realizadas
+                li(style="font-weight: 600;") Melhorias nas submissões
+                li(style="font-weight: 600;") Abrir uma nova janela com as funções disponíveis
+              br
+              p(style="text-decoration: underline") Sugestões e novas funcionalidades que estão sendo trabalhadas:
+              ul
+                li(style="font-weight: 600;") Permitir edição das informações do perfil
+                li(style="font-weight: 600;") Agrupar submissões de uma mesma questão pelo melhor resultado
+                li(style="font-weight: 600;") Adicionar conteúdos de programação em geral
+                li(style="font-weight: 600;") Mais listas e questões variadas
+                li(style="font-weight: 600;") Área de dúvidas e discussões com os monitores/professores
+                li(style="font-weight: 600;") Integração com o processing (p5.js)
+          button.modal-close.is-large(aria-label="close")
+
+    .hero-foot
       .container
-        h1.logo-font Bem vindo!
-        p Pronto para começar a praticar Javascript? 😁
-
-    .container.page
-      .row
-        .col-md-9
-          .feed-toggle
-            ul.nav.nav-pills.outline-active(role="tablist")
-              li.nav-item
-                a.nav-link.active(data-toggle="tab" href="#listas_exercicio" role="tab") Listas de Exercício
-              li.nav-item
-                a.nav-link(data-toggle="tab" href="#listas_laboratorio" role="tab") Listas de Laboratório
-              li.nav-item
-                a.nav-link(data-toggle="tab" href="#questoes" role="tab") Questões
-
-            .tab-content
-              - const listasExercicioLaboratorio = listasExercicio.filter(l => l.titulo.includes('Laboratório'))
-              - const listasExercicioRegular = listasExercicio.filter(l => !l.titulo.includes('Laboratório'))
-              .tab-pane.fade.show.active(id="listas_exercicio" role="tabpanel")
-                for lista in listasExercicioRegular
-                  .article-preview
-                    .article-meta
-                      if permissoes.temPermissao(user, 'CREATE_QUESTAO')
-                        a.pull-xs-right(href=`/lista/editar/${lista._id}`, title="Editar Lista")
-                          i.ion-edit
-                      a.preview-link(href=`/lista/${lista._id}`)
-                        h1 #{lista.titulo}
-                        .info
-                          if user
-                            - const progressoLista = filtrarSubmissoesLista(lista, submissoes);
-                            - questoesLista = lista.questoes || []
-                            if progressoLista && questoesLista.length > 0
-                              p Questões resolvidas: #{progressoLista['quantidadeResolvidas']} de #{questoesLista.length} (#{progressoLista['porcentagem']}%)
-                            else if questoes && questoesLista.length > 0
-                              p Questões: #{questoesLista.length}, nenhuma resolvida
-                            else
-                              p Questões: 0
-                          else
-                            p Questões: #{lista.questoes.length}
-                if permissoes.temPermissao(user, 'CREATE_QUESTAO')
-                  a.btn-adicionar-lista.btn.btn-outline-primary.pull-xs-right(href='/lista/adicionar') Adicionar Lista
-              .tab-pane.fade(id="listas_laboratorio" role="tabpanel")
-                for lista in listasExercicioLaboratorio
-                  .article-preview
-                    .article-meta
-                      if permissoes.temPermissao(user, 'CREATE_QUESTAO')
-                        a.pull-xs-right(href=`/lista/editar/${lista._id}`, title="Editar Lista")
-                          i.ion-edit
-                      a.preview-link(href=`/lista/${lista._id}`)
-                        h1 #{lista.titulo}
-                        .info
-                          if user
-                            - const progressoLista = filtrarSubmissoesLista(lista, submissoes);
-                            - questoesLista = lista.questoes || []
-                            if progressoLista && questoesLista.length > 0
-                              p Questões resolvidas: #{progressoLista['quantidadeResolvidas']} de #{questoesLista.length} (#{progressoLista['porcentagem']}%)
-                            else if questoesLista && questoesLista.length > 0
-                              p Questões: #{questoesLista.length}, nenhuma resolvida
-                            else
-                              p Questões: 0
-                          else
-                            p Questões: #{lista.questoes.length}
-                if permissoes.temPermissao(user, 'CREATE_QUESTAO')
-                  a.btn-adicionar-lista.btn.btn-outline-primary.pull-xs-right(href='/lista/adicionar') Adicionar Lista
-              .tab-pane.fade(id="questoes" role="tabpanel")
-                table.table.table-sm.table-bordered.table-hover(id="questoes_table")
-                  thead
-                    tr
-                      th Título
-                      th Lista
-                      th Classificação
-                      if user
-                        th Submissões
-                      th  
-                  tbody
-                    - questoes = questoes.sort((a, b) => (b.likes - a.likes))
-                    for questao in questoes
-                      tr(data-url=`/questao/${questao._id}`)
-                        td #{questao.titulo}
-                        if questao.enunciado.startsWith('[L')
-                          - const index = questao.enunciado.indexOf(']')
-                          - const lista = questao.enunciado.substring(0, index+1)
-                          td= lista
-                        else
-                          td
-                        td #{questao.classificacao}
-                        if user
-                          td #{submissoes.has(questao._id.toString()) ? submissoes.get(questao._id.toString()) : 0}
-                        td
-                          if user
-                            form(name="favoritar-questao-form" method="POST" action=`/api/v1/questoes/${questao._id}/favoritar`)
-                              - const questoesFavoritas = user.questoesFavoritas.map(obj => obj.toString())
-                              - const btnClass = questoesFavoritas.includes(questao._id.toString()) ? 'btn-primary favoritado' : 'btn-outline-primary'
-                              button.btn.btn-sm(class=btnClass type="submit" name="btn_favoritar")
-                                i.ion-thumbsup
-                                |  
-                                span(name="btn_favoritar_likes") #{questao.likes}
-                          else 
-                            button.btn.btn-sm.btn-outline-primary(name="btn-favoritar-no-user")
-                                i.ion-thumbsup
-                                |  #{questao.likes}
-                
-                if user && permissoes.temPermissao(user, 'CREATE_QUESTAO')
-                  a.btn.btn-outline-primary.pull-xs-right(href='/questao/adicionar' id="adicionar_questao")
-                    |Adicionar Questão
-        .col-md-3
-          .sidebar
-            p Tags
-            .tag-list
-              for tag in tags
-                a.tag-pill.tag-default(href='') #{tag}
+        nav.tabs.is-boxed.is-centered
+          ul
+            li.is-active(data-tab="listas_exercicio")
+              a 
+                span.icon.is-small
+                  i.fa.fa-file-text-o
+                span Listas de Exercício
+            li(data-tab="listas_laboratorio")
+              a 
+                span.icon.is-small
+                  i.fa.fa-file-text-o
+                span Listas de Laboratório
+            li(data-tab="questoes")
+              a 
+                span.icon.is-small
+                  i.fa.fa-file-text-o
+                span Questões
+            if questoesOcultas && permissoes.temPermissao(user, 'VER_QUESTOES_OCULTAS')
+              li(data-tab="questoes_ocultas")
+                a 
+                  span.icon.is-small
+                    i.fa.fa-file-text-o
+                  span Questões ocultas
+            
+  section.m-t-16.m-b-16
+    .container.is-fluid
+      - const listasExercicioLaboratorio = listasExercicio.filter(l => l.titulo.includes('Laboratório'))
+      - const listasExercicioRegular = listasExercicio.filter(l => !l.titulo.includes('Laboratório'))
+      .tab-content.current-tab(id="listas_exercicio")
+        .columns.is-multiline.is-tablet
+          for lista in listasExercicioRegular
+            .column.is-half
+              +listaCard(lista)
+      .tab-content(id="listas_laboratorio")
+        .columns.is-multiline.is-tablet
+          for lista in listasExercicioLaboratorio
+            .column.is-half
+              +listaCard(lista)
+      .tab-content(id="questoes")
+        +tabelaQuestoes(questoes)
+      if questoesOcultas && permissoes.temPermissao(user, 'VER_QUESTOES_OCULTAS')
+        .tab-content(id="questoes_ocultas")
+          +tabelaQuestoes(questoesOcultas)
+        
+block styles
+  link(rel="stylesheet", href="/js/vendors/footable/css/footable.standalone.min.css", type="text/css")
+  link(rel="stylesheet", href="/js/vendors/footable/css/footable.custom.css", type="text/css")
 
 block scripts
+  script(src="/js/vendors/footable/js/footable.min.js")
+  script(src="/js/tabelas/ListaFilter.js")
   script(src="/dist/index.bundle.js")
+  script(src="/js/tabelas/questoes.js")
+  

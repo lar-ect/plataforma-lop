@@ -1,4 +1,3 @@
-import '../styles/main.css';
 import '../styles/editor.css';
 import ace from 'brace';
 import 'brace/mode/javascript';
@@ -30,11 +29,19 @@ const $resultadosDiv = $('#resultados-container');
 const $questaoId = $('input[name=\'questaoId\']');
 const listaId = $('input[name=\'listaId\']').val() || null;
 
+// Rodar código no cliente de forma insegura
+// $('#btn-rodar-codigo').on('click', function() {
+//   let codigo = editor.getValue().trim();
+//   codigo = codigo.replace('<script>', '').replace('</script>', '');
+//   var $script = $(`<script id="script_usuario">${codigo}</script>`);
+//   $('body').append($script);
+// });
+
 // Execução de código
 $('#btn-enviar-codigo').on('click', function() {
   const $btn = $(this);
   $btn.prop('disabled', true);
-  $btn.removeClass('btn-outline-primary');
+  $btn.addClass('is-loading');
   ex.executarCodigo(editor.getValue(), $questaoId.val())
     .then(res => {
       adicionarListaResultados(res.data);
@@ -45,7 +52,7 @@ $('#btn-enviar-codigo').on('click', function() {
     })
     .then(() => {
       $btn.prop('disabled', false);
-      $btn.addClass('btn-outline-primary');
+      $btn.removeClass('is-loading');
     });
 });
 
@@ -53,7 +60,7 @@ $('#btn-enviar-codigo').on('click', function() {
 $('#btn-submeter').on('click', function() {
   const $btn = $(this);
   $btn.prop('disabled', true);
-  $btn.removeClass('btn-outline-primary');
+  $btn.addClass('is-loading');
 
   swal({
     title: 'Deseja submeter seu código?',
@@ -93,12 +100,12 @@ $('#btn-submeter').on('click', function() {
       })
       .then(() => {
         $btn.prop('disabled', false);
-        $btn.addClass('btn-outline-primary');
+        $btn.removeClass('is-loading');
       });
     }
     else {
       $btn.prop('disabled', false);
-      $btn.addClass('btn-outline-primary');
+      $btn.removeClass('is-loading');
     }
   });
 });
@@ -114,9 +121,9 @@ function redirect() {
 }
 
 function adicionarListaResultados(resultados) {
-  console.log(resultados);
   const markup = criarLinhasResultado(resultados);
   $resultadosDiv.html(markup);
+  $(document).trigger('atualizar-cards');
 }
 
 function criarLinhasResultado(resultado) {
@@ -125,23 +132,32 @@ function criarLinhasResultado(resultado) {
       console.log(r);
       r.saida = r.saida.trim();
       r.saidaEsperada = r.saidaEsperada.trim();
-      console.log(r.saida.length);
-      console.log(r.saidaEsperada.length);
       const acertou = r.saida === r.saidaEsperada;
+      const icon = acertou ? 'check' : 'times';
       const color = acertou ? 'green' : 'red';
-      const icon = acertou ? 'ion-checkmark' : 'ion-close';
       return `
-      <li class="list-group-item">
-        <samp>${ r.saida !== '' ? r.saida : ' ' }</samp>
-        <span class="saida-esperada pull-xs-right"
-          title="<strong>Entrada:</strong>
-          <br>${r.entrada}<br>
-          <strong>Saída esperada:</strong><br>
-          ${r.saidaEsperada.split('\n').join('<br>')}">
-          <i style="color: ${color};" class="${icon}">&nbsp;</i> Ver detalhes
-        </span>
-      </li>
-    `;
+        <div class="card is-fullwidth">
+          <header class="card-header">
+            <p class="card-header-title" style="font-weight: 400; white-space: pre-line;">
+              <span class="icon is-small"><i style="color: ${color};" class="fa fa-${icon}"></i>&nbsp;</span>${r.saida}</p>
+            <a class="card-header-icon card-toggle">
+              Esperado
+              <span class="icon"> <i class="fa fa-angle-down"></i></span>
+            </a>
+          </header>
+          <div class="card-content" style="display: none;">
+            <div class="content has-text-centered">
+              <h4 class="title is-size-6 is-bold">Entradas (separadas por vírgula):</h4>
+              <p class="subtitle is-size-6">${r.entrada}</p>
+            </div>
+            <div class="content has-text-centered">
+              <h4 class="title is-size-6 is-bold">Saída esperada:</h4>
+              <p class="subtitle is-size-6">${r.saidaEsperada.split('\n').join('<br>')}</p>
+            </div>
+          </div>
+        </div>
+      `;
     })
     .join('');
 }
+

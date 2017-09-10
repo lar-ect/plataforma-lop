@@ -19,9 +19,7 @@ exports.temPermissao = (permissao) => {
 };
 
 exports.isProfessor = () => {
-  
-  return (req, res, next) => {
-    
+  return (req, res, next) => {  
     if (req.user && permissoes.isProfessor(req.user)) {
       next();
     }

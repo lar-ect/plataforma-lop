@@ -1,57 +1,67 @@
 extends ../layout
 
 block content
-	.profile-page
-		.user-info
+	section.hero.is-light.shadow-inside
+		.hero-body
+			.container.has-text-centered
+				img.user-img(src=user.gravatar)
+				h2.title.is-bold.is-size-4= user.nome
+				if user.sigaa
+					h2.subtitle.is-size-6 Usuário vínculado ao sigaa com matrícula 
+						b #{user.sigaa.matricula || user.matricula}
+				else
+					a.btn.btn-secondary(href="/auth/sigaa") Vincular ao sigaa
+		.hero-foot
 			.container
-				.row
-					.col-xs-12.col-md-10.offset-md-1
-						img.user-img(src=user.gravatar)
-						h4= user.nome
-						if user.sigaa
-							p Usuário vínculado ao sigaa com matrícula 
-								b #{user.sigaa.matricula || user.matricula}
-						else
-							a.btn.btn-secondary(href="/auth/sigaa") Vincular ao sigaa
-		.container
-			.row
-				.col-xs-12.col-md-10.offset-md-1
-					.articles-toggle
-						- const professor = (user && permissoes.isProfessor(user))
-						ul.nav.nav-pills.outline-active
-							li.nav-item
-								a.nav-link.active(data-toggle="tab" href="#submissoes_recentes" role="tab") Submissões recentes
-							if professor
-								li.nav-item
-									a.nav-link(data-toggle="tab" href="#minhas_turmas" role="tab") Minhas turmas
-								
-						
-						.tab-content
-							if professor
-								.tab-pane(id="minhas_turmas" role="tabpanel")
-									.row
-										for turma in turmas
-											.col-md-6
-												.card.text-center: .card-block
-													h4.card-title #{turma.codigoString}
-													h6.card-subtitle.mb-2.text-muted #{turma.descricaoComponente}
-													a.card-link(href=`/turma/${turma._id}`) Ver turma
+				- const professor = (user && permissoes.isProfessor(user))
+				nav.tabs.is-boxed.is-centered
+					ul
+						li.is-active(data-tab="minhas_submissoes")
+							a 
+								span.icon.is-small
+									i.fa.fa-floppy-o
+								span Minhas submissões
+						if professor
+							li(data-tab="minhas_turmas")
+								a
+									span.icon.is-small
+										i.fa.fa-users
+									span Minhas turmas
 
-							.tab-pane.active(id="submissoes_recentes" role="tabpanel")
-								br
-								table.table.table-bordered.table-hover.table-sm
-									thead
-										tr
-											th Data
-											th Título
-											th Qnt. Testes
-											th Acerto (%)
-											th Ações
-									tbody
-										for submissao in submissoes
-											tr
-												td #{h.moment(submissao.data).format('DD/MM/YYYY - HH:ss')}
-												td #{submissao.questao.titulo}
-												td #{submissao.resultados.length}
-												td #{submissao.porcentagemAcerto}%
-												td: a(href=`/submissao/${submissao._id}`) Visualizar
+	section.m-t-16.m-b-16
+		.container
+			.tab-content.current-tab(id="minhas_submissoes")
+				table.table.is-bordered.is-fullwidth
+					thead
+						tr
+							th(data-type="date" data-format-string="DD/MM/YYYY - HH:ss") Data
+							th Título
+							th Qnt. Testes
+							th Acerto (%)
+							th Ações
+					tbody
+						for submissao in submissoes
+							tr
+								td(data-sort-value=`${+h.moment(submissao.data)}`) #{h.moment(submissao.data).format('DD/MM/YYYY - HH:ss')}
+								td #{submissao.questao.titulo}
+								td #{submissao.resultados.length}
+								td #{submissao.porcentagemAcerto}%
+								td: a(href=`/submissao/${submissao._id}`) Visualizar
+			if professor
+				.tab-content(id="minhas_turmas")
+					.container
+						.columns.is-multiline.is-tablet
+							for turma in turmas
+								.column.is-half
+									.box
+										h4.title.is-size-5 #{turma.codigoString}
+										h6.subtitle.is-size-6 #{turma.descricaoComponente}
+										a.button.is-primary(href=`/turma/${turma._id}`) Ver turma
+
+block styles
+	link(rel="stylesheet", href="/js/vendors/footable/css/footable.standalone.min.css", type="text/css")
+	link(rel="stylesheet", href="/js/vendors/footable/css/footable.custom.css", type="text/css")
+
+block scripts
+	script(src="/js/vendors/footable/js/footable.min.js")
+	script(src="/js/tabelas/default.js")

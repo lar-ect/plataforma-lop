@@ -1,0 +1,83 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.background-success {
+  background-color: rgba(92, 184, 92, 0.40)
+}
+
+.background-error {
+  background-color: rgba(255, 100, 100, 0.30);
+}
+
+.content .is-bold {
+  font-weight: 700;
+}
+
+.is-bold {
+  font-weight: 700;
+}
+
+#questoes_table tbody tr {
+  cursor: pointer;
+}
+
+.shadow-inside {
+  box-shadow: inset 0 10px 8px -8px rgba(0, 0, 0, 0.3), inset 0 -8px 8px -8px rgba(0, 0, 0, 0.3);
+}
+
+.title-with-shadow {
+  text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.current-tab {
+  display: inherit;
+}
+
+.is-saida-codigo {
+  white-space: pre-line;
+}
+
+.enunciado-questao {
+  white-space: pre-line;
+  text-align: justify;
+}
+
+.has-text-justify {
+  text-align: justify;
+}
+
+/* Helpers */
+.m-t-16 {
+  margin-top: 16px;
+}
+
+.m-b-16 {
+  margin-bottom: 16px;
+}
+
+.m-b-8 {
+  margin-bottom: 8px !important;
+}
+
+.no-margin-bottom {
+  margin-bottom: 0px !important;
+}
+
+/* Perfil */
+.user-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    margin-bottom: 1rem;
+}
+/* Lista de Exercícios*/
+.check-resolvida{
+  color: green;
+}
