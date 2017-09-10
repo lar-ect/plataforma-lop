@@ -18,7 +18,10 @@ mixin tabelaQuestoes(questoes)
 					if questao.enunciado.startsWith('[L')
 						- const index = questao.enunciado.indexOf(']')
 						- const lista = questao.enunciado.substring(0, index+1)
-						td= lista
+						- const indexDash = questao.enunciado.indexOf('-');
+						- const numeroLista = +questao.enunciado.substring(2, indexDash)
+						- const numeroQuestao = +questao.enunciado.substring(indexDash+2, index)
+						td(data-sort-value=`${numeroLista*100 + numeroQuestao}`)= lista
 					else
 						td
 					td #{questao.classificacao}

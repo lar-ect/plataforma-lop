@@ -67,7 +67,7 @@ block content
             hr.is-marginless
             p.enunciado-questao #{questao.enunciado}
             if questao.enunciadoLatex
-              div.has-text-centered!= h.renderizarLatex(questao.enunciadoLatex)
+              div.has-text-centered.m-t-16!= h.renderizarLatex(questao.enunciadoLatex)
         .column
           .box.has-text-centered(data-mh="grupo-mh-enunciado-exemplos")
             p: b Exemplo de entrada:
