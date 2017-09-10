@@ -5,7 +5,7 @@ $(function() {
         },
         paging: {
             enabled: true,
-			countFormat: '{CP} de {TP}'
+			countFormat: 'Pág {CP} de {TP} - {TR} questões'
         },
         filtering: {
             enabled: true,
