@@ -1,26 +1,36 @@
 extends ../layout
+include ../mixins/forms/_inputs
 
 block content
-  #app
-  .container.page
-    .row
-      .col-md-10.offset-md-1.col-xs-12
-        h1.text-xs-center Nova lista de exercícios
-          - const l = lista || {}
-          form(id="form-lista" action=`/lista/adicionar/${l._id || ''}` method='POST')
-            .form-group
-              label(for="titulo") Título
-              input.form-control.form-control-lg(type="text" name="titulo" value=l.titulo placeholder="Título")
-            .form-group
-              label(for="questoes") Questões
-              select.form-control.form-control-lg(name="questoes" placeholder="Selecione questões" multiple)
-                if lista && lista.questoes
-                  for questao in lista.questoes
-                    option(value=questao._id, selected) #{questao.titulo}
-            br
-            .row
-              .col-md-4.col-md-offset-4
-                input.btn.btn-primary.btn-block(type="submit" value="Salvar")
+  - const l = lista || {}
+  section.hero.is-dark.shadow-inside
+    .hero-body
+      .container.has-text-centered
+        h1.title.title-with-shadow.is-size-2
+          if lista
+            |Editar Lista de Exercícios
+          else
+            |Nova Lista de Exercícios
+  
+  section.m-t-16
+    .container
+      form(id="form-lista" action=`/lista/adicionar/${l._id || ''}` method='POST')
+        +input({ 
+          label: 'Título', 
+          name: 'titulo',
+          placeholder: 'Digite o título da questão', 
+          icon: 'i-cursor', 
+          value: l.titulo 
+        })
+        label.label Questões
+        .select.is-fullwidth.is-primary
+          select(name="questoes" placeholder="Selecione questões" multiple)
+            if lista && lista.questoes
+              for questao in lista.questoes
+                option(value=questao._id, selected) #{questao.titulo}
+
+        br
+        input.button.is-primary.is-fullwidth.is-large.m-t-16.m-b-16(type="submit" value="Salvar")
 
 block styles
   link(href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet")
