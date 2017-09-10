@@ -4,9 +4,7 @@ const Submissao = mongoose.model('Submissao');
 
 exports.getLista = async (req, res) => {
   const lista = await ListaExercicio.findOne({ _id: req.params.id }).populate('questoes');
-
   if (req.user && lista.questoes && lista.questoes.length > 0) {
-
     const submissoes = await Submissao.listarSubmissoesUsuario(req.user, lista.questoes);
     const progresso = Submissao.calcularProgresso(lista.questoes.length, submissoes.size);
     res.render('questao/lista', { title: `Lista ${lista.titulo}`, lista, progresso, submissoes });
