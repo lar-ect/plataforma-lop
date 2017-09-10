@@ -12,7 +12,7 @@ mixin textarea({ rows, name, label, placeholder, value })
 	.field
 		label.label= label
 		.control
-			textarea.textarea.is-primary(rows=rows, name=nae, placeholder=`${placeholder ? placeholder : ''}`)= value
+			textarea.textarea.is-primary(rows=rows, name=name, placeholder=`${placeholder ? placeholder : ''}`)= value
 
 mixin select({ name, label, placeholder, options, value, icon })
 	.field
