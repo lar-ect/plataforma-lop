@@ -83,7 +83,7 @@ function executar(codigo, arrayEntrada) {
       'Tempo esgotado');
   }
 
-  return resultado.trim();
+  return resultado.split('\n').map(r => r.trim()).join('\n').trim();
 }
 
 module.exports = executar;
