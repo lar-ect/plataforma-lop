@@ -9,6 +9,16 @@ import ex from '../modules/execucao';
 
 $(function() {
 
+  const katexEnunciadoEl = document.getElementById('enunciado-latex');
+  console.log(katexEnunciadoEl);
+
+  $('#btn-recarregar-enunciado-latex').click(function() {
+    console.log('clicou para recarregar');
+    var expression = $('textarea[name="enunciadoLatex"]').val();
+    console.log(expression);
+    katex.render(expression, katexEnunciadoEl);
+  });
+
   $('form').areYouSure();
 
   /**

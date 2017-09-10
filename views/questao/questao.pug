@@ -66,11 +66,8 @@ block content
             h6.is-size-5.is-bold Enunciado
             hr.is-marginless
             p.enunciado-questao #{questao.enunciado}
-          //- article.message.is-primary(data-mh="grupo-mh-enunciado-exemplos")
-          //-   .message-header
-          //-     p Enunciado
-          //-   .message-body
-          //-     p.enunciado-questao #{questao.enunciado}
+            if questao.enunciadoLatex
+              div.has-text-centered!= h.renderizarLatex(questao.enunciadoLatex)
         .column
           .box.has-text-centered(data-mh="grupo-mh-enunciado-exemplos")
             p: b Exemplo de entrada:
@@ -111,7 +108,12 @@ block content
         h4.is-size-5 Solução
         pre: code.javascript #{questao.solucao}
 
+block styles
+  if questao.enunciadoLatex
+    link(rel="stylesheet" href="/js/vendors/katex/katex.min.css")
+
 block scripts
   script(src="/js/ect.js")
+  if questao.enunciadoLatex
+    script(src="/js/vendors/katex/katex.min.js")
   script(src="/dist/Editor.bundle.js")
-  

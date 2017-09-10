@@ -35,6 +35,23 @@ block content
 						value: q.titulo 
 					})
 
+					.columns
+						.column
+							+textarea({
+								rows: 4,
+								name: 'enunciadoLatex',
+								label: 'Latex',
+								value: q.enunciadoLatex
+							})
+						.column
+							label.label Saída
+								| 
+								button.button.is-primary.is-small(id="btn-recarregar-enunciado-latex" type="button") Recarregar
+								| 
+								a.button.is-warning.is-small(href="https://khan.github.io/KaTeX/function-support.html" target="_blank") Ver funções disponíveis
+							.box
+								div(id="enunciado-latex")
+
 					+textarea({
 						row: 5,
 						name: 'enunciado',
@@ -98,9 +115,11 @@ block content
 block styles
 	link(href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet")
 	link(rel="stylesheet" href="/dist/jsoneditor/dist/jsoneditor.min.css")
+	link(rel="stylesheet" href="/js/vendors/katex/katex.min.css")
 
 block scripts
 	script(src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js")
 	script(src="/dist/jsoneditor/dist/jsoneditor.min.js")
+	script(src="/js/vendors/katex/katex.min.js")
 	script(src="/dist/jquery.are-you-sure.js")
 	script(src="/dist/Questao.bundle.js")

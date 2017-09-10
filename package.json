@@ -32,6 +32,7 @@
     "fixture-stdout": "^0.2.1",
     "highlight.js": "9.12.0",
     "jsoneditor": "5.9.2",
+    "katex": "0.8.3",
     "md5": "2.2.1",
     "moment": "2.17.1",
     "mongoose": "4.8.7",
