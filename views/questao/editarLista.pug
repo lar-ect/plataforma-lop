@@ -15,22 +15,23 @@ block content
   section.m-t-16
     .container
       form(id="form-lista" action=`/lista/adicionar/${l._id || ''}` method='POST')
-        +input({ 
-          label: 'Título', 
-          name: 'titulo',
-          placeholder: 'Digite o título da questão', 
-          icon: 'i-cursor', 
-          value: l.titulo 
-        })
-        label.label Questões
-        .select.is-fullwidth.is-primary
-          select(name="questoes" placeholder="Selecione questões" multiple)
-            if lista && lista.questoes
-              for questao in lista.questoes
-                option(value=questao._id, selected) #{questao.titulo}
-
-        br
-        input.button.is-primary.is-fullwidth.is-large.m-t-16.m-b-16(type="submit" value="Salvar")
+        .columns.is-multiline.is-tablet.is-centered
+          .column.is-11
+            +input({ 
+              label: 'Título', 
+              name: 'titulo',
+              placeholder: 'Digite o título da questão', 
+              icon: 'i-cursor', 
+              value: l.titulo 
+            })
+          .column.is-11.m-t-8.m-b-8
+            label.label Questões
+            select.select.is-fullwidth(name="questoes" placeholder="Selecione questões" multiple)
+              if lista && lista.questoes
+                for questao in lista.questoes
+                  option(value=questao._id, selected) #{questao.titulo}
+          .column.is-11.m-t-8.m-b-16
+            input.button.is-primary.is-fullwidth.is-large(type="submit" value="Salvar")
 
 block styles
   link(href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet")

@@ -11,7 +11,7 @@ $(function() {
 			});
 			$('select[name="questoes"]').select2({
 				data: dados,
-				theme: 'bootstrap'
+				//theme: 'bootstrap'
 			});
 		})
 		.catch(err => {
