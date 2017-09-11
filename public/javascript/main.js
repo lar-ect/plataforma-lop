@@ -51,15 +51,6 @@ $(function() {
         $button.toggleClass('is-loading');
       });
   });
-
-  const $notifications = $('.notification');
-  if ($notifications.length > 0) {
-    setTimeout(() => {
-      $notifications.each(function() {
-        $(this).children(':first').click();
-      });
-    }, 3000);
-  }
   
   tippy('.btn-tooltip');
   

@@ -27,7 +27,12 @@ html
           .navbar-start
             a.navbar-item(href="/processing", class=(currentPath.startsWith("/processing") ? 'is-active' : '')) Processing
             if user && permissoes.temPermissao(user, 'VER_GERENCIADOR')
-              a.navbar-item(href="/gerenciador", class=(currentPath.startsWith("/gerenciador") ? 'is-active' : '')) Gerenciador
+              .navbar-item.has-dropdown.is-hoverable
+                a.navbar-link(href="/gerenciador", class=(currentPath.startsWith("/gerenciador") ? 'is-active' : '')) Gerenciador
+                .navbar-dropdown.is-boxed
+                  a.navbar-item(href="/questao/adicionar") Criar questão
+                  a.navbar-item(href="/lista/adicionar") Criar lista
+                  //- a.navbar-item(href="/prova/adicionar") Criar prova
               
           .navbar-end
             a.navbar-item(href="/") Início
@@ -40,15 +45,16 @@ html
               a.navbar-item(href="/cadastro", class=(currentPath.startsWith("/cadastro") ? 'is-active' : '')) Cadastro
 
     block messages
-      if locals.flashes
-        .container
+      - const keys = Object.keys(locals.flashes)
+      if keys.length
+        .container(name="notifications-container")  
           .columns
             .column.is-half.is-offset-one-quarter
               - const categories = Object.keys(locals.flashes)
               each category in categories
                 each message in flashes[category]
                   .notification.m-b-16(class=`is-${category}`, role="alert")
-                    button.delete(aria-label="Fechar", onClick="this.parentElement.remove()")
+                    button.delete(aria-label="Fechar", onClick="removerNotificacoes(this)")
                     != message
                   
     .content-block
@@ -80,5 +86,6 @@ html
     script(src="/js/tabs.js")
     script(src="/js/cards.js")
     script(src="/js/modal.js")
+    script(src="/js/notifications.js")
     block scripts
       
