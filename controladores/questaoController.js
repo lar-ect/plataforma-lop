@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Questao = mongoose.model('Questao');
 const User = mongoose.model('User');
 const ListaExercicio = mongoose.model('ListaExercicio');
+const permissoes = require('../dominio/Permissoes');
 
 // exports.questoes = async (req, res) => {
 //   const questoes = await Questao.find({oculta: {$in: [null, false]}});t
@@ -23,7 +24,14 @@ exports.getQuestao = async (req, res) => {
       idProximaQuestao = questoes[questaoAtualIndex + 1];
     }
   }
+
   const questao = await Questao.findOne({ _id: questaoId });
+  if (questao.oculta && !permissoes.isProfessor(req.user)) {
+    req.flash('warning', 'Oops, você não tem permissão de visualizar essa página');
+    res.redirect('back');
+    return;
+  }
+
   const solucao = questao.solucao || null;
   res.render('questao/questao', {
     title: questao.titulo,

@@ -1,19 +1,28 @@
 const grupos = ['USUARIO', 'ALUNO', 'PROFESSOR', 'MONITOR', 'ADMINISTRADOR'];
 
 const gruposPorPermissao = {
+	// Questões
 	READ_QUESTAO: ['USUARIO', 'ALUNO', 'MONITOR', 'PROFESSOR'],
 	CREATE_QUESTAO: ['MONITOR', 'PROFESSOR'],
 	UPDATE_QUESTAO: ['MONITOR', 'PROFESSOR'],
 	DELETE_QUESTAO: ['MONITOR', 'PROFESSOR'],
-	VER_GERENCIADOR: ['PROFESSOR'],
 	VER_SOLUCAO_QUESTAO: ['MONITOR', 'PROFESSOR'],
-	VER_QUESTOES_OCULTAS: ['PROFESSOR']
+	VER_QUESTOES_OCULTAS: ['PROFESSOR'],
+	
+	// Gerência
+	VER_GERENCIADOR: ['PROFESSOR'],
+
+	// Provas
+	READ_PROVA: ['PROFESSOR'],
+	CREATE_PROVA: ['PROFESSOR'],
+	UPDATE_PROVA: ['PROFESSOR'],
+	DELETE_PROVA: ['PROFESSOR']
 };
 
 exports.grupos = grupos;
 
 exports.isProfessor = (user) => {
-	return user && user.grupos.includes('PROFESSOR');
+	return user && (user.grupos.includes('PROFESSOR') || user.grupos.includes('ADMINISTRADOR'));
 };
 
 exports.temPermissao = (user, permissao) => {
