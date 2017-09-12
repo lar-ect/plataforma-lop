@@ -31,12 +31,30 @@ describe('execução de código javascript', () => {
       `, ['1']);
       expect(resultado).toBe('Erro: Tempo esgotado');
     });
+
+    test('retorna código de função nativa ao utilizar uma função como parâmetro das funções de escrita', () => {
+      const funcoesEscrita = ['escreva', 'alert', 'console.log'];
+      const funcoesContexto = ['INIT_VM_CONTEXT', 'escreva', 'alert', 'console.log', 
+        'prompt', 'lerTexto', 'lerInteiro', 'lerReal', 'raizQuadrada', 'potencia', 'divisaoInteira'];
+      
+      funcoesEscrita.forEach(func => {
+        funcoesContexto.forEach(param => {
+          const resultado = executar(`${func}(${param})`, []);
+          expect(resultado).toBe(`f ${param}() { [native code] }`);
+        });
+      });
+    });
   });
 
   describe('retorna resultado com sucesso', () => {
     test('resultado correto para somatório de 3 entradas', () => {
       const resultado = executar(codigoSomatorio, ['1', '2', '3']);
       expect(resultado).toBe('6');
+    });
+
+    test('retorna toString do objeto ao imprimir um objeto', () => {
+      const resultado = executar('alert({a: 2, b: 3})', []);
+      expect(resultado).toBe('[object Object]');
     });
 
     test('resultado correto para escreva com múltiplas linhas', () => {
