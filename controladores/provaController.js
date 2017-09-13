@@ -1,0 +1,212 @@
+const mongoose = require('mongoose');
+const Prova = mongoose.model('Prova');
+const Questao = mongoose.model('Questao');
+const Turma = mongoose.model('Turma');
+const Submissao = mongoose.model('Submissao');
+const permissoes = require('../dominio/Permissoes');
+const moment = require('moment');
+const { calcularDiferenca } = require('../helpers');
+
+exports.getQuestao = async (req, res, next) => {
+	const questaoId = req.params.idQuestao;
+	const prova = req.prova;
+	let idProximaQuestao = null, idQuestaoAnterior = null;
+	const questoes = prova.questoes.map(q => q.id);
+    const questaoAtualIndex = questoes.indexOf(questaoId);
+    if (questaoAtualIndex > 0) {
+      idQuestaoAnterior = questoes[questaoAtualIndex - 1];
+    }
+    
+    if (questaoAtualIndex < questoes.length - 1) {
+      idProximaQuestao = questoes[questaoAtualIndex + 1];
+	}
+	
+	const questao = await Questao.findOne({ _id: questaoId });
+	res.render('prova/questao', {
+	  title: questao.titulo,
+	  questao,
+	  prova,
+	  idQuestaoAnterior,
+	  idProximaQuestao
+	});
+};
+
+exports.podeSubmeter = async (req, res, next) => {
+	const { questaoId, provaId } = req.body;
+	const prova = await Prova.findOne({ _id: provaId });
+	const agora = moment(new Date());
+	const fimProva = moment(prova.iniciou).add(prova.duracao, 'minutes');
+
+	if (!prova.finalizou && agora.isAfter(fimProva)) {
+		prova.finalizou = fimProva;
+		await prova.save();
+		req.status(500).send('Tempo esgotado');
+		return;
+	}
+	else if (prova.finalizou) {
+		req.status(500).send('Tempo esgotado');
+	}
+	else {
+		req.prova = prova;
+		//TODO: Verificar se o usuário possui matrícula presente em uma turma cadastrada na prova
+		next();
+	}
+};
+
+exports.isAutorProva = async (req, res, next) => {
+	const provaId = req.query.id;
+	const prova = await Prova.findOne({ _id: req.query.id });
+	if (prova.autor.id === req.user.id || permissoes.temPermissao(req.user, 'INICIAR_QUALQUER_PROVA')) {
+		//console.log('É autor da prova ou administrador');
+		req.prova = prova;
+		next();
+	}
+	else {
+		//console.log('Não pode iniciar prova, não é autor nem administrador');
+		req.flash('warning', 'Oops, você não pode realizar essa operação');
+		res.redirect('/');
+	}
+};
+
+exports.iniciarProva = async (req, res) => {
+	if (req.prova.iniciou && !req.prova.finalizou) {
+		req.flash('warning', 'Prova já iniciada');
+		req.redirect('/');
+	}
+	else if (req.prova.finalizou) {
+		req.flash('warning', 'Prova já foi finalizada');
+		req.redirect('/');
+	}
+	else {
+		await Prova.update({ _id: req.prova._id }, { $set: { iniciou: Date.now() }});
+		console.log(`Prova iniciada com sucesso por ${req.prova.autor.nome} em ${Date.now()}`);
+		req.flash('success', 'Prova iniciada com sucesso');
+		res.redirect('/');
+	}
+};
+
+exports.verificarTempoLimite = async (req, res, next) => {
+	//console.log('Verificando tempo limite da prova');
+
+	const prova = await Prova.findOne({ _id: req.params.id });
+	const agora = moment(new Date());
+	//console.log(`Agora: ${agora.format('DD/MM/YYYY - HH:mm')}`);
+	const fimProva = moment(prova.iniciou).add(prova.duracao, 'minutes');
+	//console.log(`Fim prova: ${fimProva.format('DD/MM/YYYY - HH:mm')}`);
+
+	if (!prova.finalizou && agora.isAfter(fimProva)) {
+		//console.log('Passou do horário da prova e não havia finalizado. Finalizando...');
+		prova.finalizou = fimProva;
+		await prova.save();
+	}
+
+	req.prova = prova;
+	next();
+};
+
+/**
+ * A prova vem em req.prova
+ * Um usuário pode ver a prova se sua matrícula estiver presente em alguma das turmas presente
+ * no cadastro da prova. 
+ * Um usuário pode ver a prova se ele for o professor que a cadastrou.
+ * Um usuário pode ver a prova se ele for administrador.
+ */
+exports.podeVerProva = async (req, res, next) => {
+	//console.log('Pode ver a prova?');
+
+	const prova = req.prova;
+
+	if (permissoes.isAdmin(req.user) || req.user.id === prova.autor.id) {
+		//console.log('É administrador ou autor da prova');
+		req.prova = prova;
+		next();
+	}
+	else if (!prova.iniciou || prova.finalizou) {
+		//console.log('Prova ainda não iniciou ou já finalizou e não é autor ou administrador');
+		req.flash('warning', 'Você não tem permissão para acessar essa página');
+		res.redirect('/');
+	}
+	else {
+		const turmas = await Turma.find({ _id: { $in: prova.turmas }});
+		const usersMatricula = [].concat.apply([], turmas.map(t => t.dicentes)).map(d => d.matricula);
+
+		if (usersMatricula.includes(req.user.matricula)) {
+			//console.log('É aluno com a matrícula presente em uma turma da prova');
+			req.prova = prova;
+			next();
+		}
+		else {
+			//console.log('Não tem permissão de ver a prova');
+			req.flash('warning', 'Você não tem permissão para acessar essa página');
+			res.redirect('/');
+		}
+	}
+};
+
+exports.findProvaByUserId = async (req, res, next) => {
+	if (permissoes.isAdmin(req.user)) {
+		const provas = await Prova.find({ 
+			iniciou: { $exists: true },
+			finalizou: { $exists: false }
+		});
+		req.provasUsuario = provas;
+	}
+	else if (req.user && req.user.matricula) {
+		const userId = req.user.id;
+		const provas = await Prova.find({ 
+			iniciou: { $exists: true },
+			finalizou: { $exists: false }
+		}).populate('turmas');
+		const provasUsuario = [];
+
+		provas.forEach(prova => {
+			const turmas = prova.turmas;
+			const usersMatricula = [].concat.apply([], turmas.map(t => t.dicentes)).map(d => d.matricula);
+			if (usersMatricula.includes(req.user.matricula)) {
+				// Prova é do tipo mongoose model e por isso não dá pra deletar atributos normalmente
+				// Necessário converter para objeto javascript utilizando toObject()
+				const provaObj = prova.toObject();
+				delete provaObj['turmas'];
+				provasUsuario.push(provaObj);
+			}
+		});
+
+		req.provasUsuario = provasUsuario;
+	}
+
+	next();
+};
+
+// Prova deve vir em req.prova
+exports.getProva = async (req, res) => {
+	const prova = req.prova;
+	const submissoes = await Submissao.listarSubmissoesUsuario(req.user, prova.questoes.map(q => q._id));
+	const progresso = Submissao.calcularProgresso(prova.questoes.length, submissoes.size);
+	const fim = moment(prova.iniciou).add(prova.duracao, 'minutes');
+	const minutosRestantes = calcularDiferenca(moment().utc(), fim);
+	res.render('questao/lista', { 
+		title: `Prova ${req.prova.titulo}`, 
+		lista: req.prova, 
+		progresso, 
+		submissoes, 
+		prova: true,
+		minutosRestantes
+	});
+};
+
+exports.adicionarProva = async (req, res) => {
+	const questoesOcultas = await Questao.find({oculta: true});
+	const turmas = await Turma.find({});
+	res.render('questao/editarProva', {
+		title: 'Adicionar prova',
+		questoes: questoesOcultas,
+		turmas
+	});
+};
+
+exports.criarProva = async (req, res) => {
+	req.body.questoes = Object.keys(req.body.questoes);
+	const prova = await new Prova(req.body).save();
+	req.flash('success', 'Adicionou nova prova com sucesso');
+	res.redirect('/');
+};

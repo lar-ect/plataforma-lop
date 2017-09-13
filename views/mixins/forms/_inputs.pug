@@ -1,12 +1,15 @@
-mixin input({ label, type, name, placeholder, icon, value })
-	.field
+mixin input({ label, type, name, placeholder, icon, value, hasAddon })
+	.field(class=`${hasAddon ? 'has-addons' : ''}`)
 		if label
 			label.label= label
-		.control(class=`${icon ? 'has-icons-left' : ''}`)
+		.control.is-expanded(class=`${icon ? 'has-icons-left' : ''}`)
 			input.input.is-primary(type=`${type || 'text'}`, name=name, placeholder=placeholder, value=value)
 			if icon
 			span.icon.is-small.is-left
 				i.fa(class=`fa-${icon}`)
+		if hasAddon
+			.control
+				a.button.is-static #{hasAddon}
 
 mixin textarea({ rows, name, label, placeholder, value })
 	.field
@@ -14,17 +17,20 @@ mixin textarea({ rows, name, label, placeholder, value })
 		.control
 			textarea.textarea.is-primary(rows=rows, name=name, placeholder=`${placeholder ? placeholder : ''}`)= value
 
-mixin select({ name, label, placeholder, options, value, icon })
+mixin select({ name, label, placeholder, options, value, icon, multiple, size })
 	.field
 		label.label= label
 		.control(class=`${icon ? 'has-icons-left' : ''}`)
-			.select.is-fullwidth.is-primary
-				select(name=name placeholder=placeholder)
+			.select.is-fullwidth.is-primary(class=`${multiple ? 'is-multiple' : ''}`)
+				select(name=name placeholder=placeholder, multiple=multiple, size=`${size ? size : '4'}`)
 					for opt in options
-						if opt === value
-							option(selected) #{opt}
+						if typeof opt === 'object'
+							option(value=opt.value) #{opt.text}
 						else
-							option #{opt}
+							if opt === value
+								option(selected) #{opt}
+							else
+								option #{opt}
 			if icon
 				.icon.is-small.is-left
 					i.fa(class=`fa-${icon}`)

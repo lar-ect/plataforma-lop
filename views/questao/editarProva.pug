@@ -1,0 +1,80 @@
+extends ../layout
+include ../mixins/forms/_inputs
+
+block content
+  - const p = prova || {}
+  section.hero.is-dark.shadow-inside
+    .hero-body
+      .container.has-text-centered
+      h1.title.title-with-shadow.is-size-2
+        if p
+          | Editar prova
+        else
+          | Nova prova
+  
+  section.m-t-16
+  .container
+    form(id="form-prova" action=`/prova/adicionar/${p._id || ''}` method='POST')
+      input(hidden, name='autor', value=user._id)
+      .columns
+        .column.is-half
+          +input({ 
+            label: 'Título', 
+            name: 'titulo',
+            placeholder: 'Digite o título da questão', 
+            icon: 'i-cursor', 
+            value: p.titulo 
+          })
+
+          label.label Duração
+          +input({ 
+            name: 'duracao',
+            placeholder: 'Digite a duração', 
+            icon: 'i-cursor', 
+            value: p.duracao,
+            type: 'number',
+            hasAddon: 'minutos'
+          })
+
+          +select({ 
+            name: 'turmas',
+            label: 'Turmas', 
+            placeholder: 'Selecione as turmas', 
+            options: turmas.map(t => {
+              return {
+                text: t.codigoString,
+                value: t._id
+              }
+            }),
+            multiple: true,
+            size: '8'
+          })
+        .column.is-half
+          label.label Questões
+          for questao in questoes
+            .card.is-fullwidth
+              header.card-header
+                p.card-header-title #{questao.titulo}
+                a.card-header-icon.card-toggle
+                  | Ver
+                  span.icon
+                    i.fa.fa-angle-down
+              .card-content(style='display: none;')
+                .content
+                  .columns
+                    .column.is-narrow
+                      .field.has-text-centered
+                        input.switch(type="checkbox", name=`questoes[${questao._id}]`, id=`questao${questao._id}`)
+                        label(for=`questao${questao._id}`)
+                    .column
+                      p #{questao.enunciado}
+
+      input.button.is-primary.is-fullwidth.is-large(type="submit" value="Salvar")
+
+block styles
+//-   link(href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet")
+  link(href="/styles/select2-bootstrap.min.css" rel="stylesheet")
+
+block scripts
+//-   script(src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js")
+  script(src="/dist/Lista.bundle.js")

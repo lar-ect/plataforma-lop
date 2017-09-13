@@ -23,7 +23,8 @@ exports.index = async (req, res) => {
       tags, 
       submissoes, 
       filtrarSubmissoesLista,
-      questoesOcultas
+      questoesOcultas,
+      provasUsuario: req.provasUsuario
     });
   } else {
     res.render('index', { title: 'Início', questoes, listasExercicio, tags });
