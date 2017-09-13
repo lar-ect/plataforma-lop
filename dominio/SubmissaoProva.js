@@ -30,7 +30,7 @@ const submissaoProvaSchema = new mongoose.Schema(
 	user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 	prova: { type: mongoose.Schema.Types.ObjectId, ref: 'Prova' }
   },
-  { collection: 'submissoes' }
+  { collection: 'submissoesProva' }
 );
 
 function autopopulate(next) {
