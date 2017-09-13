@@ -6,6 +6,7 @@ const promisify = require('es6-promisify');
 const permissoes = require('../dominio/Permissoes');
 const mailController = require('./mailController');
 
+// Middleware de permissão
 exports.temPermissao = (permissao) => {
   return (req, res, next) => {
     if (req.user && permissoes.temPermissao(req.user, permissao)) {
@@ -28,7 +29,6 @@ exports.isProfessor = () => {
       res.redirect('back');
     }
   };
-  
 };
 
 exports.login = passport.authenticate('local', {

@@ -16,13 +16,18 @@ const gruposPorPermissao = {
 	READ_PROVA: ['PROFESSOR'],
 	CREATE_PROVA: ['PROFESSOR'],
 	UPDATE_PROVA: ['PROFESSOR'],
-	DELETE_PROVA: ['PROFESSOR']
+	DELETE_PROVA: ['PROFESSOR'],
+	INICIAR_QUALQUER_PROVA: []
 };
 
 exports.grupos = grupos;
 
 exports.isProfessor = (user) => {
 	return user && (user.grupos.includes('PROFESSOR') || user.grupos.includes('ADMINISTRADOR'));
+};
+
+exports.isAdmin = (user) => {
+	return user && user.grupos.includes('ADMINISTRADOR');
 };
 
 exports.temPermissao = (user, permissao) => {

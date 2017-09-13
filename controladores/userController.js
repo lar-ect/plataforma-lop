@@ -4,18 +4,29 @@ const User = mongoose.model('User');
 const Questao = mongoose.model('Questao');
 const Submissao = mongoose.model('Submissao');
 const Turma = mongoose.model('Turma');
+const Prova = mongoose.model('Prova');
 
 const permissoes = require('../dominio/Permissoes');
 
 exports.perfil = async (req, res) => {
   let turmas = null;
+  let provas = null;
   if (req.user && permissoes.isProfessor(req.user)) {
-    turmas = await Turma.find({
-      _id: { $in: req.user.sigaa.turmas }
-    }, 'descricaoComponente codigoString qtdMatriculados _id id');
+    turmas = await Turma.find(
+      {
+        _id: { $in: req.user.sigaa.turmas }
+      }, 
+      'descricaoComponente codigoString qtdMatriculados _id id'
+    );
+    if (permissoes.isAdmin(req.user)) {
+      provas = await Prova.find({});
+    }
+    else {
+      provas = await Prova.find({ autor: req.user._id });
+    }
   }
   const submissoes = await Submissao.find({ user: req.user });
-  res.render('usuario/perfil', { title: 'Perfil', submissoes, turmas });
+  res.render('usuario/perfil', { title: 'Perfil', submissoes, turmas, provas });
 };
 
 exports.loginForm = (req, res) => {

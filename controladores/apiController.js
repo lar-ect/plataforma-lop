@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Questao = mongoose.model("Questao");
 const Submissao = mongoose.model("Submissao");
+const SubmissaoProva = mongoose.model("SubmissaoProva");
 const Data = mongoose.model("Data");
 const executar = require("../negocio/executar");
 
@@ -93,6 +94,31 @@ exports.executarCodigoQuestao = async (req, res) => {
   res.json(resultados);
 };
 
+/**
+ * Execução de código de questão de uma prova. Semelhante a execução de uma questão normal
+ * entretanto só retorna um caso de teste para o usuário
+ */
+exports.executarCodigoQuestaoProva = async (req, res) => {
+  const { codigo, id } = req.body;
+  const questao = await Questao.findOne({ _id: id });
+  if (!questao) {
+    res.status(500).send("Nenhuma questão encontrada para o id informado");
+    return;
+  }
+
+  const resultadosEsperados = questao.resultados;
+  const resultados = [];
+  for (let i = 0; i < 1; i++) {
+    resultados.push({
+      entrada: `[${resultadosEsperados[i].entradas.join(", ")}]`,
+      saida: executar(codigo, resultadosEsperados[i].entradas),
+      saidaEsperada: resultadosEsperados[i].saida
+    });
+  }
+
+  res.json(resultados);
+};
+
 exports.submeterCodigoQuestao = async (req, res) => {
   if (!req.user) {
     res.status(500).send("Você precisa estar logado para submeter questões");
@@ -134,6 +160,52 @@ exports.submeterCodigoQuestao = async (req, res) => {
 
   await submissao.save();
   res.json(submissao);
+};
+
+exports.submeterCodigoQuestaoProva = async (req, res) => {
+  if (!req.user) {
+    res.status(500).send("Você precisa estar logado para submeter questões");
+    return;
+  }
+  const { codigo, questaoId, provaId } = req.body;
+  const questao = await Questao.findOne({ _id: questaoId });
+  if (!questao) {
+    res.status(500).send("Nenhum questão encontrada para o id informado.");
+    return;
+  }
+
+  const resultadosEsperados = questao.resultados;
+  const resultados = [];
+  for (let i = 0; i < resultadosEsperados.length; i++) {
+    resultados.push({
+      entradas: resultadosEsperados[i].entradas.join(" "),
+      saida: executar(codigo, resultadosEsperados[i].entradas),
+      saidaEsperada: resultadosEsperados[i].saida
+    });
+  }
+
+  let acertos = 0;
+  resultados.forEach(res => {
+    if (res.saida === res.saidaEsperada) {
+      acertos++;
+    }
+  });
+
+  const porcentagemAcerto = Math.trunc(acertos * 100 / resultados.length);
+
+  const submissaoProva = new SubmissaoProva({
+    codigo,
+    questao: questao._id,
+    resultados,
+    porcentagemAcerto,
+    user: req.user,
+    prova: provaId
+  });
+
+  console.log(`Aluno "${req.user.nome}" de matrícula "${req.user.matricula}" submeteu a questão "${questao.titulo}" e obteve ${porcentagemAcerto}% de acerto.`);
+
+  await submissaoProva.save();
+  res.json('Questão submetida com sucesso');
 };
 
 exports.getTags = async (req, res) => {

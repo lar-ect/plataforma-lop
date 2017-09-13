@@ -4,97 +4,124 @@ include mixins/_listaCard
 include mixins/_tabelaQuestoes
 
 block content
-  section.hero.is-primary.shadow-inside
-    .hero-body
-      .container.has-text-centered
-        h1.title.title-with-shadow.is-size-2 Bem vindo!
-        h2.subtitle.m-b-8 Pronto para começar a praticar programação? 😁
-        button.button.is-warning(name="btn-novidades" data-toggle="modal" data-target="#modal-novidades")
-          span.icon
-            i.fa.fa-rss
-          span Novidades
-        .modal(id="modal-novidades")
-          .modal-background
-          .modal-content
-            .box
-              h1.title.has-text-dark.is-size-5 Obrigado a todos pelas sugestões!
-              p.has-text-justify Muitos usuários enviaram sugestões para melhorar o sistema e gostaríamos de agradecer a todos! Estamos trabalhando para implementar todas as sugestões de vocês 😁. O design do sistema também mudou! Adorariamos ouvir o que vocês acharam do novo layout. Continuem mandando feedback através do menu superior, estamos lendo tudo! 👏
-              br
-              p.has-text-justify Estamos trabalhando para adicionar novas questões, questões de desafio e questões de provas anteriores. Se você gosta de programação web e deseja ajudar de alguma forma, entre em contato com Gabriel pelo email: 
-              b.has-text-center tibuurcio@gmail.com
-              p.has-text-center Precisamos da sua ajuda! 👍
-              br
-              p(style="text-decoration: underline") Algumas das sugestões de vocês que já estão no sistema:
-              ul
-                li(style="font-weight: 600;") Navegação nas listas (voltar, anterior, próxima questão)
-                li(style="font-weight: 600;") Progresso das listas de exercícios
-                li(style="font-weight: 600;") Identifica questões já realizadas
-                li(style="font-weight: 600;") Melhorias nas submissões
-                li(style="font-weight: 600;") Abrir uma nova janela com as funções disponíveis
-              br
-              p(style="text-decoration: underline") Sugestões e novas funcionalidades que estão sendo trabalhadas:
-              ul
-                li(style="font-weight: 600;") Permitir edição das informações do perfil
-                li(style="font-weight: 600;") Agrupar submissões de uma mesma questão pelo melhor resultado
-                li(style="font-weight: 600;") Adicionar conteúdos de programação em geral
-                li(style="font-weight: 600;") Mais listas e questões variadas
-                li(style="font-weight: 600;") Área de dúvidas e discussões com os monitores/professores
-                li(style="font-weight: 600;") Integração com o processing (p5.js)
-          button.modal-close.is-large(aria-label="close")
+	section.hero.is-primary.shadow-inside
+		.hero-body
+			.container.has-text-centered
+				h1.title.title-with-shadow.is-size-2 Bem vindo!
+				h2.subtitle.m-b-8 Pronto para começar a praticar programação? 😁
+				button.button.is-warning(name="btn-novidades" data-toggle="modal" data-target="#modal-novidades")
+					span.icon
+						i.fa.fa-rss
+					span Novidades
+				.modal(id="modal-novidades")
+					.modal-background
+					.modal-content
+						.box
+							h1.title.has-text-dark.is-size-5 Obrigado a todos pelas sugestões!
+							p.has-text-justify Muitos usuários enviaram sugestões para melhorar o sistema e gostaríamos de agradecer a todos! Estamos trabalhando para implementar todas as sugestões de vocês 😁. O design do sistema também mudou! Adorariamos ouvir o que vocês acharam do novo layout. Continuem mandando feedback através do menu superior, estamos lendo tudo! 👏
+							br
+							p.has-text-justify Estamos trabalhando para adicionar novas questões, questões de desafio e questões de provas anteriores. Se você gosta de programação web e deseja ajudar de alguma forma, entre em contato com Gabriel pelo email: 
+							b.has-text-center tibuurcio@gmail.com
+							p.has-text-center Precisamos da sua ajuda! 👍
+							br
+							p(style="text-decoration: underline") Algumas das sugestões de vocês que já estão no sistema:
+							ul
+								li(style="font-weight: 600;") Navegação nas listas (voltar, anterior, próxima questão)
+								li(style="font-weight: 600;") Progresso das listas de exercícios
+								li(style="font-weight: 600;") Identifica questões já realizadas
+								li(style="font-weight: 600;") Melhorias nas submissões
+								li(style="font-weight: 600;") Abrir uma nova janela com as funções disponíveis
+							br
+							p(style="text-decoration: underline") Sugestões e novas funcionalidades que estão sendo trabalhadas:
+							ul
+								li(style="font-weight: 600;") Permitir edição das informações do perfil
+								li(style="font-weight: 600;") Agrupar submissões de uma mesma questão pelo melhor resultado
+								li(style="font-weight: 600;") Adicionar conteúdos de programação em geral
+								li(style="font-weight: 600;") Mais listas e questões variadas
+								li(style="font-weight: 600;") Área de dúvidas e discussões com os monitores/professores
+								li(style="font-weight: 600;") Integração com o processing (p5.js)
+					button.modal-close.is-large(aria-label="close")
 
-    .hero-foot
-      .container
-        nav.tabs.is-boxed.is-centered
-          ul
-            li.is-active(data-tab="listas_exercicio")
-              a 
-                span.icon.is-small
-                  i.fa.fa-file-text-o
-                span Listas de Exercício
-            li(data-tab="listas_laboratorio")
-              a 
-                span.icon.is-small
-                  i.fa.fa-file-text-o
-                span Listas de Laboratório
-            li(data-tab="questoes")
-              a 
-                span.icon.is-small
-                  i.fa.fa-file-text-o
-                span Questões
-            if questoesOcultas && permissoes.temPermissao(user, 'VER_QUESTOES_OCULTAS')
-              li(data-tab="questoes_ocultas")
-                a 
-                  span.icon.is-small
-                    i.fa.fa-file-text-o
-                  span Questões ocultas
-            
-  section.m-t-16.m-b-16
-    .container.is-fluid
-      - const listasExercicioLaboratorio = listasExercicio.filter(l => l.titulo.includes('Laboratório'))
-      - const listasExercicioRegular = listasExercicio.filter(l => !l.titulo.includes('Laboratório'))
-      .tab-content.current-tab(id="listas_exercicio")
-        .columns.is-multiline.is-tablet
-          for lista in listasExercicioRegular
-            .column.is-half
-              +listaCard(lista)
-      .tab-content(id="listas_laboratorio")
-        .columns.is-multiline.is-tablet
-          for lista in listasExercicioLaboratorio
-            .column.is-half
-              +listaCard(lista)
-      .tab-content(id="questoes")
-        +tabelaQuestoes(questoes)
-      if questoesOcultas && permissoes.temPermissao(user, 'VER_QUESTOES_OCULTAS')
-        .tab-content(id="questoes_ocultas")
-          +tabelaQuestoes(questoesOcultas)
-        
+		.hero-foot
+			.container
+				nav.tabs.is-boxed.is-centered
+					ul
+						li.is-active(data-tab="listas_exercicio")
+							a 
+								span.icon.is-small
+									i.fa.fa-file-text-o
+								span Listas de Exercício
+						li(data-tab="listas_laboratorio")
+							a 
+								span.icon.is-small
+									i.fa.fa-file-text-o
+								span Listas de Laboratório
+						li(data-tab="questoes")
+							a 
+								span.icon.is-small
+									i.fa.fa-file-text-o
+								span Questões
+						if questoesOcultas && permissoes.temPermissao(user, 'VER_QUESTOES_OCULTAS')
+							li(data-tab="questoes_ocultas")
+								a 
+									span.icon.is-small
+										i.fa.fa-file-text-o
+									span Questões ocultas
+						if provasUsuario && provasUsuario.length > 0
+							li(data-tab="provas")
+								a 
+									span.icon.is-small
+										i.fa.fa-file-text-o
+									span Provas
+						
+	section.m-t-16.m-b-16
+		.container.is-fluid
+			- const listasExercicioLaboratorio = listasExercicio.filter(l => l.titulo.includes('Laboratório'))
+			- const listasExercicioRegular = listasExercicio.filter(l => !l.titulo.includes('Laboratório'))
+			.tab-content.current-tab(id="listas_exercicio")
+				.columns.is-multiline.is-tablet
+					for lista in listasExercicioRegular
+						.column.is-half
+							+listaCard(lista)
+			.tab-content(id="listas_laboratorio")
+				.columns.is-multiline.is-tablet
+					for lista in listasExercicioLaboratorio
+						.column.is-half
+							+listaCard(lista)
+			.tab-content(id="questoes")
+				+tabelaQuestoes(questoes)
+			if questoesOcultas && permissoes.temPermissao(user, 'VER_QUESTOES_OCULTAS')
+				.tab-content(id="questoes_ocultas")
+					+tabelaQuestoes(questoesOcultas)
+			if provasUsuario && provasUsuario.length > 0
+				.tab-content(id="provas")
+					.container
+						.columns.is-multiline.is-tabled
+							for prova in provasUsuario
+								.column.is-half
+									.box
+										h4.title.is-size-5 #{prova.titulo}
+										h5.subtitle.is-size-6 Quantidade de questões: #{prova.questoes.length}
+										if prova.iniciou && !prova.finalizou
+											//- o mongodb salva todas as dates em UTC então precisamos converter a hora atual
+											//- para UTC utilizando h.moment().utc() antes de comparar os horários
+											- const fim = h.moment(prova.iniciou).add(prova.duracao, 'minutes')
+											- const diff = h.calcularDiferenca(h.moment().utc(), fim)
+											p Tempo restante: #{diff ? diff + 'minutos' : 'Finalizada' }
+										.field.has-addons
+											.control
+												a.button.is-primary.m-t-16(href=`prova/${prova._id}`)
+													span.icon.is-small
+														i.fa.fa-floppy-o
+													span Ver prova
+
 block styles
-  link(rel="stylesheet", href="/js/vendors/footable/css/footable.standalone.min.css", type="text/css")
-  link(rel="stylesheet", href="/js/vendors/footable/css/footable.custom.css", type="text/css")
+	link(rel="stylesheet", href="/js/vendors/footable/css/footable.standalone.min.css", type="text/css")
+	link(rel="stylesheet", href="/js/vendors/footable/css/footable.custom.css", type="text/css")
 
 block scripts
-  script(src="/js/vendors/footable/js/footable.min.js")
-  script(src="/js/tabelas/ListaFilter.js")
-  script(src="/dist/index.bundle.js")
-  script(src="/js/tabelas/questoes.js")
-  
+	script(src="/js/vendors/footable/js/footable.min.js")
+	script(src="/js/tabelas/ListaFilter.js")
+	script(src="/dist/index.bundle.js")
+	script(src="/js/tabelas/questoes.js")
+	

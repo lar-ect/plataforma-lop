@@ -16,6 +16,7 @@ const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
 const promisify = require('es6-promisify');
 const helpers = require('./helpers');
+
 const permissoes = require('./dominio/Permissoes');
 const errorHandlers = require('./negocio/errorHandlers');
 
@@ -42,13 +43,16 @@ mongoose.connection.on('error', err => {
 });
 
 // Import todos os models do projeto para que possamos utilizar em qualquer parte do sistema
+// Criar uma função utilitária no futuro que faz o require em todos os arquivos .js da pasta dominio
 require('./dominio/User');
 require('./dominio/Questao');
 require('./dominio/ListaExercicio');
 require('./dominio/Submissao');
+require('./dominio/SubmissaoProva');
 require('./dominio/Sugestao');
 require('./dominio/Turma');
 require('./dominio/Data');
+require('./dominio/Prova');
 
 // Configura estratégia de autenticação local com passport.js
 const User = mongoose.model('User');
@@ -141,6 +145,7 @@ app.use((req, res, next) => {
 });
 
 // Finalmente, definimos nossas próprias rotas depois de passar por todos os middlewares acima
+// Criar função auxiliar que faz o require de todos os arquivos .js na pasta rotas
 app.use('/', require('./rotas/index'));
 app.use('/', require('./rotas/api'));
 app.use('/', require('./rotas/auth'));
@@ -149,6 +154,7 @@ app.use('/', require('./rotas/listasExercicio'));
 app.use('/gerenciador', require('./rotas/gerenciador'));
 app.use('/', require('./rotas/turma'));
 app.use('/', require('./rotas/submissao'));
+app.use('/', require('./rotas/prova'));
 
 // Se a url não bater com nenhuma das nossas rotas, envia um erro 404
 app.use(errorHandlers.notFound);
