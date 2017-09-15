@@ -1,0 +1,45 @@
+extends ../layout
+
+block content
+  section.hero.is-dark
+    .hero-body
+      .container
+        p.title #{prova.titulo}
+        p.subtitle Data de início: #{h.moment(prova.iniciou).format('DD/MM/YYYY - HH:mm')}
+        p.subtitle Duração: #{prova.duracao} minutos
+
+  section.section
+    .container
+      h2.subtitle Total de usuários que submeteram: #{submissoesPorUsuario.length}
+      //- pre= h.dump(submissoesPorUsuario)
+      for submissoes in submissoesPorUsuario
+        .card
+          header.card-header.card-toggle
+            p.card-header-title 
+              a.preview-link #{submissoes.user.nome + ' - ' + submissoes.user.matricula}
+            a.card-header-icon
+              | #{submissoes.acerto}% de acerto - #{submissoes.submissoes.length} Submissões - Visualizar
+              span.icon
+                i.fa.fa-angle-down
+          .card-content(style="display: none;")
+            - const submissoesOrdenadas = submissoes.submissoes.sort((a, b) => (b.porcentagemAcerto - a.porcentagemAcerto))
+            for sub in submissoesOrdenadas
+              .columns
+                .column.is-half
+                  p.subtitle.no-margin-bottom Código
+                  pre: code.javascript #{sub.codigo}
+                .column.is-half
+                  p.subtitle.no-margin-bottom Saídas: 
+                    - const qtdAcertos = (sub.resultados.length*sub.porcentagemAcerto)/100;
+                    b #{sub.porcentagemAcerto}% de acerto (#{qtdAcertos}/#{sub.resultados.length})
+                  table.table.is-bordered.is-narrow.is-fullwidth
+                    thead: tr
+                      th Entradas
+                      th Saída esperada
+                      th Saída
+                    tbody
+                      for res in sub.resultados
+                        tr
+                          td #{res.entradas}
+                          td.is-saida-codigo #{res.saidaEsperada}
+                          td.is-saida-codigo #{res.saida}

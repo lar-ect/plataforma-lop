@@ -107,7 +107,7 @@ block content
 											//- para UTC utilizando h.moment().utc() antes de comparar os horários
 											- const fim = h.moment(prova.iniciou).add(prova.duracao, 'minutes')
 											- const diff = h.calcularDiferenca(h.moment().utc(), fim)
-											p Tempo restante: #{diff ? diff + 'minutos' : 'Finalizada' }
+											p Tempo restante: #{diff ? diff + ' minutos' : 'Finalizada' }
 										.field.has-addons
 											.control
 												a.button.is-primary.m-t-16(href=`prova/${prova._id}`)

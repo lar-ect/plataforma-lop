@@ -3,6 +3,7 @@ const Prova = mongoose.model('Prova');
 const Questao = mongoose.model('Questao');
 const Turma = mongoose.model('Turma');
 const Submissao = mongoose.model('Submissao');
+const SubmissaoProva = mongoose.model('SubmissaoProva');
 const permissoes = require('../dominio/Permissoes');
 const moment = require('moment');
 const { calcularDiferenca } = require('../helpers');
@@ -105,6 +106,59 @@ exports.verificarTempoLimite = async (req, res, next) => {
 };
 
 /**
+ * Recupera a prova pelo id e adiciona o objeto na resquisição
+ */
+exports.recuperarProva = async (req, res, next) => {
+	const prova = await Prova.findOne({ _id: req.params.id });
+	req.prova = prova;
+	next();
+};
+
+exports.podeVerProvaRelatorio = (req, res, next) => {
+	const prova = req.prova
+	if (permissoes.isAdmin(req.user) || req.user.id === prova.autor.id) {
+		next();
+	}
+	else {
+		req.flash('warning', 'Você não tem permissão para acessar essa página');
+		res.redirect('/');
+	}
+};
+
+exports.getProvaRelatorio = async (req, res) => {
+	const prova = req.prova;
+	let submissoes = await SubmissaoProva.aggregate([
+		{ $match: { prova: prova._id } },
+		{ $group: {
+			_id: '$user',
+			submissoes: { $push: '$$CURRENT' },
+			user: { $first: '$user' },
+			acerto: { $max: '$$CURRENT.porcentagemAcerto' }
+		} },
+		{ $unwind: '$user' },
+		{ $lookup: {
+			from: 'users',
+			localField: 'user',
+			foreignField: '_id',
+			as: 'user'
+		}},
+		{ $unwind: '$user' }
+	]);
+
+	submissoes.forEach(sub => {
+		sub.user.nome = sub.user.nome.toUpperCase();
+	});
+
+	submissoes = submissoes.sort((a, b) => a.user.nome.localeCompare(b.user.nome));
+	
+	res.render('prova/relatorio', {
+		title: 'Relatório de prova',
+		prova,
+		submissoesPorUsuario: submissoes
+	});
+};
+
+/**
  * A prova vem em req.prova
  * Um usuário pode ver a prova se sua matrícula estiver presente em alguma das turmas presente
  * no cadastro da prova. 
@@ -180,7 +234,7 @@ exports.findProvaByUserId = async (req, res, next) => {
 // Prova deve vir em req.prova
 exports.getProva = async (req, res) => {
 	const prova = req.prova;
-	const submissoes = await Submissao.listarSubmissoesUsuario(req.user, prova.questoes.map(q => q._id));
+	const submissoes = await SubmissaoProva.listarSubmissoesUsuario(req.user, prova.questoes.map(q => q._id));
 	const progresso = Submissao.calcularProgresso(prova.questoes.length, submissoes.size);
 	const fim = moment(prova.iniciou).add(prova.duracao, 'minutes');
 	const minutosRestantes = calcularDiferenca(moment().utc(), fim);

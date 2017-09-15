@@ -36,4 +36,11 @@ router.get('/prova/:id/questao/:idQuestao',
     catchErrors(provaController.getQuestao)
 );
 
+router.get('/prova/:id/relatorio', 
+    authController.isLoggedIn,
+    catchErrors(provaController.recuperarProva),
+    provaController.podeVerProvaRelatorio, 
+    catchErrors(provaController.getProvaRelatorio)
+);
+
 module.exports = router;

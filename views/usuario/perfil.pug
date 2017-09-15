@@ -80,6 +80,11 @@ block content
 											p Prova em andamento. Tempo restante: #{h.calcularDiferenca(h.moment().utc(), fim)} minutos
 										.field.has-addons
 											.control
+												a.button.is-outlined(href=`prova/${prova._id}/relatorio`)
+													span.icon.is-small
+														i.fa.fa-bar-chart
+													span Ver relatório
+											.control
 												a.button.is-outlined(href=`prova/${prova._id}`)
 													span.icon.is-small
 														i.fa.fa-floppy-o
