@@ -145,16 +145,37 @@ exports.getProvaRelatorio = async (req, res) => {
 		{ $unwind: '$user' }
 	]);
 
+	const totalSubmissoes = submissoes.length;
+
+	let turmas = await Turma.find({ _id: { $in: prova.turmas } });
+	turmas = turmas.map(t => {
+		return {
+			id: t._id,
+			codigo: t.codigoString,
+			dicentes: t.dicentes.map(d => d.matricula)
+		};
+	});
+
 	submissoes.forEach(sub => {
 		sub.user.nome = sub.user.nome.toUpperCase();
 	});
 
 	submissoes = submissoes.sort((a, b) => a.user.nome.localeCompare(b.user.nome));
-	
+
+	let submissoesPorTurma = [];
+	turmas.forEach(t => {
+		submissoesPorTurma.push({
+			turmaId: t.id,
+			turmaCodigo: t.codigo,
+			submissoes: submissoes.filter(sub => t.dicentes.includes(sub.user.matricula))
+		});
+	});
+
 	res.render('prova/relatorio', {
 		title: 'Relatório de prova',
 		prova,
-		submissoesPorUsuario: submissoes
+		submissoesPorTurma,
+		totalSubmissoes
 	});
 };
 

@@ -8,8 +8,14 @@ const katex = require('katex');
 const moment = require('moment');
 moment.locale('pt-br');
 
+// const prettier = require('prettier');
+// const stripAnsi = require('strip-ansi');
+
 // moment.js is a handy library for displaying dates. We need this in our templates to display things like "Posted 5 minutes ago"
 exports.moment = moment;
+
+// prettier - formata código
+// exports.formatarCodigo = (codigo) => stripAnsi(prettier.format(codigo));
 
 exports.calcularDiferenca = (atual, fim) => {
 	if (atual.isAfter(fim)) {
