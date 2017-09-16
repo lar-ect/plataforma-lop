@@ -130,7 +130,6 @@ function criarLinhasResultado(resultado) {
     .map(r => {
       console.log(r);
       r.saida = r.saida.trim();
-      r.saidaEsperada = r.saidaEsperada.trim();
       const acertou = r.saida === r.saidaEsperada;
       const icon = acertou ? 'check' : 'times';
       const color = acertou ? 'green' : 'red';
