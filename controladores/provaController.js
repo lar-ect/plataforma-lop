@@ -129,6 +129,13 @@ exports.getProvaRelatorio = async (req, res) => {
 	const prova = req.prova;
 	let submissoes = await SubmissaoProva.aggregate([
 		{ $match: { prova: prova._id } },
+		{ $lookup: {
+			from: 'questoes',
+			localField: 'questao',
+			foreignField: '_id',
+			as: 'questao'
+		}},
+		{ $unwind: '$questao'},
 		{ $group: {
 			_id: '$user',
 			submissoes: { $push: '$$CURRENT' },
@@ -142,7 +149,7 @@ exports.getProvaRelatorio = async (req, res) => {
 			foreignField: '_id',
 			as: 'user'
 		}},
-		{ $unwind: '$user' }
+		{ $unwind: '$user' },
 	]);
 
 	const totalSubmissoes = submissoes.length;
