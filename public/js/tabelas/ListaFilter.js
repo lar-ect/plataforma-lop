@@ -1,7 +1,7 @@
 FooTable.ListaFilter = FooTable.Filtering.extend({
 	construct: function(instance) {
 		this._super(instance);
-		this.listas = ['L1','L2', 'L3','L4'];
+		this.listas = ['L1','L2', 'L3','L4', 'L5'];
 		this.def = 'Todas';
 		this.$lista = null;
 	},

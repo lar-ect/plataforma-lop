@@ -16,6 +16,7 @@ const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
 const promisify = require('es6-promisify');
 const helpers = require('./helpers');
+const _ = require('lodash');
 
 const permissoes = require('./dominio/Permissoes');
 const errorHandlers = require('./negocio/errorHandlers');
@@ -135,6 +136,7 @@ app.use((req, res, next) => {
   res.locals.currentPath = req.path;
   res.locals.permissoes = permissoes;
   res.locals.env = process.env.NODE_ENV;
+  res.locals._ = _; // Lodash - Docs: https://lodash.com/docs/
   next();
 });
 

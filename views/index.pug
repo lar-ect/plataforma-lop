@@ -56,6 +56,11 @@ block content
 								span.icon.is-small
 									i.fa.fa-file-text-o
 								span Listas de Laboratório
+						li(data-tab="provas_anteriores")
+							a 
+								span.icon.is-small
+									i.fa.fa-file-text-o
+								span Provas anteriores
 						li(data-tab="questoes")
 							a 
 								span.icon.is-small
@@ -76,16 +81,21 @@ block content
 						
 	section.m-t-16.m-b-16
 		.container.is-fluid
-			- const listasExercicioLaboratorio = listasExercicio.filter(l => l.titulo.includes('Laboratório'))
-			- const listasExercicioRegular = listasExercicio.filter(l => !l.titulo.includes('Laboratório'))
+			- const listasProvasAnteriores = _.remove(listasExercicio, l => l.titulo.includes('Prova'))
+			- const listasExercicioLaboratorio = _.remove(listasExercicio, l => l.titulo.includes('Laboratório'))
 			.tab-content.current-tab(id="listas_exercicio")
 				.columns.is-multiline.is-tablet
-					for lista in listasExercicioRegular
+					for lista in listasExercicio
 						.column.is-half
 							+listaCard(lista)
 			.tab-content(id="listas_laboratorio")
 				.columns.is-multiline.is-tablet
 					for lista in listasExercicioLaboratorio
+						.column.is-half
+							+listaCard(lista)
+			.tab-content(id="provas_anteriores")
+				.columns.is-multiline.is-tablet
+					for lista in listasProvasAnteriores
 						.column.is-half
 							+listaCard(lista)
 			.tab-content(id="questoes")
