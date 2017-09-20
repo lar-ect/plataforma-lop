@@ -10,7 +10,7 @@ const gruposPorPermissao = {
 	VER_QUESTOES_OCULTAS: ['PROFESSOR'],
 	
 	// Gerência
-	VER_GERENCIADOR: ['PROFESSOR'],
+	VER_GERENCIADOR: ['PROFESSOR', 'MONITOR'],
 
 	// Provas
 	READ_PROVA: ['PROFESSOR'],

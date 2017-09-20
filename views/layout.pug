@@ -31,7 +31,8 @@ html
                 .navbar-dropdown.is-boxed
                   a.navbar-item(href="/questao/adicionar") Criar questão
                   a.navbar-item(href="/lista/adicionar") Criar lista
-                  a.navbar-item(href="/prova/adicionar") Criar prova
+                  if permissoes.isProfessor(user)
+                    a.navbar-item(href="/prova/adicionar") Criar prova
               
           .navbar-end
             a.navbar-item(href="/") Início
