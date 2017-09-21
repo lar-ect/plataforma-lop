@@ -6,11 +6,9 @@
     "node": ">= 7.6.0"
   },
   "scripts": {
-    "start": "node ./app.js",
-    "watch": "nodemon ./app.js --ignore public/ --ignore cypress/",
+    "start": "nodemon ./app.js --ignore public/ --ignore cypress/",
     "dev": "concurrently \"npm run watch\" \"npm run assets\" --names \"💻,📦\" --prefix name",
     "assets": "webpack -w --display-max-modules 0",
-    "commit": "git-cz",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
     "generate-webpack-stats": "webpack --profile --json > webpack-stats.json",
@@ -84,9 +82,6 @@
     "commitizen": {
       "path": "./node_modules/cz-ptbr-changelog"
     }
-  },
-  "now": {
-    "dotenv": "variables.env.now"
   },
   "jest": {
     "testEnvironment": "jest-environment-node"
