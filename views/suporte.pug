@@ -1,0 +1,43 @@
+extends layout
+include mixins/forms/_inputs
+
+block content
+  section.hero.is-primary.shadow-inside
+    .hero-body
+      .container.has-text-centered
+        h1.title.title-with-shadow.is-size-2 Suporte
+        h2.subtitle.m-b-8 Envie suas dúvidas, sugestões, críticas e feedback
+  section.section
+    .container
+      .columns
+        .column.is-half.is-offset-one-quarter
+          form(action="/suporte" method="POST")
+            +input({ 
+              label: 'Nome (opcional)', 
+              name: 'nome', 
+              placeholder: 'Digite seu nome',
+              icon: 'user',
+              value: body.nome
+            })
+
+            +input({ 
+              label: 'Email (opcional)', 
+              name: 'email', 
+              placeholder: 'Digite seu email caso queira ser contatado de volta',
+              icon: 'envelope',
+              type: 'email',
+              value: body.email
+            })
+
+            +textarea({ 
+              rows: 4, 
+              name: 'mensagem', 
+              label: 'Mensagem', 
+              placeholder: 'Digite sua mensagem',
+              required: true,
+              value: body.mensagem
+            })
+            
+            .field
+              .control
+                button.button.is-primary(type="submit") Enviar

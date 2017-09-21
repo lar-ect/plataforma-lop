@@ -3,7 +3,9 @@ const Questao = mongoose.model('Questao');
 const ListaExercicio = mongoose.model('ListaExercicio');
 const Sugestao = mongoose.model('Sugestao');
 const Submissao = mongoose.model('Submissao');
+const Suporte = mongoose.model('Suporte');
 const permissoes = require('../dominio/Permissoes');
+const validator = require('validator');
 
 exports.index = async (req, res) => {
   const questoes = await Questao.find({oculta: {$in: [null, false]}});
@@ -39,10 +41,49 @@ function filtrarSubmissoesLista(lista, submissoes) {
   return progresso;
 }
 
-exports.sugestao = async (req, res) => {
-  const sugestao = new Sugestao(req.body);
-  await sugestao.save();
-  res.status(200).send('Submissão enviada com sucesso');
+exports.suporte = (req, res) => {
+  res.render('suporte', { title: 'Suporte', body: {} });
+};
+
+exports.enviarMensagemSuporte = async (req, res) => {
+  if (!req.body.mensagem) {
+    req.flash('danger', 'Forneça uma mensagem');
+    res.render('suporte', { title: 'Suporte' });
+    return;
+  }
+
+  if (req.body.email) {
+    req.checkBody('email', 'E-mail inválido').isEmail();
+    /**
+     * Permite variações na forma de escrever os emails que são ignoradas pelos provedores
+     * Ex.:
+     * tibuurcio@gmail.com
+     * Tibuurcio@gmail.com
+     * tibuurcio@googlemail.com //uk
+     * ti.b.uu.rcio@gmail.com
+     * tibuurcio+text@gmail.com
+     */
+    req.sanitizeBody('email').normalizeEmail({
+      remove_dots: false,
+      remove_extension: false,
+      gmail_remove_subaddress: false,
+      gmail_remove_dots: false,
+      yahoo_remove_subaddress: false
+    });
+
+    const erros = req.validationErrors();
+    if (erros) {
+      req.flash('danger', erros.map(err => err.msg));
+      res.render('suporte', {title: 'Suporte', body: req.body, flashes: req.flash() });
+      return;
+    }
+  }
+
+  const suporte = new Suporte(req.body);
+  await suporte.save();
+
+  req.flash('success', 'Mensagem enviada com sucesso.');
+  res.redirect('/');
 };
 
 exports.processing = (req, res) => {

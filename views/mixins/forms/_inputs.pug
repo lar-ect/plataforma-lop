@@ -11,11 +11,11 @@ mixin input({ label, type, name, placeholder, icon, value, hasAddon })
 			.control
 				a.button.is-static #{hasAddon}
 
-mixin textarea({ rows, name, label, placeholder, value })
+mixin textarea({ rows, name, label, placeholder, value, required })
 	.field
 		label.label= label
 		.control
-			textarea.textarea.is-primary(rows=rows, name=name, placeholder=`${placeholder ? placeholder : ''}`)= value
+			textarea.textarea.is-primary(rows=rows, name=name, placeholder=`${placeholder ? placeholder : ''}`, required=required)= value
 
 mixin select({ name, label, placeholder, options, value, icon, multiple, size })
 	.field
