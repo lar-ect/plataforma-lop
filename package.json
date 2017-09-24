@@ -7,7 +7,7 @@
   },
   "scripts": {
     "start": "nodemon ./app.js --ignore public/ --ignore cypress/",
-    "dev": "concurrently \"npm run watch\" \"npm run assets\" --names \"💻,📦\" --prefix name",
+    "dev": "concurrently \"npm start\" \"npm run assets\" --names \"💻,📦\" --prefix name",
     "assets": "webpack -w --display-max-modules 0",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
