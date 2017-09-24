@@ -55,8 +55,8 @@ exports.podeSubmeter = async (req, res, next) => {
 };
 
 exports.isAutorProva = async (req, res, next) => {
-	const provaId = req.query.id;
-	const prova = await Prova.findOne({ _id: req.query.id });
+	const provaId = req.query.id || req.params.id;
+	const prova = await Prova.findOne({ _id: provaId });
 	if (prova.autor.id === req.user.id || permissoes.temPermissao(req.user, 'INICIAR_QUALQUER_PROVA')) {
 		//console.log('É autor da prova ou administrador');
 		req.prova = prova;
@@ -87,16 +87,16 @@ exports.iniciarProva = async (req, res) => {
 };
 
 exports.verificarTempoLimite = async (req, res, next) => {
-	//console.log('Verificando tempo limite da prova');
-
+	// console.log('Verificando tempo limite da prova');
 	const prova = await Prova.findOne({ _id: req.params.id });
+	console.log(prova);
 	const agora = moment(new Date());
-	//console.log(`Agora: ${agora.format('DD/MM/YYYY - HH:mm')}`);
+	// console.log(`Agora: ${agora.format('DD/MM/YYYY - HH:mm')}`);
 	const fimProva = moment(prova.iniciou).add(prova.duracao, 'minutes');
-	//console.log(`Fim prova: ${fimProva.format('DD/MM/YYYY - HH:mm')}`);
+	// console.log(`Fim prova: ${fimProva.format('DD/MM/YYYY - HH:mm')}`);
 
 	if (!prova.finalizou && agora.isAfter(fimProva)) {
-		//console.log('Passou do horário da prova e não havia finalizado. Finalizando...');
+		console.log('Passou do horário da prova e não havia finalizado. Finalizando...');
 		prova.finalizou = fimProva;
 		await prova.save();
 	}
@@ -265,25 +265,51 @@ exports.getProva = async (req, res) => {
 	const submissoes = await SubmissaoProva.listarSubmissoesUsuario(req.user, prova.questoes.map(q => q._id));
 	const progresso = Submissao.calcularProgresso(prova.questoes.length, submissoes.size);
 	const fim = moment(prova.iniciou).add(prova.duracao, 'minutes');
-	const minutosRestantes = calcularDiferenca(moment().utc(), fim);
+	const tempoRestante = calcularDiferenca(moment().utc(), fim);
 	res.render('questao/lista', { 
 		title: `Prova ${req.prova.titulo}`, 
 		lista: req.prova, 
 		progresso, 
 		submissoes, 
 		prova: true,
-		minutosRestantes
+		tempoRestante
 	});
 };
 
 exports.adicionarProva = async (req, res) => {
+	const id = req.params.id;
+	const prova = await Prova.findOne({ _id: id });
 	const questoesOcultas = await Questao.find({oculta: true});
 	const turmas = await Turma.find({});
 	res.render('questao/editarProva', {
 		title: 'Adicionar prova',
 		questoes: questoesOcultas,
-		turmas
+		turmas,
+		prova
 	});
+};
+
+exports.editarProva = async (req, res) => {
+	req.body.questoes = Object.keys(req.body.questoes);
+	const prova = await Prova.findOne({ _id: req.params.id });
+	const duracao = prova.duracao;
+	const novaDuracao = req.body.duracao;
+
+	// Remove o horário de finalização caso a prova já houver sido finalizada e a duração tiver mudado
+	if (prova.duracao != duracao) {
+		req.body.duracao = novaDuracao;
+	}
+
+	const novaProva = await Prova.findOneAndUpdate({ _id: req.params.id }, req.body, {
+		new: true,
+    runValidators: true
+	}).exec();
+
+	novaProva.finalizou = undefined;
+	await novaProva.save();
+	
+  req.flash('success','Atualizou a prova com sucesso');
+  res.redirect(`/prova/${prova._id}`);
 };
 
 exports.criarProva = async (req, res) => {

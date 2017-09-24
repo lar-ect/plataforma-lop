@@ -77,7 +77,7 @@ block content
 											//- o mongodb salva todas as dates em UTC então precisamos converter a hora atual
 											//- para UTC utilizando h.moment().utc() antes de comparar os horários
 											- const fim = h.moment(prova.iniciou).add(prova.duracao, 'minutes')
-											p Prova em andamento. Tempo restante: #{h.calcularDiferenca(h.moment().utc(), fim)} minutos
+											p Prova em andamento. Tempo restante: #{h.calcularDiferenca(h.moment().utc(), fim)}
 										.field.has-addons
 											.control
 												a.button.is-outlined(href=`prova/${prova._id}/relatorio`)
@@ -89,6 +89,11 @@ block content
 													span.icon.is-small
 														i.fa.fa-floppy-o
 													span Ver prova
+											.control
+												a.button.is-outlined(href=`prova/adicionar/${prova._id}`)
+													span.icon.is-small
+														i.fa.fa-edit
+													span Editar prova
 											if !prova.iniciou && !prova.finalizou
 												.control
 													a.button.is-outlined(href=`/prova/iniciar?id=${prova._id}`)

@@ -9,10 +9,23 @@ router.get('/prova/adicionar',
     authController.temPermissao('CREATE_PROVA'), 
     catchErrors(provaController.adicionarProva));
 
+router.get('/prova/adicionar/:id', 
+    authController.isLoggedIn,
+    authController.temPermissao('UPDATE_PROVA'),
+    catchErrors(provaController.isAutorProva),
+    catchErrors(provaController.adicionarProva));
+
 router.post('/prova/adicionar', 
     authController.isLoggedIn,
     authController.temPermissao('CREATE_PROVA'), 
     catchErrors(provaController.criarProva)
+);
+
+router.post('/prova/adicionar/:id', 
+    authController.isLoggedIn,
+    authController.temPermissao('UPDATE_PROVA'),
+    catchErrors(provaController.isAutorProva),
+    catchErrors(provaController.editarProva)
 );
 
 // Recebe o id da prova como parâmetro /prova/iniciar?id=X

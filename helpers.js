@@ -6,6 +6,7 @@
 const fs = require('fs');
 const katex = require('katex');
 const moment = require('moment');
+const humanizeDuration = require('humanize-duration');
 moment.locale('pt-br');
 
 // const prettier = require('prettier');
@@ -17,11 +18,16 @@ exports.moment = moment;
 // prettier - formata código
 // exports.formatarCodigo = (codigo) => stripAnsi(prettier.format(codigo));
 
+// Calcula diferença entre dois moments
 exports.calcularDiferenca = (atual, fim) => {
 	if (atual.isAfter(fim)) {
 		return null;
 	}
-	return fim.diff(atual, 'minutes');
+	return humanizeDuration(fim.diff(atual), {
+    language: 'pt',
+    units: ['h', 'm', 's'],
+    round: true
+  });
 };
 
 // Dump is a handy debugging function we can use to sort of "console.log" our data
