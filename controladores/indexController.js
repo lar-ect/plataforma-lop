@@ -7,6 +7,10 @@ const Suporte = mongoose.model('Suporte');
 const permissoes = require('../dominio/Permissoes');
 const validator = require('validator');
 
+exports.redirectToIndex = (req, res) => {
+  res.redirect('/');
+};
+
 exports.index = async (req, res) => {
   const questoes = await Questao.find({oculta: {$in: [null, false]}});
   const listasExercicio = await ListaExercicio.find({});

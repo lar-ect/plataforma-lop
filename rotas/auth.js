@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 
+const indexController = require('../controladores/indexController');
 const authController = require('../controladores/authController');
 const userController = require('../controladores/userController');
 const { catchErrors } = require('../negocio/errorHandlers');
@@ -44,7 +45,7 @@ router.get('/logout', authController.logout);
 router.post('/login', authController.login);
 
 router.post('/cadastro', userController.validarRegistro, 
-	catchErrors(userController.registrar), authController.login);
+	catchErrors(userController.registrar), indexController.redirectToIndex);
 
 router.post('/conta/esqueceu-senha', catchErrors(authController.esqueceuSenha));
 

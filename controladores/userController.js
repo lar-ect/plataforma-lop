@@ -43,6 +43,7 @@ exports.registrar = async (req, res, next) => {
   const user = new User({ email: req.body.email, nome: req.body.nome, matricula: req.body.matricula });
   const registerWithPromise = promisify(User.register, User);
   await registerWithPromise(user, req.body.password);
+  req.flash('success', 'Cadastro realizado com sucesso');
   next();
 };
 
