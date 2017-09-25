@@ -113,7 +113,7 @@ app.use(
     saveUninitialized: false,
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
     cookie: {
-      maxAge: 1000 * 60 * 20 // 20 minutos sem interagir com o sistema
+      maxAge: 1000 * 60 * 60 // 60 minutos sem interagir com o sistema
     }
   })
 );
