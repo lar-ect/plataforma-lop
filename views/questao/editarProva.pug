@@ -15,7 +15,7 @@ block content
   section.m-t-16
     .container
       form(id="form-prova" action=`/prova/adicionar/${p._id || ''}` method='POST')
-        input(hidden, name='autor', value=(p.autor._id || user._id))
+        input(hidden, name='autor', value=((p.autor && p.autor._id) || user._id))
         .columns
           .column.is-half
             +input({ 
@@ -66,7 +66,7 @@ block content
                     .columns
                       .column.is-narrow
                         .field.has-text-centered
-                          input.switch(type="checkbox", name=`questoes[${questao._id}]`, id=`questao${questao._id}` checked=p.questoes.map(q => q.id).includes(questao.id))
+                          input.switch(type="checkbox", name=`questoes[${questao._id}]`, id=`questao${questao._id}` checked=(p.questoes && p.questoes.map(q => q.id).includes(questao.id)))
                           label(for=`questao${questao._id}`)
                       .column
                         p #{questao.enunciado}

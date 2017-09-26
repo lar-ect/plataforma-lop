@@ -25,7 +25,7 @@ mixin select({ name, label, placeholder, options, value, icon, multiple, size })
 				select(name=name placeholder=placeholder, multiple=multiple, size=`${size ? size : ''}`)
 					for opt in options
 						if typeof opt === 'object'
-							option(value=opt.value, selected=value.indexOf(opt.value.toString()) > -1) #{opt.text}
+							option(value=opt.value, selected=(value && value.indexOf(opt.value.toString()) > -1)) #{opt.text}
 						else
 							if value && opt === value.includes(opt)
 								option(selected) #{opt}
