@@ -15,7 +15,7 @@ exports.executarCodigoComResultados = (codigo, resultadosEsperados) => {
 
 exports.executarCodigo = (codigo, id) => {
   return axios({
-    url: '/api/v1/executar/questao', 
+    url: '/api/v1/executar/questao',
     method: 'post',
     headers: {
       'Content-Type': 'application/json'
@@ -28,7 +28,7 @@ exports.executarCodigo = (codigo, id) => {
 
 exports.executarCodigoProva = (codigo, id) => {
   return axios({
-    url: '/api/v1/executar/prova/questao', 
+    url: '/api/v1/executar/prova/questao',
     method: 'post',
     headers: {
       'Content-Type': 'application/json'
@@ -61,6 +61,19 @@ exports.submeterCodigoProva = (codigo, id, provaId) => {
     },
     data: {
       codigo, questaoId: id, provaId
+    }
+  });
+};
+
+exports.salvarCodigoRascunho = (codigo, id) => {
+  return axios({
+    url: '/api/v1/rascunho/questao',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: {
+      codigo, id
     }
   });
 };

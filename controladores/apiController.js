@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Questao = mongoose.model("Questao");
 const Submissao = mongoose.model("Submissao");
 const SubmissaoProva = mongoose.model("SubmissaoProva");
+const Rascunho = mongoose.model("Rascunho");
 const Data = mongoose.model("Data");
 const executar = require("../negocio/executar");
 
@@ -17,7 +18,7 @@ exports.incrementarExecucoes = (req, res, next) => {
     {
       upsert: true
     },
-    function(err, data) {
+    function (err, data) {
       if (err) {
         console.log("Erro ao salvar execução no banco");
         throw err;
@@ -28,18 +29,18 @@ exports.incrementarExecucoes = (req, res, next) => {
 };
 
 exports.incrementarCliqueNovidades = (req, res) => {
-  Data.findOneAndUpdate({}, 
-  {
-    $inc: { 'cliqueNovidades': 1 }
-  }, {
-    upsert: true
-  },
-  function(err, data) {
-    if (err) {
-      console.error("Erro ao incrementar clique em novidades");
-      throw err;
-    }
-  });
+  Data.findOneAndUpdate({},
+    {
+      $inc: { 'cliqueNovidades': 1 }
+    }, {
+      upsert: true
+    },
+    function (err, data) {
+      if (err) {
+        console.error("Erro ao incrementar clique em novidades");
+        throw err;
+      }
+    });
 };
 
 /**
@@ -216,4 +217,22 @@ exports.getTags = async (req, res) => {
 exports.getQuestoes = async (req, res) => {
   const questoes = await Questao.find();
   res.json(questoes);
+};
+
+exports.salvarRascunho = async (req, res) => {
+  const { codigo, id } = req.body;
+  const questao = await Questao.findOne({ _id: id });
+  const data = Date.now();
+
+  const rascunho = {
+    questao: questao,
+    data: data,
+    codigo: codigo,
+    user: req.user
+  };
+
+  const rascunhoSalvo = await Rascunho.findOneAndUpdate({ questao, user: req.user }, rascunho, {
+    new: true, upsert: true
+  }).exec();
+  res.json(rascunhoSalvo);
 };

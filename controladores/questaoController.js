@@ -2,7 +2,9 @@ const mongoose = require('mongoose');
 const Questao = mongoose.model('Questao');
 const User = mongoose.model('User');
 const ListaExercicio = mongoose.model('ListaExercicio');
+const Rascunho = mongoose.model('Rascunho');
 const permissoes = require('../dominio/Permissoes');
+
 
 // exports.questoes = async (req, res) => {
 //   const questoes = await Questao.find({oculta: {$in: [null, false]}});t
@@ -19,7 +21,7 @@ exports.getQuestao = async (req, res) => {
     if (questaoAtualIndex > 0) {
       idQuestaoAnterior = questoes[questaoAtualIndex - 1];
     }
-    
+
     if (questaoAtualIndex < questoes.length - 1) {
       idProximaQuestao = questoes[questaoAtualIndex + 1];
     }
@@ -32,6 +34,7 @@ exports.getQuestao = async (req, res) => {
     return;
   }
 
+  const rascunho = await Rascunho.findOne({ questao: questao, user: req.user });
   const solucao = questao.solucao || null;
   res.render('questao/questao', {
     title: questao.titulo,
@@ -39,7 +42,8 @@ exports.getQuestao = async (req, res) => {
     solucao,
     listaId: lista ? lista._id : null,
     idQuestaoAnterior,
-    idProximaQuestao
+    idProximaQuestao,
+    rascunho
   });
 };
 
@@ -49,13 +53,13 @@ exports.adicionarQuestao = async (req, res) => {
   if (questaoId) {
     questao = await Questao.findOne({ _id: questaoId });
     // Remove o _id dos resultados para que o mesmo não apareça no editor de resultados
-    for(let i = 0; i < questao.resultados.length; i++) {
+    for (let i = 0; i < questao.resultados.length; i++) {
       questao.resultados[i]._id = undefined;
     }
   }
-  
-  res.render('editarQuestao', { 
-    title: 'Adicionar Questão', 
+
+  res.render('editarQuestao', {
+    title: 'Adicionar Questão',
     dificuldades: Questao.getDificuldades(),
     classificacoes: Questao.getClassificacoes(),
     questao
@@ -78,7 +82,7 @@ exports.atualizarQuestao = async (req, res) => {
     new: true, // return the new store instead of the old one
     runValidators: true
   }).exec();
-  req.flash("success",`Atualizou com sucesso a questão  <strong>${questao.titulo}</strong>.`);
+  req.flash("success", `Atualizou com sucesso a questão  <strong>${questao.titulo}</strong>.`);
   res.redirect(`/questao/${questao._id}`);
 };
 
@@ -90,16 +94,16 @@ exports.favoritarQuestao = async (req, res) => {
   const operador = contemLike ? '$pull' : '$addToSet';
   const incremento = contemLike ? -1 : 1;
   try {
-    await User.findByIdAndUpdate(req.user._id, 
-      { [operador]: { questoesFavoritas: req.params.id }}
+    await User.findByIdAndUpdate(req.user._id,
+      { [operador]: { questoesFavoritas: req.params.id } }
     );
 
     const questao = await Questao.findByIdAndUpdate(req.params.id,
-      { $inc: { likes: incremento }},
-      { new: true}
+      { $inc: { likes: incremento } },
+      { new: true }
     );
     res.json({ likes: questao.likes });
-  } catch(err) {
+  } catch (err) {
     res.status(500).send(err);
   }
 };

@@ -18,6 +18,8 @@ router.post('/api/v1/executar/questao-com-resultados', apiController.executarCod
 
 router.post('/api/v1/submeter/questao', catchErrors(apiController.submeterCodigoQuestao));
 
+router.post('/api/v1/rascunho/questao', catchErrors(apiController.salvarRascunho));
+
 router.get('/api/v1/tags', catchErrors(apiController.getTags));
 
 router.get('/api/v1/questoes', catchErrors(apiController.getQuestoes));

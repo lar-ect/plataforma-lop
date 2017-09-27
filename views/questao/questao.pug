@@ -79,6 +79,8 @@ block content
       .columns
         .column.is-half
           div(id="questao-editor")
+            if rascunho
+              |#{rascunho.codigo}
         .column.is-half
           .level
             .level-left
@@ -94,6 +96,15 @@ block content
                       span.icon.is-small
                         i.fa.fa-cog
                       span Executar
+                  .control
+                  -const t = rascunho ? `Rascunho salvo em: ${h.moment(rascunho.data).format('DD/MM/YYYY - HH:mm:ss')}` : ''
+                    button.button.is-primary.is-outlined(id="btn-salvar-rascunho" disabled=!user title=`${t}`)
+                      span.icon.is-small
+                        if rascunho
+                          i(id="icone-rascunho").fa.fa-bookmark
+                        else
+                          i(id="icone-rascunho").fa.fa-bookmark-o
+                      span Salvar Rascunho
                   .control
                     button.button.is-primary.is-outlined(id="btn-submeter" disabled=!user)
                       span.icon.is-small

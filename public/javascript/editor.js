@@ -13,7 +13,7 @@ editor.setTheme('ace/theme/ambiance');
 editor.setFontSize(14);
 
 // Pergunta se o usuário quer realmente sair da página se ele houver digitado algum código no editor
-window.addEventListener('beforeunload', function(e) {
+window.addEventListener('beforeunload', function (e) {
   if (editor.getValue().length > 0) {
     const confirmacao = 'Suas alterações serão perdidas se você sair sem submeter o código.';
 
@@ -38,7 +38,7 @@ const listaId = $('input[name=\'listaId\']').val() || null;
 // });
 
 // Execução de código
-$('#btn-enviar-codigo').on('click', function() {
+$('#btn-enviar-codigo').on('click', function () {
   const $btn = $(this);
   $btn.prop('disabled', true);
   $btn.addClass('is-loading');
@@ -57,7 +57,7 @@ $('#btn-enviar-codigo').on('click', function() {
 });
 
 // Submissão de código
-$('#btn-submeter').on('click', function() {
+$('#btn-submeter').on('click', function () {
   const $btn = $(this);
   $btn.prop('disabled', true);
   $btn.addClass('is-loading');
@@ -68,46 +68,68 @@ $('#btn-submeter').on('click', function() {
     type: 'info',
     showCancelButton: true,
     closeOnConfirm: false
-  }, function(isConfirm) {
+  }, function (isConfirm) {
     if (isConfirm) {
       ex.submeterCodigo(editor.getValue(), $questaoId.val())
-      .then(res => {
-        if (res.data.porcentagemAcerto === 100) {
-          swal({
-            title: `${res.data.porcentagemAcerto}% de acerto`,
-            text: 'Submissão enviada com sucesso', 
-            type: 'success'
-          }, redirect);
-        }
-        else if (res.data.porcentagemAcerto > 0) {
-          swal({
-            title: `${res.data.porcentagemAcerto}% de acerto`,
-            text: 'Submissão enviada com sucesso', 
-            type: 'warning'
-          }, redirect);
-        }
-        else {
-          swal({
-            title: `${res.data.porcentagemAcerto}% de acerto`,
-            text: 'Submissão enviada com sucesso', 
-            type: 'error'
-          }, redirect);
-        }
-      })
-      .catch(err => {
-        console.error(err);
-        swal('Oops...', 'Ocorreu algum erro ao enviar a submissão', 'error');
-      })
-      .then(() => {
-        $btn.prop('disabled', false);
-        $btn.removeClass('is-loading');
-      });
+        .then(res => {
+          if (res.data.porcentagemAcerto === 100) {
+            swal({
+              title: `${res.data.porcentagemAcerto}% de acerto`,
+              text: 'Submissão enviada com sucesso',
+              type: 'success'
+            }, redirect);
+          }
+          else if (res.data.porcentagemAcerto > 0) {
+            swal({
+              title: `${res.data.porcentagemAcerto}% de acerto`,
+              text: 'Submissão enviada com sucesso',
+              type: 'warning'
+            }, redirect);
+          }
+          else {
+            swal({
+              title: `${res.data.porcentagemAcerto}% de acerto`,
+              text: 'Submissão enviada com sucesso',
+              type: 'error'
+            }, redirect);
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          swal('Oops...', 'Ocorreu algum erro ao enviar a submissão', 'error');
+        })
+        .then(() => {
+          $btn.prop('disabled', false);
+          $btn.removeClass('is-loading');
+        });
     }
     else {
       $btn.prop('disabled', false);
       $btn.removeClass('is-loading');
     }
   });
+});
+
+//Salvar rascunho
+$('#btn-salvar-rascunho').on('click', function () {
+  const codigo = editor.getValue();
+  const $btn = $(this);
+  const $icone = $('#icone-rascunho');
+
+  $btn.prop('disabled', true);
+  $btn.addClass('is-loading');
+  ex.salvarCodigoRascunho(codigo, $questaoId.val())
+    .then(res => {
+      $icone.removeClass('fa-bookmark-o');
+      $icone.addClass('fa-bookmark');
+    })
+    .catch(err => {
+      console.error(err);
+    }).then(() => {
+      $btn.prop('disabled', false);
+      $btn.removeClass('is-loading');
+    });
+
 });
 
 function redirect() {
