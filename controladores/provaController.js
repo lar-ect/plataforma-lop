@@ -3,9 +3,11 @@ const Prova = mongoose.model('Prova');
 const Questao = mongoose.model('Questao');
 const Turma = mongoose.model('Turma');
 const Submissao = mongoose.model('Submissao');
+const Rascunho = mongoose.model('Rascunho');
 const SubmissaoProva = mongoose.model('SubmissaoProva');
 const permissoes = require('../dominio/Permissoes');
 const moment = require('moment');
+const arrayUtil = require('lodash/array'); //https://lodash.com/docs
 const { calcularDiferenca } = require('../helpers');
 
 exports.getQuestao = async (req, res, next) => {
@@ -21,14 +23,15 @@ exports.getQuestao = async (req, res, next) => {
     if (questaoAtualIndex < questoes.length - 1) {
       idProximaQuestao = questoes[questaoAtualIndex + 1];
 	}
-	
 	const questao = await Questao.findOne({ _id: questaoId });
+	const rascunho = await Rascunho.findOne({ questao, user: req.user });
 	res.render('prova/questao', {
 	  title: questao.titulo,
 	  questao,
 	  prova,
 	  idQuestaoAnterior,
-	  idProximaQuestao
+		idProximaQuestao,
+		rascunho
 	});
 };
 
@@ -115,8 +118,16 @@ exports.recuperarProva = async (req, res, next) => {
 };
 
 exports.podeVerProvaRelatorio = (req, res, next) => {
-	const prova = req.prova
+	console.log('Pode ver relatório de prova?');
+	const prova = req.prova;
+	const turmas = prova.turmas;
+	const turmasUser = req.user.sigaa.turmas;
 	if (permissoes.isAdmin(req.user) || req.user.id === prova.autor.id) {
+		console.log('Admin ou autor da prova');
+		next();
+	}
+	else if (arrayUtil.intersectionWith(turmas, turmasUser, (a, b) => a.equals(b)).length > 0) {
+		console.log('Professor de uma turma da prova');
 		next();
 	}
 	else {
@@ -194,17 +205,20 @@ exports.getProvaRelatorio = async (req, res) => {
  * Um usuário pode ver a prova se ele for administrador.
  */
 exports.podeVerProva = async (req, res, next) => {
-	//console.log('Pode ver a prova?');
+	console.log('Pode ver a prova?');
 
 	const prova = req.prova;
 
 	if (permissoes.isAdmin(req.user) || req.user.id === prova.autor.id) {
-		//console.log('É administrador ou autor da prova');
+		console.log('É administrador ou autor da prova');
 		req.prova = prova;
 		next();
 	}
+	// else if (prova.turmas) {
+		
+	// }
 	else if (!prova.iniciou || prova.finalizou) {
-		//console.log('Prova ainda não iniciou ou já finalizou e não é autor ou administrador');
+		// console.log('Prova ainda não iniciou ou já finalizou e não é autor ou administrador');
 		req.flash('warning', 'Você não tem permissão para acessar essa página');
 		res.redirect('/');
 	}
@@ -218,7 +232,7 @@ exports.podeVerProva = async (req, res, next) => {
 			next();
 		}
 		else {
-			//console.log('Não tem permissão de ver a prova');
+			console.log('Não tem permissão de ver a prova');
 			req.flash('warning', 'Você não tem permissão para acessar essa página');
 			res.redirect('/');
 		}

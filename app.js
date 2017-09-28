@@ -112,10 +112,7 @@ app.use(
     key: process.env.KEY,
     resave: false,
     saveUninitialized: false,
-    store: new MongoStore({ mongooseConnection: mongoose.connection }),
-    cookie: {
-      maxAge: 1000 * 60 * 60 // 60 minutos sem interagir com o sistema
-    }
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
   })
 );
 

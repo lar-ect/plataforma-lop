@@ -15,17 +15,15 @@ exports.perfil = async (req, res) => {
     let turmaQuery = {};
     if (permissoes.isAdmin(req.user)) {
       provas = await Prova.find({});
+      turmas = await Turma.find({}, 'descricaoComponente codigoString qtdMatriculados _id id');
     }
     else {
-      turmaQuery = {
+      turmas = await Turma.find({
         _id: { $in: req.user.sigaa.turmas }
-      };
-      provas = await Prova.find({ autor: req.user._id });
+      }, 'descricaoComponente codigoString qtdMatriculados _id id');
+      const turmasUser = turmas.map(t => t._id.toString());
+      provas = await Prova.find({ $or: [ { autor: req.user._id }, { turmas: {$in: req.user.sigaa.turmas }} ] });
     }
-
-    turmas = await Turma.find(turmaQuery, 
-      'descricaoComponente codigoString qtdMatriculados _id id'
-    );
   }
   const submissoes = await Submissao.find({ user: req.user });
   res.render('usuario/perfil', { title: 'Perfil', submissoes, turmas, provas });
