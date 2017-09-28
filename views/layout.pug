@@ -38,8 +38,16 @@ html
             a.navbar-item(href="/") Início
             a.navbar-item(href="/suporte") Suporte
             if user
-              a.navbar-item(href="/perfil", class=(currentPath.startsWith("/perfil") ? 'is-active' : '')) Perfil
-              a.navbar-item(href="/logout") Sair
+              .navbar-item.has-dropdown
+                a.navbar-link(href="#")
+                  figure.image.is-24x24
+                    img.user-img(src=`${user.gravatar}`)
+                  span(style="margin-left: 2px;")
+                    | #{user.nome}
+                .navbar-dropdown.is-boxed
+                  //a.navbar-item(href="/perfil", class=(currentPath.startsWith("/perfil") ? 'is-active' : '')) Perfil
+                  a.navbar-item(href="/perfil") Perfil
+                  a.navbar-item(href="/logout") Sair
             else 
               a.navbar-item(href="/login", class=(currentPath.startsWith("/login") ? 'is-active' : '')) Login
               a.navbar-item(href="/cadastro", class=(currentPath.startsWith("/cadastro") ? 'is-active' : '')) Cadastro
@@ -86,5 +94,6 @@ html
     script(src="/js/cards.js")
     script(src="/js/modal.js")
     script(src="/js/notifications.js")
+    script(src="/js/dropdowns.js")
     block scripts
       
