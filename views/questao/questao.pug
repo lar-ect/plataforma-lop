@@ -1,6 +1,9 @@
 extends ../layout
 
 block content
+
+  iframe(sandbox='allow-scripts allow-modals' id='sandboxed-iframe' src='/frame.html')
+
   input(type="hidden", name="questaoId", value=questao._id)
   if listaId
     input(type="hidden", name="listaId", value=listaId)
@@ -85,7 +88,7 @@ block content
               .level-item
                 .field.has-addons
                   .control
-                    button.button.is-primary.is-outlined(id="btn-rodar-codigo" disabled)
+                    button.button.is-primary.is-outlined(id="btn-rodar-codigo")
                       span.icon.is-small
                         i.fa.fa-play
                       span Rodar
@@ -116,3 +119,5 @@ block scripts
   if questao.enunciadoLatex
     script(src="/js/vendors/katex/katex.min.js")
   script(src="/dist/Editor.bundle.js")
+  //- script(src="/js/vendors/jailed-0.3.1/lib/jailed.js")
+  //- script(src="/js/workers/client.js")

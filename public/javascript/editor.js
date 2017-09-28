@@ -12,6 +12,36 @@ editor.getSession().setMode('ace/mode/javascript');
 editor.setTheme('ace/theme/ambiance');
 editor.setFontSize(14);
 
+// if (window.Worker) {
+//   var workercode = '/js/workers/worker.js';
+
+  // makeWorkerExecuteSomeCode('', function(answer) {
+  //   console.log('Finalizou');
+  //   console.log(answer);
+  // });
+//}
+
+// function makeWorkerExecuteSomeCode(code, callback) {
+//   var timeout;
+
+//   code = code + '';
+//   var worker = new Worker(workercode);
+
+//   worker.addEventListener('message', function(event) {
+//       clearTimeout(timeout);
+//       callback(event.data);
+//   });
+
+//   worker.postMessage({
+//       code: code
+//   });
+
+//   timeout = window.setTimeout( function() {
+//       callback('Maximum execution time exceeded');
+//       worker.terminate();
+//   }, 3000);
+// }
+
 // Pergunta se o usuário quer realmente sair da página se ele houver digitado algum código no editor
 window.addEventListener('beforeunload', function(e) {
   if (editor.getValue().length > 0) {
@@ -36,6 +66,31 @@ const listaId = $('input[name=\'listaId\']').val() || null;
 //   var $script = $(`<script id="script_usuario">${codigo}</script>`);
 //   $('body').append($script);
 // });
+
+const sandboxedFrame = document.getElementById('sandboxed-iframe');
+
+$('#btn-rodar-codigo').click(function() {
+  const $btn = $(this);
+  $btn.prop('disabled', true);
+  $btn.addClass('is-loading');
+  sandboxedFrame.contentWindow.postMessage(editor.getValue(), '*');
+});
+
+// Listen for response messages from the frames.
+window.addEventListener('message', function (e) {
+  // Normally, you should verify that the origin of the message's sender
+  // was the origin and source you expected. This is easily done for the
+  // unsandboxed frame. The sandboxed frame, on the other hand is more
+  // difficult. Sandboxed iframes which lack the 'allow-same-origin'
+  // header have "null" rather than a valid origin. This means you still
+  // have to be careful about accepting data via the messaging API you
+  // create. Check that source, and validate those inputs!
+  if ((e.origin === 'null' && e.source === sandboxedFrame.contentWindow)) {
+    console.log('Resultado: ' + e.data);
+    $('#btn-rodar-codigo').prop('disabled', false);
+    $('#btn-rodar-codigo').removeClass('is-loading');
+  }
+});
 
 // Execução de código
 $('#btn-enviar-codigo').on('click', function() {
