@@ -34,7 +34,7 @@ exports.getQuestao = async (req, res) => {
     return;
   }
 
-  const rascunho = await Rascunho.findOne({ questao: questao, user: req.user });
+  const rascunho = await Rascunho.findOne({ questao, user: req.user });
   const solucao = questao.solucao || null;
   res.render('questao/questao', {
     title: questao.titulo,

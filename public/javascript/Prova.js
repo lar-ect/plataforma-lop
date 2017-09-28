@@ -2,7 +2,7 @@ import '../styles/editor.css';
 import ace from 'brace';
 import 'brace/mode/javascript';
 import 'brace/theme/ambiance';
-import ex from './modules/execucao';
+import api from './modules/execucao';
 import swal from 'sweetalert';
 
 import tippy from 'tippy.js';
@@ -34,7 +34,7 @@ $('#btn-enviar-codigo').on('click', function() {
   const $btn = $(this);
   $btn.prop('disabled', true);
   $btn.addClass('is-loading');
-  ex.executarCodigoProva(editor.getValue(), $questaoId.val())
+  api.executarCodigoProva(editor.getValue(), $questaoId.val())
     .then(res => {
       adicionarListaResultados(res.data);
       tippy('.saida-esperada');
@@ -62,7 +62,7 @@ $('#btn-submeter').on('click', function() {
     closeOnConfirm: false
   }, function(isConfirm) {
     if (isConfirm) {
-      ex.submeterCodigoProva(editor.getValue(), $questaoId.val(), provaId)
+      api.submeterCodigoProva(editor.getValue(), $questaoId.val(), provaId)
       .then(() => {
         swal({
 			title: 'OK!',
@@ -84,6 +84,35 @@ $('#btn-submeter').on('click', function() {
       $btn.removeClass('is-loading');
     }
   });
+});
+
+//Salvar rascunho
+$('#btn-salvar-rascunho').on('click', function () {
+  let codigo = editor.getValue();
+  if (codigo.startsWith('// Rascunho')) {
+    codigo = codigo.substring(codigo.indexOf('\n') + 1);
+  }
+  console.log('Salvando rascunho');
+  console.log(codigo);
+  
+  const $btn = $(this);
+  const $icone = $('#icone-rascunho');
+
+  $btn.prop('disabled', true);
+  $btn.addClass('is-loading');
+  api.salvarCodigoRascunho(codigo, $questaoId.val())
+    .then(() => {
+      $icone.removeClass('fa-bookmark-o');
+      $icone.addClass('fa-bookmark');
+      swal('Sucesso', 'Rascunho salvo com sucesso', 'success');
+    })
+    .catch(err => {
+      console.error(err);
+      swal('Ops...', 'Ocorreu um erro ao salvar o rascunho, contate um administrador.', 'error');
+    }).then(() => {
+      $btn.prop('disabled', false);
+      $btn.removeClass('is-loading');
+    });
 });
 
 function redirect() {

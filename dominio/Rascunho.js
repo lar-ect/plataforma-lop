@@ -17,13 +17,8 @@ const rascunhoSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
             index: 1
-        },
-    },
-
+        }
+    }
 );
 
-function autopopulate(next) {
-    this.populate('questao');
-    next();
-}
 module.exports = mongoose.model('Rascunho', rascunhoSchema);

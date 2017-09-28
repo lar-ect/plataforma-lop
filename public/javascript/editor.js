@@ -2,7 +2,7 @@ import '../styles/editor.css';
 import ace from 'brace';
 import 'brace/mode/javascript';
 import 'brace/theme/ambiance';
-import ex from './modules/execucao';
+import api from './modules/execucao';
 import swal from 'sweetalert';
 
 import tippy from 'tippy.js';
@@ -12,7 +12,7 @@ editor.getSession().setMode('ace/mode/javascript');
 editor.setTheme('ace/theme/ambiance');
 editor.setFontSize(14);
 
-// Pergunta se o usuário quer realmente sair da página se ele houver digitado algum código no editor
+// Pergunta se o usuário quer realmente sair da página se ele houver digitado algo no editor
 window.addEventListener('beforeunload', function (e) {
   if (editor.getValue().length > 0) {
     const confirmacao = 'Suas alterações serão perdidas se você sair sem submeter o código.';
@@ -29,20 +29,12 @@ const $resultadosDiv = $('#resultados-container');
 const $questaoId = $('input[name=\'questaoId\']');
 const listaId = $('input[name=\'listaId\']').val() || null;
 
-// Rodar código no cliente de forma insegura
-// $('#btn-rodar-codigo').on('click', function() {
-//   let codigo = editor.getValue().trim();
-//   codigo = codigo.replace('<script>', '').replace('</script>', '');
-//   var $script = $(`<script id="script_usuario">${codigo}</script>`);
-//   $('body').append($script);
-// });
-
 // Execução de código
 $('#btn-enviar-codigo').on('click', function () {
   const $btn = $(this);
   $btn.prop('disabled', true);
   $btn.addClass('is-loading');
-  ex.executarCodigo(editor.getValue(), $questaoId.val())
+  api.executarCodigo(editor.getValue(), $questaoId.val())
     .then(res => {
       adicionarListaResultados(res.data);
       tippy('.saida-esperada');
@@ -70,7 +62,7 @@ $('#btn-submeter').on('click', function () {
     closeOnConfirm: false
   }, function (isConfirm) {
     if (isConfirm) {
-      ex.submeterCodigo(editor.getValue(), $questaoId.val())
+      api.submeterCodigo(editor.getValue(), $questaoId.val())
         .then(res => {
           if (res.data.porcentagemAcerto === 100) {
             swal({
@@ -112,24 +104,31 @@ $('#btn-submeter').on('click', function () {
 
 //Salvar rascunho
 $('#btn-salvar-rascunho').on('click', function () {
-  const codigo = editor.getValue();
+  let codigo = editor.getValue();
+  if (codigo.startsWith('// Rascunho')) {
+    codigo = codigo.substring(codigo.indexOf('\n') + 1);
+  }
+  console.log('Salvando rascunho');
+  console.log(codigo);
+  
   const $btn = $(this);
   const $icone = $('#icone-rascunho');
 
   $btn.prop('disabled', true);
   $btn.addClass('is-loading');
-  ex.salvarCodigoRascunho(codigo, $questaoId.val())
-    .then(res => {
+  api.salvarCodigoRascunho(codigo, $questaoId.val())
+    .then(() => {
       $icone.removeClass('fa-bookmark-o');
       $icone.addClass('fa-bookmark');
+      swal('Sucesso', 'Rascunho salvo com sucesso', 'success');
     })
     .catch(err => {
       console.error(err);
+      swal('Ops...', 'Ocorreu um erro ao salvar o rascunho, contato um administrador.', 'error');
     }).then(() => {
       $btn.prop('disabled', false);
       $btn.removeClass('is-loading');
     });
-
 });
 
 function redirect() {

@@ -225,10 +225,10 @@ exports.salvarRascunho = async (req, res) => {
   const data = Date.now();
 
   const rascunho = {
-    questao: questao,
-    data: data,
-    codigo: codigo,
-    user: req.user
+    questao,
+    codigo,
+    user: req.user,
+    data
   };
 
   const rascunhoSalvo = await Rascunho.findOneAndUpdate({ questao, user: req.user }, rascunho, {

@@ -79,16 +79,24 @@ block content
 			.columns
 				.column.is-half
 					div(id="questao-editor")
+						if rascunho
+							| // Rascunho de #{h.formatarData(rascunho.data)}
+							|
+							|#{rascunho.codigo}
 				.column.is-half
 					.level
 						.level-left
 							.level-item
 								.field.has-addons
 									.control
-										button.button.is-primary.is-outlined(id="btn-rodar-codigo" disabled)
+										- const t = rascunho ? `Rascunho salvo em: ${h.formatarData(rascunho.data)}` : ''
+										button.button.is-primary.is-outlined(id="btn-salvar-rascunho" disabled=!user title=`${t}`)
 											span.icon.is-small
-												i.fa.fa-play
-											span Rodar
+												if rascunho
+													i(id="icone-rascunho").fa.fa-bookmark
+												else
+													i(id="icone-rascunho").fa.fa-bookmark-o
+											span Salvar Rascunho
 									.control
 										button.button.is-primary.is-outlined(id="btn-enviar-codigo")
 											span.icon.is-small
