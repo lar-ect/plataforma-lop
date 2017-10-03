@@ -2,6 +2,7 @@ extends layout
 
 include mixins/_listaCard
 include mixins/_tabelaQuestoes
+include mixins/_contadorProva
 
 block content
 	section.hero.is-primary.shadow-inside
@@ -112,12 +113,8 @@ block content
 									.box
 										h4.title.is-size-5 #{prova.titulo}
 										h5.subtitle.is-size-6 Quantidade de questões: #{prova.questoes.length}
-										if prova.iniciou && !prova.finalizou
-											//- o mongodb salva todas as dates em UTC então precisamos converter a hora atual
-											//- para UTC utilizando h.moment().utc() antes de comparar os horários
-											- const fim = h.moment(prova.iniciou).add(prova.duracao, 'minutes')
-											- const diff = h.calcularDiferenca(h.moment().utc(), fim)
-											p Tempo restante: #{diff ? diff : 'Finalizada' }
+										p
+											+contadorProva(prova)
 										.field.has-addons
 											.control
 												a.button.is-primary.m-t-16(href=`prova/${prova._id}`)
@@ -134,4 +131,6 @@ block scripts
 	script(src="/js/tabelas/ListaFilter.js")
 	script(src="/dist/index.bundle.js")
 	script(src="/js/tabelas/questoes.js")
+	script(src="/js/vendors/jquery.countdown.min.js")
+	script(src="/js/contagem-prova.js")
 	

@@ -1,121 +1,129 @@
 extends ../layout
 
 block content
-	input(type="hidden", name="questaoId", value=questao.id)
-	input(type="hidden", name="provaId", value=prova.id)
-	section.hero.is-dark
-		.hero-body
-			.container
-				p.title #{questao.titulo}
-				p.subtitle Prova: #{prova.titulo}
+    input(type="hidden", name="questaoId", value=questao.id)
+    input(type="hidden", name="provaId", value=prova.id)
+    section.hero.is-dark
+        .hero-body
+            .container
+                p.title #{questao.titulo}
+                p.subtitle Prova: #{prova.titulo}
+                if prova.iniciou
+                    p.subtitle
+                        span.icon
+                            i.fa.fa-clock-o
+                        |Tempo restante: 
+                        span(id="tempo-prova" data-countdown=`${fimProva}`)
 
-	section.m-t-16
-		.container
-			nav.level
-				.level-left
-					.level-item
-						.field.has-addons
-							.control
-								a.button.is-static Linguagem
-							.control.has-icons-left
-								.select.is-primary
-									select
-										option Javascript
-								span.icon.is-small.is-left
-									i.fa.fa-code
-							.control
-								button.button.is-primary.is-outlined(data-toggle="modal" data-target="#modal-funcoes-disponiveis") Ver funções disponíveis
-								.modal(id="modal-funcoes-disponiveis")
-									.modal-background
-									.modal-content
-										!= h.funcoesDisponiveis
-									button.modal-close.is-large(aria-label="close")
-				.level-right
-					.level-item
-						.field.has-addons
-							if user && permissoes.temPermissao(user, 'UPDATE_QUESTAO')
-								p.control
-									a.button.is-primary.is-outlined(href=`/questao/adicionar/${questao._id}`)
-										span.icon.is-small
-											i.fa.fa-pencil
-										span Editar
+    section.m-t-16
+        .container
+            nav.level
+                .level-left
+                    .level-item
+                        .field.has-addons
+                            .control
+                                a.button.is-static Linguagem
+                            .control.has-icons-left
+                                .select.is-primary
+                                    select
+                                        option Javascript
+                                span.icon.is-small.is-left
+                                    i.fa.fa-code
+                            .control
+                                button.button.is-primary.is-outlined(data-toggle="modal" data-target="#modal-funcoes-disponiveis") Ver funções disponíveis
+                                .modal(id="modal-funcoes-disponiveis")
+                                    .modal-background
+                                    .modal-content
+                                        != h.funcoesDisponiveis
+                                    button.modal-close.is-large(aria-label="close")
+                .level-right
+                    .level-item
+                        .field.has-addons
+                            if user && permissoes.temPermissao(user, 'UPDATE_QUESTAO')
+                                p.control
+                                    a.button.is-primary.is-outlined(href=`/questao/adicionar/${questao._id}`)
+                                        span.icon.is-small
+                                            i.fa.fa-pencil
+                                        span Editar
 
-							p.control
-									a.button.is-primary.is-outlined(href=`/prova/${prova.id}`)
-										span.icon.is-small
-											i.fa.fa-file-text-o
-										span Voltar à prova
-								
-							if idQuestaoAnterior
-								p.control
-									a.button.is-primary.is-outlined(href=`/prova/${prova.id}/questao/${idQuestaoAnterior}`)
-										span.icon.is-small
-											i.fa.fa-chevron-left
-										span Anterior
-							if idProximaQuestao
-								p.control
-									a.button.is-primary.is-outlined(href=`/prova/${prova.id}/questao/${idProximaQuestao}`)
-										span Próxima
-										span.icon.is-small
-											i.fa.fa-chevron-right
-	section    
-		.container.m-t-16
-			.columns
-				.column.is-two-thirds
-					.box(data-mh="grupo-mh-enunciado-exemplos")
-						h6.is-size-5.is-bold Enunciado
-						hr.is-marginless
-						p.enunciado-questao #{questao.enunciado}
-						if questao.enunciadoLatex
-							div.has-text-centered.m-t-16!= h.renderizarLatex(questao.enunciadoLatex)
-				.column
-					.box.has-text-centered(data-mh="grupo-mh-enunciado-exemplos")
-						p: b Exemplo de entrada:
-						p(style='white-space: pre-line;') #{questao.resultados[0].entradas.join(' ')}
-						p: b Exemplo de saída esperada: 
-						p(style='white-space: pre-line;') #{questao.resultados[0].saida}
-		
-		.container.m-t-16
-			.columns
-				.column.is-half
-					div(id="questao-editor")
-						if rascunho
-							| // Rascunho de #{h.formatarData(rascunho.data)}
-							|
-							|#{rascunho.codigo}
-				.column.is-half
-					.level
-						.level-left
-							.level-item
-								.field.has-addons
-									.control
-										- const t = rascunho ? `Rascunho salvo em: ${h.formatarData(rascunho.data)}` : ''
-										button.button.is-primary.is-outlined(id="btn-salvar-rascunho" disabled=!user title=`${t}`)
-											span.icon.is-small
-												if rascunho
-													i(id="icone-rascunho").fa.fa-bookmark
-												else
-													i(id="icone-rascunho").fa.fa-bookmark-o
-											span Salvar Rascunho
-									.control
-										button.button.is-primary.is-outlined(id="btn-enviar-codigo")
-											span.icon.is-small
-												i.fa.fa-cog
-											span Executar
-									.control
-										button.button.is-primary.is-outlined(id="btn-submeter" disabled=!user)
-											span.icon.is-small
-												i.fa.fa-floppy-o
-											span Submeter
-					
-					h4.subtitle Saída de um caso de teste
-					ul.list-group(id="resultados-container")
+                            p.control
+                                    a.button.is-primary.is-outlined(href=`/prova/${prova.id}`)
+                                        span.icon.is-small
+                                            i.fa.fa-file-text-o
+                                        span Voltar à prova
+                                
+                            if idQuestaoAnterior
+                                p.control
+                                    a.button.is-primary.is-outlined(href=`/prova/${prova.id}/questao/${idQuestaoAnterior}`)
+                                        span.icon.is-small
+                                            i.fa.fa-chevron-left
+                                        span Anterior
+                            if idProximaQuestao
+                                p.control
+                                    a.button.is-primary.is-outlined(href=`/prova/${prova.id}/questao/${idProximaQuestao}`)
+                                        span Próxima
+                                        span.icon.is-small
+                                            i.fa.fa-chevron-right
+    section    
+        .container.m-t-16
+            .columns
+                .column.is-two-thirds
+                    .box(data-mh="grupo-mh-enunciado-exemplos")
+                        h6.is-size-5.is-bold Enunciado
+                        hr.is-marginless
+                        p.enunciado-questao #{questao.enunciado}
+                        if questao.enunciadoLatex
+                            div.has-text-centered.m-t-16!= h.renderizarLatex(questao.enunciadoLatex)
+                .column
+                    .box.has-text-centered(data-mh="grupo-mh-enunciado-exemplos")
+                        p: b Exemplo de entrada:
+                        p(style='white-space: pre-line;') #{questao.resultados[0].entradas.join(' ')}
+                        p: b Exemplo de saída esperada: 
+                        p(style='white-space: pre-line;') #{questao.resultados[0].saida}
+        
+        .container.m-t-16
+            .columns
+                .column.is-half
+                    div(id="questao-editor")
+                        if rascunho
+                            | // Rascunho de #{h.formatarData(rascunho.data)}
+                            |
+                            |#{rascunho.codigo}
+                .column.is-half
+                    .level
+                        .level-left
+                            .level-item
+                                .field.has-addons
+                                    .control
+                                        - const t = rascunho ? `Rascunho salvo em: ${h.formatarData(rascunho.data)}` : ''
+                                        button.button.is-primary.is-outlined(id="btn-salvar-rascunho" disabled=!user title=`${t}`)
+                                            span.icon.is-small
+                                                if rascunho
+                                                    i(id="icone-rascunho").fa.fa-bookmark
+                                                else
+                                                    i(id="icone-rascunho").fa.fa-bookmark-o
+                                            span Salvar Rascunho
+                                    .control
+                                        button.button.is-primary.is-outlined(id="btn-enviar-codigo")
+                                            span.icon.is-small
+                                                i.fa.fa-cog
+                                            span Executar
+                                    .control
+                                        button.button.is-primary.is-outlined(id="btn-submeter" disabled=!user)
+                                            span.icon.is-small
+                                                i.fa.fa-floppy-o
+                                            span Submeter
+                    
+                    h4.subtitle Saída de um caso de teste
+                    ul.list-group(id="resultados-container")
 
 block styles
-	if questao.enunciadoLatex
-		link(rel="stylesheet" href="/js/vendors/katex/katex.min.css")
+    if questao.enunciadoLatex
+        link(rel="stylesheet" href="/js/vendors/katex/katex.min.css")
 
 block scripts
-	if questao.enunciadoLatex
-		script(src="/js/vendors/katex/katex.min.js")
-	script(src="/dist/Prova.bundle.js")
+    if questao.enunciadoLatex
+        script(src="/js/vendors/katex/katex.min.js")
+    script(src="/dist/Prova.bundle.js")
+    script(src="/js/vendors/jquery.countdown.min.js")
+    script(src="/js/contagem-prova.js")

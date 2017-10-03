@@ -1,0 +1,10 @@
+mixin contadorProva(prova)
+  if prova
+    //- O mongodb salva todas as dates em UTC, então precisamos converter a hora atual
+      para UTC utilizando h.moment().utc() antes de comparar os horários
+    - const fim = h.moment(prova.iniciou).add(prova.duracao, 'minutes').toDate();
+    if prova.iniciou
+      span.icon
+        i.fa.fa-clock-o
+      |Tempo restante: 
+      span.tempo-prova(data-countdown=`${fim}`)
