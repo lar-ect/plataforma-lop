@@ -5,6 +5,7 @@ const apiController = require('../controladores/apiController');
 const questaoController = require('../controladores/questaoController');
 const authController = require('../controladores/authController');
 const provaController = require('../controladores/provaController');
+const diagnosticoController = require('../controladores/diagnosticoController');
 const { catchErrors } = require('../negocio/errorHandlers');
 
 // API v1
@@ -38,5 +39,8 @@ router.post('/api/v1/submeter/prova/questao',
 	catchErrors(provaController.podeSubmeter),
 	catchErrors(apiController.submeterCodigoQuestaoProva)
 );
+
+router.get('/api/v1/executar-diagnostico-questoes',
+	catchErrors(diagnosticoController.executarDiagnosticoQuestoes));
 
 module.exports = router;

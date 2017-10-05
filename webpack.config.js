@@ -3,19 +3,12 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const env = process.env.NODE_ENV;
 
-/*
-  webpack sees every file as a module.
-  How to handle those files is up to loaders.
-  We only have a single entry point (a .js file) and everything is required from that js file
-*/
-
-// This is our JavaScript rule that specifies what to do with .js files
 const javascript = {
-  test: /\.(js)$/, // see how we match anything that ends in `.js`? Cool
+  test: /\.(js)$/,
   use: [
     {
       loader: 'babel-loader',
-      options: { presets: ['env', 'react'] } // this is one way of passing options
+      options: { presets: ['env', 'react', 'stage-0'] }
     }
   ]
 };
@@ -27,7 +20,8 @@ const config = {
     main: './public/javascript/main.js',
     index: './public/javascript/index.js',
     Lista: './public/javascript/ListaExercicio/index.js',
-    Prova: './public/javascript/Prova.js'
+    Prova: './public/javascript/Prova.js',
+    'diagnostico/questoes': './public/javascript/diagnostico/questoes.js'
   },
   devtool: 'source-map',
   output: {

@@ -15,8 +15,8 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
 const promisify = require('es6-promisify');
-const helpers = require('./helpers');
 const _ = require('lodash');
+const helpers = require('./helpers');
 
 const permissoes = require('./dominio/Permissoes');
 const errorHandlers = require('./negocio/errorHandlers');

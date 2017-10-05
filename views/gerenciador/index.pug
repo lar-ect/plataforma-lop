@@ -1,26 +1,43 @@
 extends ../layout
 
 block content
-	.article-page
-		.banner
+	section.hero.is-primary.shadow-inside
+		.hero-body
+			.container.has-text-centered
+				h1.title.title-with-shadow.is-size-2 Gerenciamento
+		.hero-foot
 			.container
-				h3 Gerenciador
+				nav.tabs.is-boxed.is-centered
+					ul
+						li.is-active(data-tab="geral")
+							a 
+								span.icon.is-small
+									i.fa.fa-file-text-o
+								span Geral
+						li(data-tab="relatorios")
+							a 
+								span.icon.is-small
+									i.fa.fa-file-text-o
+								span Relatórios
+						li(data-tab="configuracoes")
+							a 
+								span.icon.is-small
+									i.fa.fa-file-text-o
+								span Configurações
+						li(data-tab="diagnostico")
+							a 
+								span.icon.is-small
+									i.fa.fa-file-text-o
+								span Diagnóstico
 
-	.container.page
-		.row
-			.col-md-12
-				ul.nav.nav-pills.outline-active
-					li.nav-item
-						a.nav-link.active(data-toggle="tab" href="#geral" role="tab") Geral
-					li.nav-item
-						a.nav-link(data-toggle="tab" href="#relatorios" role="tab") Relatórios
-					li.nav-item
-						a.nav-link(data-toggle="tab" href="#configuracoes" role="tab") Configurações
-					li.nav-item
-						a.nav-link(data-toggle="tab" href="#questoes-listas" role="tab") Questões/Listas
-				
-				.tab-content
-					.tab-pane.active(id="geral" role="tabpanel")
-					.tab-pane(id="relatorios" role="tabpanel")
-					.tab-pane(id="configuracoes" role="tabpanel")
-					.tab-pane(id="questoes-listas" role="tabpanel")
+	section.m-t-16.m-b-16
+		.container.is-fluid
+			.tab-content.active(id="geral" role="tabpanel")
+			.tab-content(id="relatorios" role="tabpanel")
+			.tab-content(id="configuracoes" role="tabpanel")
+			.tab-content(id="questoes-listas" role="tabpanel")
+			.tab-content(id="diagnostico" role="tabpanel")
+				div(id="diagnostico-container")
+					
+block scripts
+	script(src="/dist/diagnostico/questoes.bundle.js")
