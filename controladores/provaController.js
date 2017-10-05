@@ -278,15 +278,13 @@ exports.getProva = async (req, res) => {
 	const prova = req.prova;
 	const submissoes = await SubmissaoProva.listarSubmissoesUsuario(req.user, prova.questoes.map(q => q._id));
 	const progresso = Submissao.calcularProgresso(prova.questoes.length, submissoes.size);
-	const fim = moment(prova.iniciou).add(prova.duracao, 'minutes');
-	const tempoRestante = calcularDiferenca(moment().utc(), fim);
+
 	res.render('questao/lista', { 
 		title: `Prova ${req.prova.titulo}`, 
 		lista: req.prova, 
 		progresso, 
 		submissoes, 
-		prova: true,
-		tempoRestante
+		prova
 	});
 };
 
