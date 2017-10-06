@@ -71,7 +71,7 @@ exports.criarQuestao = async (req, res) => {
   const novaQuestao = req.body;
   novaQuestao.resultados = JSON.parse(novaQuestao.resultados);
   const questao = await new Questao(novaQuestao).save();
-  req.flash("success", "Adicionou uma nova questão com sucesso!");
+  req.flash('success', 'Adicionou uma nova questão com sucesso!');
   res.redirect(`/questao/${questao._id}`);
 };
 
@@ -80,9 +80,10 @@ exports.atualizarQuestao = async (req, res) => {
   req.body.resultados = JSON.parse(req.body.resultados);
   const questao = await Questao.findOneAndUpdate({ _id: req.params.id }, req.body, {
     new: true, // return the new store instead of the old one
-    runValidators: true
+    runValidators: true,
+    context: 'query'
   }).exec();
-  req.flash("success", `Atualizou com sucesso a questão  <strong>${questao.titulo}</strong>.`);
+  req.flash('success', `Atualizou com sucesso a questão  <strong>${questao.titulo}</strong>.`);
   res.redirect(`/questao/${questao._id}`);
 };
 
