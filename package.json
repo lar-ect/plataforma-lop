@@ -31,7 +31,7 @@
     "highlight.js": "9.12.0",
     "humanize-duration": "3.10.1",
     "jsoneditor": "5.9.6",
-    "katex": "0.9.0-alpha",
+    "katex": "^0.8.3",
     "lodash": "4.17.4",
     "md5": "2.2.1",
     "moment": "2.18.1",
