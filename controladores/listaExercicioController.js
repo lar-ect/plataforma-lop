@@ -39,7 +39,7 @@ exports.criarLista = async (req, res) => {
     questoes: req.body.questoes
   };
   const lista = await new ListaExercicio(novaLista).save();
-  req.flash("success", "Adicionou uma nova lista de exercícios com sucesso!");
+  req.flash('success', 'Adicionou uma nova lista de exercícios com sucesso!');
   res.redirect(`/lista/${lista._id}`);
 };
 
@@ -50,9 +50,10 @@ exports.atualizarLista = async (req, res) => {
   };
   const lista = await ListaExercicio.findByIdAndUpdate(req.params.id, novaLista, {
     new: true, // return the new store instead of the old one
-    runValidators: true
+    runValidators: true,
+    context: 'query'
   }).exec();
   
-  req.flash("success", "Lista de exercícios atualizada com sucesso!");
+  req.flash('success', 'Lista de exercícios atualizada com sucesso!');
   res.redirect(`/lista/${lista._id}`);
 };

@@ -26,10 +26,10 @@ exports.getQuestao = async (req, res, next) => {
 	const questao = await Questao.findOne({ _id: questaoId });
 	const rascunho = await Rascunho.findOne({ questao, user: req.user });
 	res.render('prova/questao', {
-	  title: questao.titulo,
-	  questao,
-	  prova,
-	  idQuestaoAnterior,
+		title: questao.titulo,
+		questao,
+		prova,
+		idQuestaoAnterior,
 		idProximaQuestao,
 		rascunho
 	});
@@ -248,7 +248,6 @@ exports.findProvaByUserId = async (req, res, next) => {
 		req.provasUsuario = provas;
 	}
 	else if (req.user && req.user.matricula) {
-		const userId = req.user.id;
 		const provas = await Prova.find({ 
 			iniciou: { $exists: true },
 			finalizou: { $exists: false }
@@ -314,7 +313,8 @@ exports.editarProva = async (req, res) => {
 
 	const novaProva = await Prova.findOneAndUpdate({ _id: req.params.id }, req.body, {
 		new: true,
-    runValidators: true
+		runValidators: true,
+		context: 'query'
 	}).exec();
 
 	novaProva.finalizou = undefined;
@@ -326,7 +326,7 @@ exports.editarProva = async (req, res) => {
 
 exports.criarProva = async (req, res) => {
 	req.body.questoes = Object.keys(req.body.questoes);
-	const prova = await new Prova(req.body).save();
+	await new Prova(req.body).save();
 	req.flash('success', 'Adicionou nova prova com sucesso');
 	res.redirect('/');
 };
