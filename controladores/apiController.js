@@ -5,7 +5,7 @@ const SubmissaoProva = mongoose.model("SubmissaoProva");
 const Rascunho = mongoose.model("Rascunho");
 const Data = mongoose.model("Data");
 const executar = require("../negocio/executar");
-
+const passport =  require('passport');
 /**
  * Incrementa o contador de execuções no banco de forma atômica
  */
@@ -236,3 +236,36 @@ exports.salvarRascunho = async (req, res) => {
   }).exec();
   res.json(rascunhoSalvo);
 };
+
+exports.loginUser = function(req,res,next){
+  passport.authenticate('local', function(err, user, info) {
+    if (err) { 
+      res.status(500).json({erro:err}); 
+      return next(err);
+    }
+    if(!user){ 
+      return res.status(401).json({
+        codigo:401,
+        msg:"Usuário ou senha inválidos.",
+        status: false
+      }); 
+    }
+    req.logIn(user, function(err) {
+      if (err) {
+        res.status(500).json({erro:err});
+        next(err); 
+      }
+      return res.status(200).json({
+        codigo:200,
+        msg:"Usuário logado com sucesso.",
+        status:true,
+        nome:user.nome,
+        email:user.email,
+        matricula:user.matricula,
+        sigaa:user.sigaa,
+        questoesFavoritas:user.questoesFavoritas,
+        listasFavoritas:user.listasFavoritas
+      });
+    });
+  })(req, res, next);
+}

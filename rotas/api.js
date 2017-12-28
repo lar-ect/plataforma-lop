@@ -27,6 +27,7 @@ router.get('/api/v1/questoes', catchErrors(apiController.getQuestoes));
 
 router.get('/api/v1/clicou-novidades', apiController.incrementarCliqueNovidades);
 
+router.post('/api/v1/login',apiController.loginUser);
 // Prova
 router.post('/api/v1/executar/prova/questao', 
 	authController.isLoggedIn,
