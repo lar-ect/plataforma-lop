@@ -25,6 +25,9 @@ router.post('/api/v1/login',apiController.loginUser);
 
 router.post('/api/v1/conta/esqueceu-senha',catchErrors(apiController.esqueceuSenha));
 
+router.post('/api/v1/cadastro',apiController.validarRegistroApi,
+	catchErrors(apiController.registrarAPI));
+
 router.get('/api/v1/tags', catchErrors(apiController.getTags));
 
 router.get('/api/v1/questoes', catchErrors(apiController.getQuestoes));
