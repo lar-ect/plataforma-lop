@@ -3,9 +3,13 @@ const Questao = mongoose.model("Questao");
 const Submissao = mongoose.model("Submissao");
 const SubmissaoProva = mongoose.model("SubmissaoProva");
 const Rascunho = mongoose.model("Rascunho");
+const User = mongoose.model('User');
 const Data = mongoose.model("Data");
+const crypto = require('crypto');
 const executar = require("../negocio/executar");
 const passport =  require('passport');
+const mailController = require('./mailController');
+
 /**
  * Incrementa o contador de execuções no banco de forma atômica
  */
@@ -244,8 +248,8 @@ exports.loginUser = function(req,res,next){
       return next(err);
     }
     if(!user){ 
-      return res.status(401).json({
-        codigo:401,
+      return res.status(203).json({
+        codigo:203,
         msg:"Usuário ou senha inválidos.",
         status: false
       }); 
@@ -255,6 +259,7 @@ exports.loginUser = function(req,res,next){
         res.status(500).json({erro:err});
         next(err); 
       }
+      console.log(user);
       return res.status(200).json({
         codigo:200,
         msg:"Usuário logado com sucesso.",
@@ -264,8 +269,33 @@ exports.loginUser = function(req,res,next){
         matricula:user.matricula,
         sigaa:user.sigaa,
         questoesFavoritas:user.questoesFavoritas,
-        listasFavoritas:user.listasFavoritas
+        listasFavoritas:user.listasFavoritas,
+        idSessao:req.session.id
       });
     });
   })(req, res, next);
 }
+
+exports.esqueceuSenha =  async (req, res) => {
+  
+  const user = await User.findOne({ email: req.body.email });
+  if (!user) {
+    res.status(200).json({status:true,msg:"E-mail de alteração de senha enviado."});
+  }
+
+  user.resetPasswordToken = crypto.randomBytes(20).toString('hex');
+  user.resetPasswordExpires = Date.now() + 3600000; // 1h para resetar a senha
+  await user.save();
+
+  const resetUrl = 'http://${req.headers.host}/conta/resetar-senha/${user.resetPasswordToken}';
+  try {
+    await mailController.sendResetPwdMail(user.email, resetUrl);
+    return res.status(200).json({status:true,msg:"Um email de alteração de senha foi enviado para "+req.body.email});
+  }
+  catch(err) {
+    console.error(err);
+    return res.status(203).json({status:false,msg:"Ocorreu algum erro ao enviar seu email de alteração de senha, contate o administrador do sistema"});
+  }
+  return res.status(203).json({status:true,msg:"Um email de alteração de senha foi enviado para "+req.body.email});
+  
+};

@@ -21,13 +21,16 @@ router.post('/api/v1/submeter/questao', catchErrors(apiController.submeterCodigo
 
 router.post('/api/v1/rascunho/questao', catchErrors(apiController.salvarRascunho));
 
+router.post('/api/v1/login',apiController.loginUser);
+
+router.post('/api/v1/conta/esqueceu-senha',catchErrors(apiController.esqueceuSenha));
+
 router.get('/api/v1/tags', catchErrors(apiController.getTags));
 
 router.get('/api/v1/questoes', catchErrors(apiController.getQuestoes));
 
 router.get('/api/v1/clicou-novidades', apiController.incrementarCliqueNovidades);
 
-router.post('/api/v1/login',apiController.loginUser);
 // Prova
 router.post('/api/v1/executar/prova/questao', 
 	authController.isLoggedIn,
