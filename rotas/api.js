@@ -30,6 +30,8 @@ router.post('/api/v1/cadastro',apiController.validarRegistroApi,
 
 router.post('/api/v1/session-status',apiController.sessionStatus);
 
+router.post('/api/v1/finalizar-session',apiController.sessionStatus);
+
 router.get('/api/v1/tags', catchErrors(apiController.getTags));
 
 router.get('/api/v1/questoes', catchErrors(apiController.getQuestoes));

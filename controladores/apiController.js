@@ -351,15 +351,18 @@ exports.registrarAPI = async (req, res, next) => {
 };
 
 exports.sessionStatus = function(req,res){
-  Sessions.find({_id:req.body.id},function(err,date){
-    if(err){
-      return res.status(500).json({status:true,msg:"Erro interno."});
-    }
-    if(date.length>0){
-      var now = new Date().getTime();
-      if(now < date[0].expires.getTime()) return res.status(200).json({status:true,msg:"Sessão ativa"});
-      return res.status(203).json({status:false,msg:"Sessão expirada"});
-    }
-    return res.status(404).json({status:false,msg:"Sessão não encontrada."})
+  req.session.destroy(function(err){
+    Sessions.find({_id:req.body.id},function(err,date){
+      if(err){
+        return res.status(500).json({status:true,msg:"Erro interno."});
+      }
+      
+      if(date.length>0){
+        var now = new Date().getTime();
+        if(now < date[0].expires.getTime()) return res.status(200).json({status:true,msg:"Sessão ativa"});
+        return res.status(203).json({status:false,msg:"Sessão expirada"});
+      }
+      return res.status(200).json({status:false,msg:"Sessão não encontrada"});
+    }); 
   });
-}
+};
