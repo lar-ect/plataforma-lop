@@ -4,6 +4,7 @@ const Questao = mongoose.model("Questao");
 const Submissao = mongoose.model("Submissao");
 const SubmissaoProva = mongoose.model("SubmissaoProva");
 const Rascunho = mongoose.model("Rascunho");
+const Sessions = mongoose.model("Sessions");
 const User = mongoose.model('User');
 const Data = mongoose.model("Data");
 const crypto = require('crypto');
@@ -260,7 +261,7 @@ exports.loginUser = function(req,res,next){
         res.status(500).json({erro:err});
         next(err); 
       }
-      console.log(user);
+      console.log(req.session);
       return res.status(200).json({
         codigo:200,
         msg:"Usuário logado com sucesso.",
@@ -348,3 +349,17 @@ exports.registrarAPI = async (req, res, next) => {
     });
   next();
 };
+
+exports.sessionStatus = function(req,res){
+  Sessions.find({_id:req.body.id},function(err,date){
+    if(err){
+      return res.status(500).json({status:true,msg:"Erro interno."});
+    }
+    if(date.length>0){
+      var now = new Date().getTime();
+      if(now < date[0].expires.getTime()) return res.status(200).json({status:true,msg:"Sessão ativa"});
+      return res.status(203).json({status:false,msg:"Sessão expirada"});
+    }
+    return res.status(404).json({status:false,msg:"Sessão não encontrada."})
+  });
+}

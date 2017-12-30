@@ -56,6 +56,7 @@ require('./dominio/Data');
 require('./dominio/Prova');
 require('./dominio/Suporte');
 require('./dominio/Rascunho');
+require('./dominio/Sessions');
 
 // Configura estratégia de autenticação local com passport.js
 const User = mongoose.model('User');

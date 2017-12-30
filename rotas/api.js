@@ -28,6 +28,8 @@ router.post('/api/v1/conta/esqueceu-senha',catchErrors(apiController.esqueceuSen
 router.post('/api/v1/cadastro',apiController.validarRegistroApi,
 	catchErrors(apiController.registrarAPI));
 
+router.post('/api/v1/session-status',apiController.sessionStatus);
+
 router.get('/api/v1/tags', catchErrors(apiController.getTags));
 
 router.get('/api/v1/questoes', catchErrors(apiController.getQuestoes));
