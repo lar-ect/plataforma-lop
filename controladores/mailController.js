@@ -1,6 +1,6 @@
 const postmark = require('postmark');
 
-const client = new postmark.Client('d0216e39-b497-4cf8-8a73-c6911bb63fca');
+const client = new postmark.Client(process.env.POSTMARK_TOKEN);
 
 exports.sendResetPwdMail = async (email, resetUrl) => {
   await client.sendEmail({
