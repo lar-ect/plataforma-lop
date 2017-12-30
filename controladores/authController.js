@@ -7,12 +7,11 @@ const permissoes = require('../dominio/Permissoes');
 const mailController = require('./mailController');
 
 // Middleware de permissão
-exports.temPermissao = (permissao) => {
+exports.temPermissao = permissao => {
   return (req, res, next) => {
     if (req.user && permissoes.temPermissao(req.user, permissao)) {
       next();
-    }
-    else {
+    } else {
       req.flash('warning', 'Oops, você não pode acessar essa página');
       res.redirect('back');
     }
@@ -20,11 +19,10 @@ exports.temPermissao = (permissao) => {
 };
 
 exports.isProfessor = () => {
-  return (req, res, next) => {  
+  return (req, res, next) => {
     if (req.user && permissoes.isProfessor(req.user)) {
       next();
-    }
-    else {
+    } else {
       req.flash('warning', 'Oops, você não pode acessar essa página');
       res.redirect('back');
     }
@@ -67,11 +65,13 @@ exports.esqueceuSenha = async (req, res) => {
   const resetUrl = `http://${req.headers.host}/conta/resetar-senha/${user.resetPasswordToken}`;
   try {
     await mailController.sendResetPwdMail(user.email, resetUrl);
-    req.flash('success', `Um e-mail de alteração de senha foi enviado para você!`);
-  }
-  catch(err) {
+    req.flash('success', 'Um e-mail de alteração de senha foi enviado para você!');
+  } catch (err) {
     console.error(err);
-    req.flash('danger', 'Ocorreu algum erro ao enviar seu email de alteração de senha, contate o administrador do sistema');
+    req.flash(
+      'danger',
+      'Ocorreu algum erro ao enviar seu email de alteração de senha, contate o administrador do sistema'
+    );
   }
   res.redirect('/login');
 };
@@ -82,7 +82,7 @@ exports.resetarSenha = async (req, res) => {
     resetPasswordExpires: { $gt: Date.now() }
   });
 
-  if(!user) {
+  if (!user) {
     req.flash('error', 'Link para resetar senha inválido ou expirado');
     return res.redirect('/login');
   }
@@ -91,7 +91,7 @@ exports.resetarSenha = async (req, res) => {
 };
 
 exports.confirmarSenhas = (req, res, next) => {
-  if(req.body.password === req.body['password-confirm']) {
+  if (req.body.password === req.body['password-confirm']) {
     next();
     return;
   }
@@ -106,7 +106,7 @@ exports.atualizarSenha = async (req, res) => {
     resetPasswordExpires: { $gt: Date.now() }
   });
 
-  if(!user) {
+  if (!user) {
     req.flash('danger', 'Link para resetar senha é inválido ou expirou');
     return res.redirect('/login');
   }

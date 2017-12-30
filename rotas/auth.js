@@ -21,37 +21,36 @@ router.get('/perfil', authController.isLoggedIn, catchErrors(userController.perf
 
 // router.get('/auth/github', passport.authenticate('github', { scope: [ 'user:email' ]}));
 
-// router.get('/auth/github/callback', 
+// router.get('/auth/github/callback',
 // 	passport.authenticate('github', { failureRedirect: '/login' }),
 //   (req, res) => {
 //     res.redirect('/');
 //   }
 // );
 
-
 // Sigaa
 router.get('/auth/sigaa', passport.authenticate('oauth2'));
 
-router.get('/auth/sigaa/callback',
-  passport.authenticate('oauth2', { failureRedirect: '/login' }),
-  (req, res) => {
-    res.redirect('/');
-  }
-);
+router.get('/auth/sigaa/callback', passport.authenticate('oauth2', { failureRedirect: '/login' }), (req, res) => {
+  res.redirect('/');
+});
 
 // Autenticação
 router.get('/logout', authController.logout);
 
 router.post('/login', authController.login);
 
-router.post('/cadastro', userController.validarRegistro, 
-	catchErrors(userController.registrar), indexController.redirectToIndex);
+router.post(
+  '/cadastro',
+  userController.validarRegistro,
+  catchErrors(userController.registrar),
+  indexController.redirectToIndex
+);
 
 router.post('/conta/esqueceu-senha', catchErrors(authController.esqueceuSenha));
 
 router.get('/conta/resetar-senha/:token', catchErrors(authController.resetarSenha));
 
-router.post('/conta/resetar-senha/:token', authController.confirmarSenhas,
-	catchErrors(authController.atualizarSenha));
-	
+router.post('/conta/resetar-senha/:token', authController.confirmarSenhas, catchErrors(authController.atualizarSenha));
+
 module.exports = router;

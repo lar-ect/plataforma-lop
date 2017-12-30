@@ -12,8 +12,10 @@
     "test": "jest --coverage",
     "test:watch": "jest --watch",
     "generate-webpack-stats": "webpack --profile --json > webpack-stats.json",
-    "analyze-bundle": "npx webpack-bundle-analyzer webpack-stats.json public/dist"
+    "analyze-bundle": "npx webpack-bundle-analyzer webpack-stats.json public/dist",
+    "prettier": "prettier \"*/**/*.js\" --ignore-path ./.prettierignore --write"
   },
+  "pre-commit": ["test", "prettier"],
   "browserslist": "last 2 versions",
   "dependencies": {
     "axios": "^0.16.1",
@@ -44,7 +46,6 @@
     "passport-local-mongoose": "4.2.1",
     "passport-oauth2": "1.4.0",
     "postmark": "1.4.1",
-    "prettier": "1.7.4",
     "pug": "2.0.0-rc.4",
     "react": "16.0.0",
     "react-dom": "16.0.0",
@@ -79,6 +80,7 @@
     "jest": "^21.2.1",
     "jest-cli": "21.2.1",
     "nodemon": "1.12.1",
+    "prettier": "1.7.4",
     "style-loader": "^0.19.0",
     "url-loader": "0.6.2",
     "webpack": "^3.0.0"
@@ -90,5 +92,10 @@
   },
   "jest": {
     "testEnvironment": "jest-environment-node"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "singleQuote": true,
+    "jsxBracketSameLine": true
   }
 }

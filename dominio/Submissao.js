@@ -21,21 +21,23 @@ const submissaoSchema = new mongoose.Schema(
       required: 'Informe uma porcentagem de acerto para a submissão'
     },
     resultados: {
-      type: [{
-        entradas: [{ type: String }],
-        saidaEsperada: String,
-        saida: String
-      }]
+      type: [
+        {
+          entradas: [{ type: String }],
+          saidaEsperada: String,
+          saida: String
+        }
+      ]
     },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
   },
   { collection: 'submissoes' }
 );
 
-submissaoSchema.statics.listarSubmissoesUsuario = async function (user, questoes = null, dataInicial, dataFinal) {
+submissaoSchema.statics.listarSubmissoesUsuario = async function(user, questoes = null, dataInicial, dataFinal) {
   let $match = { user: { $eq: user._id } };
   if (questoes) {
-    $match.questao = { $in: questoes }
+    $match.questao = { $in: questoes };
   }
   const submissoes = await this.aggregate([
     {
@@ -43,7 +45,7 @@ submissaoSchema.statics.listarSubmissoesUsuario = async function (user, questoes
     },
     {
       $group: {
-        _id: "$questao",
+        _id: '$questao',
         count: { $sum: 1 }
       }
     }
@@ -51,9 +53,9 @@ submissaoSchema.statics.listarSubmissoesUsuario = async function (user, questoes
   return new Map(submissoes.map(sub => [sub._id.toString(), sub.count]));
 };
 
-submissaoSchema.statics.calcularProgresso = function (totalQuestoes, quantidadeResolvidas) {
+submissaoSchema.statics.calcularProgresso = function(totalQuestoes, quantidadeResolvidas) {
   const progresso = {};
-  const porcentagem = (quantidadeResolvidas * 100) / totalQuestoes;
+  const porcentagem = quantidadeResolvidas * 100 / totalQuestoes;
   progresso['porcentagem'] = Math.round(porcentagem);
   progresso['quantidadeResolvidas'] = quantidadeResolvidas;
   progresso['quantidadeTotal'] = totalQuestoes;

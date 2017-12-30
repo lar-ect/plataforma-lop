@@ -53,7 +53,7 @@ exports.atualizarLista = async (req, res) => {
     runValidators: true,
     context: 'query'
   }).exec();
-  
+
   req.flash('success', 'Lista de exercícios atualizada com sucesso!');
   res.redirect(`/lista/${lista._id}`);
 };

@@ -9,30 +9,30 @@ const provaSchema = new mongoose.Schema(
       required: 'Forneça um título',
       trim: true,
       unique: true
-		},
-		duracao: {
-			type: Number,
-			required: 'Forneça uma duração'
-		},
-		iniciou: {
-			type: Date,
-			index: true
-		},
-		finalizou: {
-			type: Date,
-			index: true
-		},
-		autor: {
-			type: mongoose.Schema.Types.ObjectId, 
-			ref: 'User',
-			required: true
-		},
-		turmas: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Turma' }],
-		questoes: {
-			type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Questao'}],
-			required: 'Forneça questões'
-		},
-	},
+    },
+    duracao: {
+      type: Number,
+      required: 'Forneça uma duração'
+    },
+    iniciou: {
+      type: Date,
+      index: true
+    },
+    finalizou: {
+      type: Date,
+      index: true
+    },
+    autor: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true
+    },
+    turmas: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Turma' }],
+    questoes: {
+      type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Questao' }],
+      required: 'Forneça questões'
+    }
+  },
   { collection: 'provas' }
 );
 

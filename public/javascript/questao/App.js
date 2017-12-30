@@ -8,7 +8,6 @@ import 'brace/theme/ambiance';
 import ex from '../modules/execucao';
 
 $(function() {
-
   const katexEnunciadoEl = document.getElementById('enunciado-latex');
   console.log(katexEnunciadoEl);
 
@@ -24,9 +23,10 @@ $(function() {
   /**
    * Requisita as tags disponíveis no sistema
    */
-  axios.get(window.location.origin + '/api/v1/tags')
+  axios
+    .get(window.location.origin + '/api/v1/tags')
     .then(res => {
-      $('select[name=\'tags\']').select2({
+      $("select[name='tags']").select2({
         data: res.data,
         maximumSelectionLength: 4,
         tags: true
@@ -61,8 +61,7 @@ $(function() {
 
   if ($resultados.val()) {
     jsonEditor.set(JSON.parse($resultados.val()));
-  }
-  else {
+  } else {
     jsonEditor.set(resultadosExemplo);
   }
   const lengthExemplo = JSON.stringify(jsonEditor.get()).length;
@@ -82,11 +81,10 @@ $(function() {
   window.addEventListener('beforeunload', function(e) {
     if (editor.getValue().length > 0 || JSON.stringify(jsonEditor.get()).length > lengthExemplo) {
       const confirmacao = 'Suas alterações serão perdidas se você sair sem submeter o código.';
-      
+
       e.returnValue = confirmacao;
       return confirmacao;
-    }
-    else {
+    } else {
       return e;
     }
   });
@@ -96,7 +94,8 @@ $(function() {
     const $btn = $(this);
     $btn.prop('disabled', true);
     $btn.removeClass('btn-outline-primary');
-    ex.executarCodigoComResultados(editor.getValue(), resultados)
+    ex
+      .executarCodigoComResultados(editor.getValue(), resultados)
       .then(res => {
         adicionarListaResultados(res.data);
         tippy('.saida-esperada');

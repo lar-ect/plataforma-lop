@@ -1,10 +1,10 @@
-const mongoose = require("mongoose");
-const Questao = mongoose.model("Questao");
-const Submissao = mongoose.model("Submissao");
-const SubmissaoProva = mongoose.model("SubmissaoProva");
-const Rascunho = mongoose.model("Rascunho");
-const Data = mongoose.model("Data");
-const executar = require("../negocio/executar");
+const mongoose = require('mongoose');
+const Questao = mongoose.model('Questao');
+const Submissao = mongoose.model('Submissao');
+const SubmissaoProva = mongoose.model('SubmissaoProva');
+const Rascunho = mongoose.model('Rascunho');
+const Data = mongoose.model('Data');
+const executar = require('../negocio/executar');
 
 /**
  * Incrementa o contador de execuções no banco de forma atômica
@@ -18,9 +18,9 @@ exports.incrementarExecucoes = (req, res, next) => {
     {
       upsert: true
     },
-    function (err, data) {
+    function(err, data) {
       if (err) {
-        console.log("Erro ao salvar execução no banco");
+        console.log('Erro ao salvar execução no banco');
         throw err;
       }
     }
@@ -29,18 +29,21 @@ exports.incrementarExecucoes = (req, res, next) => {
 };
 
 exports.incrementarCliqueNovidades = (req, res) => {
-  Data.findOneAndUpdate({},
+  Data.findOneAndUpdate(
+    {},
     {
-      $inc: { 'cliqueNovidades': 1 }
-    }, {
+      $inc: { cliqueNovidades: 1 }
+    },
+    {
       upsert: true
     },
-    function (err, data) {
+    function(err, data) {
       if (err) {
-        console.error("Erro ao incrementar clique em novidades");
+        console.error('Erro ao incrementar clique em novidades');
         throw err;
       }
-    });
+    }
+  );
 };
 
 /**
@@ -49,19 +52,15 @@ exports.incrementarCliqueNovidades = (req, res) => {
  */
 exports.executarCodigoComResultado = (req, res) => {
   const { codigo, resultadosEsperados } = req.body;
-  if (
-    !resultadosEsperados ||
-    !resultadosEsperados[0] ||
-    !resultadosEsperados[0].saida
-  ) {
-    res.status(500).send("Resultados esperados vieram nulos");
+  if (!resultadosEsperados || !resultadosEsperados[0] || !resultadosEsperados[0].saida) {
+    res.status(500).send('Resultados esperados vieram nulos');
     return;
   }
 
   const resultados = [];
   for (let i = 0; i < resultadosEsperados.length; i++) {
     resultados.push({
-      entrada: resultadosEsperados[i].entradas.join(" "),
+      entrada: resultadosEsperados[i].entradas.join(' '),
       saida: executar(codigo, resultadosEsperados[i].entradas),
       saidaEsperada: resultadosEsperados[i].saida
     });
@@ -78,7 +77,7 @@ exports.executarCodigoQuestao = async (req, res) => {
   const { codigo, id } = req.body;
   const questao = await Questao.findOne({ _id: id });
   if (!questao) {
-    res.status(500).send("Nenhuma questão encontrada para o id informado");
+    res.status(500).send('Nenhuma questão encontrada para o id informado');
     return;
   }
 
@@ -86,7 +85,7 @@ exports.executarCodigoQuestao = async (req, res) => {
   const resultados = [];
   for (let i = 0; i < resultadosEsperados.length; i++) {
     resultados.push({
-      entrada: `[${resultadosEsperados[i].entradas.join(", ")}]`,
+      entrada: `[${resultadosEsperados[i].entradas.join(', ')}]`,
       saida: executar(codigo, resultadosEsperados[i].entradas),
       saidaEsperada: resultadosEsperados[i].saida
     });
@@ -103,7 +102,7 @@ exports.executarCodigoQuestaoProva = async (req, res) => {
   const { codigo, id } = req.body;
   const questao = await Questao.findOne({ _id: id });
   if (!questao) {
-    res.status(500).send("Nenhuma questão encontrada para o id informado");
+    res.status(500).send('Nenhuma questão encontrada para o id informado');
     return;
   }
 
@@ -111,7 +110,7 @@ exports.executarCodigoQuestaoProva = async (req, res) => {
   const resultados = [];
   for (let i = 0; i < 1; i++) {
     resultados.push({
-      entrada: `[${resultadosEsperados[i].entradas.join(", ")}]`,
+      entrada: `[${resultadosEsperados[i].entradas.join(', ')}]`,
       saida: executar(codigo, resultadosEsperados[i].entradas),
       saidaEsperada: resultadosEsperados[i].saida
     });
@@ -122,13 +121,13 @@ exports.executarCodigoQuestaoProva = async (req, res) => {
 
 exports.submeterCodigoQuestao = async (req, res) => {
   if (!req.user) {
-    res.status(500).send("Você precisa estar logado para submeter questões");
+    res.status(500).send('Você precisa estar logado para submeter questões');
     return;
   }
   const { codigo, id } = req.body;
   const questao = await Questao.findOne({ _id: id });
   if (!questao) {
-    res.status(500).send("Nenhum questão encontrada para o id informado.");
+    res.status(500).send('Nenhum questão encontrada para o id informado.');
     return;
   }
 
@@ -136,7 +135,7 @@ exports.submeterCodigoQuestao = async (req, res) => {
   const resultados = [];
   for (let i = 0; i < resultadosEsperados.length; i++) {
     resultados.push({
-      entradas: resultadosEsperados[i].entradas.join(" "),
+      entradas: resultadosEsperados[i].entradas.join(' '),
       saida: executar(codigo, resultadosEsperados[i].entradas),
       saidaEsperada: resultadosEsperados[i].saida
     });
@@ -165,13 +164,13 @@ exports.submeterCodigoQuestao = async (req, res) => {
 
 exports.submeterCodigoQuestaoProva = async (req, res) => {
   if (!req.user) {
-    res.status(500).send("Você precisa estar logado para submeter questões");
+    res.status(500).send('Você precisa estar logado para submeter questões');
     return;
   }
   const { codigo, questaoId, provaId } = req.body;
   const questao = await Questao.findOne({ _id: questaoId });
   if (!questao) {
-    res.status(500).send("Nenhum questão encontrada para o id informado.");
+    res.status(500).send('Nenhum questão encontrada para o id informado.');
     return;
   }
 
@@ -179,7 +178,7 @@ exports.submeterCodigoQuestaoProva = async (req, res) => {
   const resultados = [];
   for (let i = 0; i < resultadosEsperados.length; i++) {
     resultados.push({
-      entradas: resultadosEsperados[i].entradas.join(" "),
+      entradas: resultadosEsperados[i].entradas.join(' '),
       saida: executar(codigo, resultadosEsperados[i].entradas),
       saidaEsperada: resultadosEsperados[i].saida
     });
@@ -203,14 +202,17 @@ exports.submeterCodigoQuestaoProva = async (req, res) => {
     prova: provaId
   });
 
-  console.log(`Aluno "${req.user.nome}" de matrícula "${req.user.matricula}" submeteu a questão "${questao.titulo}" e obteve ${porcentagemAcerto}% de acerto.`);
+  console.log(
+    `Aluno "${req.user.nome}" de matrícula "${req.user
+      .matricula}" submeteu a questão "${questao.titulo}" e obteve ${porcentagemAcerto}% de acerto.`
+  );
 
   await submissaoProva.save();
   res.json('Questão submetida com sucesso');
 };
 
 exports.getTags = async (req, res) => {
-  const tags = await Questao.find().distinct("tags");
+  const tags = await Questao.find().distinct('tags');
   res.json(tags);
 };
 
@@ -232,7 +234,8 @@ exports.salvarRascunho = async (req, res) => {
   };
 
   const rascunhoSalvo = await Rascunho.findOneAndUpdate({ questao, user: req.user }, rascunho, {
-    new: true, upsert: true
+    new: true,
+    upsert: true
   }).exec();
   res.json(rascunhoSalvo);
 };

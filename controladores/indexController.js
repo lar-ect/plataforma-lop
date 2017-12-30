@@ -12,7 +12,7 @@ exports.redirectToIndex = (req, res) => {
 };
 
 exports.index = async (req, res) => {
-  const questoes = await Questao.find({oculta: {$in: [null, false]}});
+  const questoes = await Questao.find({ oculta: { $in: [null, false] } });
   const listasExercicio = await ListaExercicio.find({});
   const tags = await Questao.find().distinct('tags');
   const progressoLista = new Map();
@@ -20,14 +20,14 @@ exports.index = async (req, res) => {
     const submissoes = await Submissao.listarSubmissoesUsuario(req.user);
     let questoesOcultas = null;
     if (permissoes.temPermissao(req.user, 'VER_QUESTOES_OCULTAS')) {
-      questoesOcultas = await Questao.find({oculta: true});
+      questoesOcultas = await Questao.find({ oculta: true });
     }
-    res.render('index', { 
-      title: 'Início', 
-      questoes, 
-      listasExercicio, 
-      tags, 
-      submissoes, 
+    res.render('index', {
+      title: 'Início',
+      questoes,
+      listasExercicio,
+      tags,
+      submissoes,
       filtrarSubmissoesLista,
       questoesOcultas,
       provasUsuario: req.provasUsuario
@@ -40,7 +40,10 @@ exports.index = async (req, res) => {
 function filtrarSubmissoesLista(lista, submissoes) {
   const progresso = {};
   if (lista.questoes || lista.questoes.length > 0) {
-    return Submissao.calcularProgresso(lista.questoes.length, lista.questoes.filter(q => submissoes.has(q.toString())).length);
+    return Submissao.calcularProgresso(
+      lista.questoes.length,
+      lista.questoes.filter(q => submissoes.has(q.toString())).length
+    );
   }
   return progresso;
 }
@@ -78,7 +81,7 @@ exports.enviarMensagemSuporte = async (req, res) => {
     const erros = req.validationErrors();
     if (erros) {
       req.flash('danger', erros.map(err => err.msg));
-      res.render('suporte', {title: 'Suporte', body: req.body, flashes: req.flash() });
+      res.render('suporte', { title: 'Suporte', body: req.body, flashes: req.flash() });
       return;
     }
   }
@@ -92,4 +95,4 @@ exports.enviarMensagemSuporte = async (req, res) => {
 
 exports.processing = (req, res) => {
   res.render('processing', { title: 'Processing.js' });
-}
+};

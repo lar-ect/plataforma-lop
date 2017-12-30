@@ -1,33 +1,35 @@
-const passport = require("passport");
-const GitHubStrategy = require("passport-github2").Strategy;
-const mongoose = require("mongoose");
-const User = mongoose.model("User");
+const passport = require('passport');
+const GitHubStrategy = require('passport-github2').Strategy;
+const mongoose = require('mongoose');
+const User = mongoose.model('User');
 
-passport.use(new GitHubStrategy({
-    clientID: process.env.GITHUB_CLIENT_ID,
-    clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: process.env.GITHUB_CALLBACK_URL
-  },
-  async (accessToken, refreshToken, githubData, done) => {
-    const email = githubData._json.email;
-    console.log(`Tentando autenticar com o github utilizando email: ${email}`);
+passport.use(
+  new GitHubStrategy(
+    {
+      clientID: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      callbackURL: process.env.GITHUB_CALLBACK_URL
+    },
+    async (accessToken, refreshToken, githubData, done) => {
+      const email = githubData._json.email;
+      console.log(`Tentando autenticar com o github utilizando email: ${email}`);
 
-    let user = await User.findOne({ email });
+      let user = await User.findOne({ email });
 
-    if(!user) {
-      console.log(`Nenhum usuário cadastrado com o email: ${email}, criando novo usuário`);
-      user = new User({
-        email,
-        nome: githubData._json.name,
-        githubData
-      });
-      
-    } else {
-      user.githubData = githubData;
+      if (!user) {
+        console.log(`Nenhum usuário cadastrado com o email: ${email}, criando novo usuário`);
+        user = new User({
+          email,
+          nome: githubData._json.name,
+          githubData
+        });
+      } else {
+        user.githubData = githubData;
+      }
+
+      user.markModified('githubData');
+      user = await user.save();
+      done(null, user);
     }
-    
-    user.markModified("githubData");
-    user = await user.save();
-    done(null, user);
-  }
-));
+  )
+);

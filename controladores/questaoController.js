@@ -5,7 +5,6 @@ const ListaExercicio = mongoose.model('ListaExercicio');
 const Rascunho = mongoose.model('Rascunho');
 const permissoes = require('../dominio/Permissoes');
 
-
 // exports.questoes = async (req, res) => {
 //   const questoes = await Questao.find({oculta: {$in: [null, false]}});t
 //   res.render('questoes', { title: 'Questões', questoes });
@@ -13,7 +12,9 @@ const permissoes = require('../dominio/Permissoes');
 
 exports.getQuestao = async (req, res) => {
   const questaoId = req.params.id;
-  let lista = null, idProximaQuestao = null, idQuestaoAnterior = null;
+  let lista = null,
+    idProximaQuestao = null,
+    idQuestaoAnterior = null;
   if (req.query.lista) {
     lista = await ListaExercicio.findOne({ _id: req.query.lista });
     const questoes = lista.questoes.map(q => q.id);
@@ -95,14 +96,9 @@ exports.favoritarQuestao = async (req, res) => {
   const operador = contemLike ? '$pull' : '$addToSet';
   const incremento = contemLike ? -1 : 1;
   try {
-    await User.findByIdAndUpdate(req.user._id,
-      { [operador]: { questoesFavoritas: req.params.id } }
-    );
+    await User.findByIdAndUpdate(req.user._id, { [operador]: { questoesFavoritas: req.params.id } });
 
-    const questao = await Questao.findByIdAndUpdate(req.params.id,
-      { $inc: { likes: incremento } },
-      { new: true }
-    );
+    const questao = await Questao.findByIdAndUpdate(req.params.id, { $inc: { likes: incremento } }, { new: true });
     res.json({ likes: questao.likes });
   } catch (err) {
     res.status(500).send(err);

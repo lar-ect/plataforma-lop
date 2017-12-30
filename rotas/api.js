@@ -13,7 +13,11 @@ router.post('/api/v1/questoes/:id/favoritar', questaoController.favoritarQuestao
 
 router.post('/api/v1/executar', apiController.incrementarExecucoes, catchErrors(apiController.executarCodigo));
 
-router.post('/api/v1/executar/questao', apiController.incrementarExecucoes, catchErrors(apiController.executarCodigoQuestao));
+router.post(
+  '/api/v1/executar/questao',
+  apiController.incrementarExecucoes,
+  catchErrors(apiController.executarCodigoQuestao)
+);
 
 router.post('/api/v1/executar/questao-com-resultados', apiController.executarCodigoComResultado);
 
@@ -28,19 +32,20 @@ router.get('/api/v1/questoes', catchErrors(apiController.getQuestoes));
 router.get('/api/v1/clicou-novidades', apiController.incrementarCliqueNovidades);
 
 // Prova
-router.post('/api/v1/executar/prova/questao', 
-	authController.isLoggedIn,
-	apiController.incrementarExecucoes, 
-	catchErrors(apiController.executarCodigoQuestaoProva)
+router.post(
+  '/api/v1/executar/prova/questao',
+  authController.isLoggedIn,
+  apiController.incrementarExecucoes,
+  catchErrors(apiController.executarCodigoQuestaoProva)
 );
 
-router.post('/api/v1/submeter/prova/questao', 
-	authController.isLoggedIn,
-	catchErrors(provaController.podeSubmeter),
-	catchErrors(apiController.submeterCodigoQuestaoProva)
+router.post(
+  '/api/v1/submeter/prova/questao',
+  authController.isLoggedIn,
+  catchErrors(provaController.podeSubmeter),
+  catchErrors(apiController.submeterCodigoQuestaoProva)
 );
 
-router.get('/api/v1/executar-diagnostico-questoes',
-	catchErrors(diagnosticoController.executarDiagnosticoQuestoes));
+router.get('/api/v1/executar-diagnostico-questoes', catchErrors(diagnosticoController.executarDiagnosticoQuestoes));
 
 module.exports = router;
