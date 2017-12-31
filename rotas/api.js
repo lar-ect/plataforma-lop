@@ -9,6 +9,8 @@ const diagnosticoController = require('../controladores/diagnosticoController');
 const { catchErrors } = require('../negocio/errorHandlers');
 
 // API v1
+router.get('/api/v1/LoP',apiController.olaLop);
+
 router.post('/api/v1/questoes/:id/favoritar', questaoController.favoritarQuestao);
 
 router.post('/api/v1/executar', apiController.incrementarExecucoes, catchErrors(apiController.executarCodigo));
@@ -30,7 +32,7 @@ router.post('/api/v1/cadastro',apiController.validarRegistroApi,
 
 router.post('/api/v1/session-status',apiController.sessionStatus);
 
-router.post('/api/v1/finalizar-session',apiController.sessionStatus);
+router.post('/api/v1/finalizar-session',apiController.finalizarSession);
 
 router.get('/api/v1/tags', catchErrors(apiController.getTags));
 

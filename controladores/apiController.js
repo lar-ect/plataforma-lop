@@ -112,7 +112,6 @@ exports.executarCodigoQuestaoProva = async (req, res) => {
     res.status(500).send("Nenhuma questão encontrada para o id informado");
     return;
   }
-
   const resultadosEsperados = questao.resultados;
   const resultados = [];
   for (let i = 0; i < 1; i++) {
@@ -354,15 +353,31 @@ exports.sessionStatus = function(req,res){
   req.session.destroy(function(err){
     Sessions.find({_id:req.body.id},function(err,date){
       if(err){
-        return res.status(500).json({status:true,msg:"Erro interno."});
+        return res.status(500).json({status:false,msg:"Erro interno."});
       }
-      
       if(date.length>0){
         var now = new Date().getTime();
         if(now < date[0].expires.getTime()) return res.status(200).json({status:true,msg:"Sessão ativa"});
         return res.status(203).json({status:false,msg:"Sessão expirada"});
       }
-      return res.status(200).json({status:false,msg:"Sessão não encontrada"});
+      return res.status(404).json({status:false,msg:"Sessão não encontrada"});
     }); 
   });
 };
+exports.olaLop = function(req,res){
+  req.session.destroy(function(err){
+    return res.status(200).json({status:true,msg:"Bem vindo a plataforma LoP",msgEnviada:req.body.msg});
+  });
+};
+
+exports.finalizarSession = function(req,res){
+  req.session.destroy(function(err){
+    Sessions.findByIdAndRemove(req.body.id, function (err, data) {
+      if(err) return res.status(500).json({status:false,msg:"Erro interno."});
+      if(data!=null){
+        return res.status(200).json({status:true,msg:"Sessão finalizada"});
+      }
+      return res.status(404).json({status:false,msg:"Sessão não encontrada"});
+    });
+  });
+}
