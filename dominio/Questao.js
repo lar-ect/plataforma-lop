@@ -29,7 +29,7 @@ const questaoSchema = new mongoose.Schema(
     classificacao: {
       type: String,
       enum: classificacoes,
-      required: 'Por favor escolha uma classificação',
+      required: 'Por favor escolha uma classificação'
     },
     dificuldade: {
       type: String,
@@ -45,12 +45,14 @@ const questaoSchema = new mongoose.Schema(
       default: 0
     },
     resultados: {
-      type: [{
-        entradas: {
-          type: [{ type: String }],
-        },
-        saida: String,
-      }],
+      type: [
+        {
+          entradas: {
+            type: [{ type: String }]
+          },
+          saida: String
+        }
+      ],
       required: 'Forneça um array de resultados'
     }
   },

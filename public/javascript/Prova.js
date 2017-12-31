@@ -19,22 +19,22 @@ window.addEventListener('beforeunload', function(e) {
 
     e.returnValue = confirmacao;
     return confirmacao;
-  }
-  else {
+  } else {
     return e;
   }
 });
 
 const $resultadosDiv = $('#resultados-container');
-const $questaoId = $('input[name=\'questaoId\']');
-const provaId = $('input[name=\'provaId\']').val() || null;
+const $questaoId = $("input[name='questaoId']");
+const provaId = $("input[name='provaId']").val() || null;
 
 // Execução de código
 $('#btn-enviar-codigo').on('click', function() {
   const $btn = $(this);
   $btn.prop('disabled', true);
   $btn.addClass('is-loading');
-  api.executarCodigoProva(editor.getValue(), $questaoId.val())
+  api
+    .executarCodigoProva(editor.getValue(), $questaoId.val())
     .then(res => {
       adicionarListaResultados(res.data);
       tippy('.saida-esperada');
@@ -54,53 +54,60 @@ $('#btn-submeter').on('click', function() {
   $btn.prop('disabled', true);
   $btn.addClass('is-loading');
 
-  swal({
-    title: 'Deseja submeter seu código?',
-    text: 'Você pode submeter quantas vezes desejar',
-    type: 'info',
-    showCancelButton: true,
-    closeOnConfirm: false
-  }, function(isConfirm) {
-    if (isConfirm) {
-      api.submeterCodigoProva(editor.getValue(), $questaoId.val(), provaId)
-      .then(() => {
-        swal({
-			title: 'OK!',
-			text: 'Submissão enviada com sucesso', 
-			type: 'success'
-		}, redirect);
-      })
-      .catch(err => {
-        console.log(err);
-        swal('Oops...', 'Ocorreu algum erro ao enviar a submissão', 'error');
-      })
-      .then(() => {
+  swal(
+    {
+      title: 'Deseja submeter seu código?',
+      text: 'Você pode submeter quantas vezes desejar',
+      type: 'info',
+      showCancelButton: true,
+      closeOnConfirm: false
+    },
+    function(isConfirm) {
+      if (isConfirm) {
+        api
+          .submeterCodigoProva(editor.getValue(), $questaoId.val(), provaId)
+          .then(() => {
+            swal(
+              {
+                title: 'OK!',
+                text: 'Submissão enviada com sucesso',
+                type: 'success'
+              },
+              redirect
+            );
+          })
+          .catch(err => {
+            console.log(err);
+            swal('Oops...', 'Ocorreu algum erro ao enviar a submissão', 'error');
+          })
+          .then(() => {
+            $btn.prop('disabled', false);
+            $btn.removeClass('is-loading');
+          });
+      } else {
         $btn.prop('disabled', false);
         $btn.removeClass('is-loading');
-      });
+      }
     }
-    else {
-      $btn.prop('disabled', false);
-      $btn.removeClass('is-loading');
-    }
-  });
+  );
 });
 
 //Salvar rascunho
-$('#btn-salvar-rascunho').on('click', function () {
+$('#btn-salvar-rascunho').on('click', function() {
   let codigo = editor.getValue();
   if (codigo.startsWith('// Rascunho')) {
     codigo = codigo.substring(codigo.indexOf('\n') + 1);
   }
   console.log('Salvando rascunho');
   console.log(codigo);
-  
+
   const $btn = $(this);
   const $icone = $('#icone-rascunho');
 
   $btn.prop('disabled', true);
   $btn.addClass('is-loading');
-  api.salvarCodigoRascunho(codigo, $questaoId.val())
+  api
+    .salvarCodigoRascunho(codigo, $questaoId.val())
     .then(() => {
       $icone.removeClass('fa-bookmark-o');
       $icone.addClass('fa-bookmark');
@@ -109,7 +116,8 @@ $('#btn-salvar-rascunho').on('click', function () {
     .catch(err => {
       console.error(err);
       swal('Ops...', 'Ocorreu um erro ao salvar o rascunho, contate um administrador.', 'error');
-    }).then(() => {
+    })
+    .then(() => {
       $btn.prop('disabled', false);
       $btn.removeClass('is-loading');
     });
@@ -119,8 +127,7 @@ function redirect() {
   editor.setValue('');
   if (!provaId) {
     window.location.href = '/';
-  }
-  else {
+  } else {
     window.location.href = `/prova/${provaId}`;
   }
 }
@@ -165,4 +172,3 @@ function criarLinhasResultado(resultado) {
     })
     .join('');
 }
-

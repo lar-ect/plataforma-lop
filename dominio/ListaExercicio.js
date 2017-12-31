@@ -9,9 +9,9 @@ const listaSchema = new mongoose.Schema(
       required: 'Forneça um título',
       trim: true,
       unique: true
-	},
-	questoes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Questao' }],
-	likes: {
+    },
+    questoes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Questao' }],
+    likes: {
       type: Number,
       default: 0
     }

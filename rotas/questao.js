@@ -8,23 +8,31 @@ const { catchErrors } = require('../negocio/errorHandlers');
 // Questões
 // router.get('/questoes', catchErrors(questaoController.questoes));
 
-router.get('/questao/adicionar',
+router.get(
+  '/questao/adicionar',
   authController.isLoggedIn,
   authController.temPermissao('CREATE_QUESTAO'),
-  catchErrors(questaoController.adicionarQuestao));
+  catchErrors(questaoController.adicionarQuestao)
+);
 
-router.get('/questao/adicionar/:id', 
+router.get(
+  '/questao/adicionar/:id',
   authController.isLoggedIn,
-  authController.temPermissao('CREATE_QUESTAO'), 
-  catchErrors(questaoController.adicionarQuestao));
+  authController.temPermissao('CREATE_QUESTAO'),
+  catchErrors(questaoController.adicionarQuestao)
+);
 
-router.post('/questao/adicionar', 
-  authController.temPermissao('CREATE_QUESTAO'), 
-  catchErrors(questaoController.criarQuestao));
+router.post(
+  '/questao/adicionar',
+  authController.temPermissao('CREATE_QUESTAO'),
+  catchErrors(questaoController.criarQuestao)
+);
 
-router.post('/questao/adicionar/:id', 
+router.post(
+  '/questao/adicionar/:id',
   authController.temPermissao('UPDATE_QUESTAO'),
-  catchErrors(questaoController.atualizarQuestao));
+  catchErrors(questaoController.atualizarQuestao)
+);
 
 /**
  * Parâmetros:

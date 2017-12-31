@@ -23,20 +23,34 @@ describe('execução de código javascript', () => {
     });
 
     test('retorna erro de timeout em código com loop infinito', () => {
-      const resultado = executar(`
+      const resultado = executar(
+        `
         var x = lerInteiro();
         while(x !== 0) {
           escreva(x);
         }
-      `, ['1']);
+      `,
+        ['1']
+      );
       expect(resultado).toBe('Erro: Tempo esgotado');
     });
 
     test('retorna código de função nativa ao utilizar uma função como parâmetro das funções de escrita', () => {
       const funcoesEscrita = ['escreva', 'alert', 'console.log'];
-      const funcoesContexto = ['INIT_VM_CONTEXT', 'escreva', 'alert', 'console.log', 
-        'prompt', 'lerTexto', 'lerInteiro', 'lerReal', 'raizQuadrada', 'potencia', 'divisaoInteira'];
-      
+      const funcoesContexto = [
+        'INIT_VM_CONTEXT',
+        'escreva',
+        'alert',
+        'console.log',
+        'prompt',
+        'lerTexto',
+        'lerInteiro',
+        'lerReal',
+        'raizQuadrada',
+        'potencia',
+        'divisaoInteira'
+      ];
+
       funcoesEscrita.forEach(func => {
         funcoesContexto.forEach(param => {
           const resultado = executar(`${func}(${param})`, []);
@@ -58,7 +72,8 @@ describe('execução de código javascript', () => {
     });
 
     test('resultado correto para escreva com múltiplas linhas', () => {
-      const resultado = executar(`
+      const resultado = executar(
+        `
         for(var i = 0; i < 3; i++) {
           var x = lerInteiro();
           escreva(x + '\\n');
@@ -75,28 +90,37 @@ describe('execução de código javascript', () => {
     });
 
     test('retorna correto ao utilizar o console', () => {
-      const resultado = executar(`
+      const resultado = executar(
+        `
         var x = lerInteiro();
         console.log(x);
-      `, ['1']);
+      `,
+        ['1']
+      );
       expect(resultado).toBe('1');
     });
 
     test('ler texto lê uma variável do tipo string', () => {
-      const resultado = executar(`
+      const resultado = executar(
+        `
         var x = lerTexto();
         var y = lerTexto();
         escreva(x + ' ' + y);
-      `, ['Hello', 'World']);
+      `,
+        ['Hello', 'World']
+      );
       expect(resultado).toBe('Hello World');
     });
 
     test('execução utiliza a função trim() no resultado', () => {
-      const resultado = executar(`
+      const resultado = executar(
+        `
         for(var i = 0; i < 3; i++) {
           escreva(i + ' ');
         }
-      `, []);
+      `,
+        []
+      );
       expect(resultado).toBe('0 1 2');
     });
   });

@@ -25,7 +25,8 @@ $(function() {
     $button.toggleClass('is-loading');
     const url = this.action;
     console.log('clicou para favoritar', url);
-    axios.post(url)
+    axios
+      .post(url)
       .then(res => {
         console.log(`Quantidade de likes: ${res.data.likes}`);
 
@@ -35,12 +36,13 @@ $(function() {
          */
         const favoritado = this.btn_favoritar.classList.toggle('favoritado');
         console.log(`Questão foi ${favoritado ? 'favoritada' : 'desfavoritada'}`);
-        $(this).find('span[name="btn_favoritar_likes"]').text(res.data.likes);
+        $(this)
+          .find('span[name="btn_favoritar_likes"]')
+          .text(res.data.likes);
         this.btn_favoritar.classList.remove('is-outlined', 'is-primary');
         if (favoritado) {
           this.btn_favoritar.classList.add('is-primary');
-        }
-        else {
+        } else {
           this.btn_favoritar.classList.add('is-primary', 'is-outlined');
         }
       })
@@ -51,45 +53,48 @@ $(function() {
         $button.toggleClass('is-loading');
       });
   });
-  
+
   tippy('.btn-tooltip');
-  
-  $('.button').mouseup(function(){
-      $(this).blur();
+
+  $('.button').mouseup(function() {
+    $(this).blur();
   });
 
-  $('#btn-sugestao').click((e) => {
+  $('#btn-sugestao').click(e => {
     e.preventDefault();
-    swal({
-      title: 'Sugestão',
-      type: 'input',
-      showCancelButton: true,
-      closeOnConfirm: false,
-      animation: 'slide-from-top',
-      inputPlaceholder: 'Digite sua sugestão/crítica'
-    }, function(inputValue) {
-      if (inputValue === false) 
-        return false;
-  
-      if (inputValue === '') {
-        swal.showInputError('Digite algo');
-        return false;
+    swal(
+      {
+        title: 'Sugestão',
+        type: 'input',
+        showCancelButton: true,
+        closeOnConfirm: false,
+        animation: 'slide-from-top',
+        inputPlaceholder: 'Digite sua sugestão/crítica'
+      },
+      function(inputValue) {
+        if (inputValue === false) return false;
+
+        if (inputValue === '') {
+          swal.showInputError('Digite algo');
+          return false;
+        }
+
+        axios
+          .post('/sugestao', {
+            sugestao: inputValue
+          })
+          .then(res => {
+            console.log(res.data);
+            swal('Sugestão enviada com sucesso', 'Obrigado!', 'success');
+          })
+          .catch(err => {
+            console.error(err);
+            swal('Oops...', 'Ocorreu algum erro ao enviar sua sugestão', 'error');
+          });
       }
-  
-      axios.post('/sugestao', {
-        sugestao: inputValue
-      }).then(res => {
-        console.log(res.data);
-        swal('Sugestão enviada com sucesso', 'Obrigado!', 'success');
-      }).catch(err => {
-        console.error(err);
-        swal('Oops...', 'Ocorreu algum erro ao enviar sua sugestão', 'error');
-      });
-    });
+    );
   });
 });
 
 hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'));
 hljs.initHighlightingOnLoad();
-
-

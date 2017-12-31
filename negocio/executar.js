@@ -59,7 +59,8 @@ const contexto = {
 /**
  * Modifica o método toString de todas as função para evitar que o código seja visto no cliente
  * ao chamar por exemplo alert(lerInteiro);
- */ 
+ */
+
 Object.keys(contexto).forEach(key => {
   if (typeof contexto[key] === 'function') {
     contexto[key].toString = () => `f ${contexto[key].name}() { [native code] }`;
@@ -86,11 +87,14 @@ function executar(codigo, arrayEntrada) {
   }
 
   if (resultado === 'Erro: Script execution timed out.') {
-    resultado = resultado.replace('Script execution timed out.', 
-      'Tempo esgotado');
+    resultado = resultado.replace('Script execution timed out.', 'Tempo esgotado');
   }
 
-  return resultado.split('\n').map(r => r.trim()).join('\n').trim();
+  return resultado
+    .split('\n')
+    .map(r => r.trim())
+    .join('\n')
+    .trim();
 }
 
 module.exports = executar;

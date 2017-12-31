@@ -48,7 +48,7 @@ userSchema.virtual('gravatar').get(function() {
 });
 
 userSchema.plugin(uniqueValidator);
-userSchema.plugin(passportLocalMongoose, { 
+userSchema.plugin(passportLocalMongoose, {
   usernameField: 'email',
   errorMessages: {
     UserExistsError: 'Já existe um usuário cadastrado com esse email'

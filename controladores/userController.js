@@ -16,13 +16,15 @@ exports.perfil = async (req, res) => {
     if (permissoes.isAdmin(req.user)) {
       provas = await Prova.find({});
       turmas = await Turma.find({}, 'descricaoComponente codigoString qtdMatriculados _id id');
-    }
-    else {
-      turmas = await Turma.find({
-        _id: { $in: req.user.sigaa.turmas }
-      }, 'descricaoComponente codigoString qtdMatriculados _id id');
+    } else {
+      turmas = await Turma.find(
+        {
+          _id: { $in: req.user.sigaa.turmas }
+        },
+        'descricaoComponente codigoString qtdMatriculados _id id'
+      );
       const turmasUser = turmas.map(t => t._id.toString());
-      provas = await Prova.find({ $or: [ { autor: req.user._id }, { turmas: {$in: req.user.sigaa.turmas }} ] });
+      provas = await Prova.find({ $or: [{ autor: req.user._id }, { turmas: { $in: req.user.sigaa.turmas } }] });
     }
   }
   const submissoes = await Submissao.find({ user: req.user });
@@ -73,12 +75,11 @@ exports.validarRegistro = (req, res, next) => {
   const erros = req.validationErrors();
   if (erros) {
     req.flash('danger', erros.map(err => err.msg));
-    res.render('auth/cadastro', {title: 'Cadastro', body: req.body, flashes: req.flash() });
+    res.render('auth/cadastro', { title: 'Cadastro', body: req.body, flashes: req.flash() });
     return;
   }
-  
+
   next();
 };
 
 // exports.signInViaGithub
-

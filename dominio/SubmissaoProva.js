@@ -22,14 +22,16 @@ const submissaoProvaSchema = new mongoose.Schema(
       required: 'Informe uma porcentagem de acerto para a submissão'
     },
     resultados: {
-      type: [{
-        entradas: [{ type: String }],
-        saidaEsperada: String,
-        saida: String
-      }]
+      type: [
+        {
+          entradas: [{ type: String }],
+          saidaEsperada: String,
+          saida: String
+        }
+      ]
     },
-	user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', index: 1 },
-	prova: { type: mongoose.Schema.Types.ObjectId, ref: 'Prova', index: 1 }
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', index: 1 },
+    prova: { type: mongoose.Schema.Types.ObjectId, ref: 'Prova', index: 1 }
   },
   { collection: 'submissoesProva' }
 );
@@ -39,10 +41,10 @@ function autopopulate(next) {
   next();
 }
 
-submissaoProvaSchema.statics.listarSubmissoesUsuario = async function (user, questoes = null, dataInicial, dataFinal) {
+submissaoProvaSchema.statics.listarSubmissoesUsuario = async function(user, questoes = null, dataInicial, dataFinal) {
   let $match = { user: { $eq: user._id } };
   if (questoes) {
-    $match.questao = { $in: questoes }
+    $match.questao = { $in: questoes };
   }
   const submissoes = await this.aggregate([
     {
@@ -50,7 +52,7 @@ submissaoProvaSchema.statics.listarSubmissoesUsuario = async function (user, que
     },
     {
       $group: {
-        _id: "$questao",
+        _id: '$questao',
         count: { $sum: 1 }
       }
     }

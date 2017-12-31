@@ -1,0 +1,5 @@
+public/dist/
+public/js/vendors/
+node_modules/
+cypress/
+coverage/

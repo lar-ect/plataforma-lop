@@ -13,12 +13,12 @@ exports.getTurma = async (req, res) => {
     return 0;
   });
   const submissoes = await Submissao.aggregate([
-    { 
+    {
       $lookup: {
-          from: 'users',
-          localField: 'user',
-          foreignField: '_id',
-          as: 'user'
+        from: 'users',
+        localField: 'user',
+        foreignField: '_id',
+        as: 'user'
       }
     },
     { $unwind: '$user' },

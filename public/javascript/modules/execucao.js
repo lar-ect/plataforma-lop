@@ -8,7 +8,8 @@ exports.executarCodigoComResultados = (codigo, resultadosEsperados) => {
       'Content-Type': 'application/json'
     },
     data: {
-      codigo, resultadosEsperados
+      codigo,
+      resultadosEsperados
     }
   });
 };
@@ -21,7 +22,8 @@ exports.executarCodigo = (codigo, id) => {
       'Content-Type': 'application/json'
     },
     data: {
-      codigo, id
+      codigo,
+      id
     }
   });
 };
@@ -34,7 +36,8 @@ exports.executarCodigoProva = (codigo, id) => {
       'Content-Type': 'application/json'
     },
     data: {
-      codigo, id
+      codigo,
+      id
     }
   });
 };
@@ -47,7 +50,8 @@ exports.submeterCodigo = (codigo, id) => {
       'Content-Type': 'application/json'
     },
     data: {
-      codigo, id
+      codigo,
+      id
     }
   });
 };
@@ -60,7 +64,9 @@ exports.submeterCodigoProva = (codigo, id, provaId) => {
       'Content-Type': 'application/json'
     },
     data: {
-      codigo, questaoId: id, provaId
+      codigo,
+      questaoId: id,
+      provaId
     }
   });
 };
@@ -73,7 +79,8 @@ exports.salvarCodigoRascunho = (codigo, id) => {
       'Content-Type': 'application/json'
     },
     data: {
-      codigo, id
+      codigo,
+      id
     }
   });
 };

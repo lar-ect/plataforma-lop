@@ -13,28 +13,28 @@ editor.setTheme('ace/theme/ambiance');
 editor.setFontSize(14);
 
 // Pergunta se o usuário quer realmente sair da página se ele houver digitado algo no editor
-window.addEventListener('beforeunload', function (e) {
+window.addEventListener('beforeunload', function(e) {
   if (editor.getValue().length > 0) {
     const confirmacao = 'Suas alterações serão perdidas se você sair sem submeter o código.';
 
     e.returnValue = confirmacao;
     return confirmacao;
-  }
-  else {
+  } else {
     return e;
   }
 });
 
 const $resultadosDiv = $('#resultados-container');
-const $questaoId = $('input[name=\'questaoId\']');
-const listaId = $('input[name=\'listaId\']').val() || null;
+const $questaoId = $("input[name='questaoId']");
+const listaId = $("input[name='listaId']").val() || null;
 
 // Execução de código
-$('#btn-enviar-codigo').on('click', function () {
+$('#btn-enviar-codigo').on('click', function() {
   const $btn = $(this);
   $btn.prop('disabled', true);
   $btn.addClass('is-loading');
-  api.executarCodigo(editor.getValue(), $questaoId.val())
+  api
+    .executarCodigo(editor.getValue(), $questaoId.val())
     .then(res => {
       adicionarListaResultados(res.data);
       tippy('.saida-esperada');
@@ -49,74 +49,85 @@ $('#btn-enviar-codigo').on('click', function () {
 });
 
 // Submissão de código
-$('#btn-submeter').on('click', function () {
+$('#btn-submeter').on('click', function() {
   const $btn = $(this);
   $btn.prop('disabled', true);
   $btn.addClass('is-loading');
 
-  swal({
-    title: 'Deseja submeter seu código?',
-    text: 'Você pode submeter quantas vezes desejar',
-    type: 'info',
-    showCancelButton: true,
-    closeOnConfirm: false
-  }, function (isConfirm) {
-    if (isConfirm) {
-      api.submeterCodigo(editor.getValue(), $questaoId.val())
-        .then(res => {
-          if (res.data.porcentagemAcerto === 100) {
-            swal({
-              title: `${res.data.porcentagemAcerto}% de acerto`,
-              text: 'Submissão enviada com sucesso',
-              type: 'success'
-            }, redirect);
-          }
-          else if (res.data.porcentagemAcerto > 0) {
-            swal({
-              title: `${res.data.porcentagemAcerto}% de acerto`,
-              text: 'Submissão enviada com sucesso',
-              type: 'warning'
-            }, redirect);
-          }
-          else {
-            swal({
-              title: `${res.data.porcentagemAcerto}% de acerto`,
-              text: 'Submissão enviada com sucesso',
-              type: 'error'
-            }, redirect);
-          }
-        })
-        .catch(err => {
-          console.error(err);
-          swal('Oops...', 'Ocorreu algum erro ao enviar a submissão', 'error');
-        })
-        .then(() => {
-          $btn.prop('disabled', false);
-          $btn.removeClass('is-loading');
-        });
+  swal(
+    {
+      title: 'Deseja submeter seu código?',
+      text: 'Você pode submeter quantas vezes desejar',
+      type: 'info',
+      showCancelButton: true,
+      closeOnConfirm: false
+    },
+    function(isConfirm) {
+      if (isConfirm) {
+        api
+          .submeterCodigo(editor.getValue(), $questaoId.val())
+          .then(res => {
+            if (res.data.porcentagemAcerto === 100) {
+              swal(
+                {
+                  title: `${res.data.porcentagemAcerto}% de acerto`,
+                  text: 'Submissão enviada com sucesso',
+                  type: 'success'
+                },
+                redirect
+              );
+            } else if (res.data.porcentagemAcerto > 0) {
+              swal(
+                {
+                  title: `${res.data.porcentagemAcerto}% de acerto`,
+                  text: 'Submissão enviada com sucesso',
+                  type: 'warning'
+                },
+                redirect
+              );
+            } else {
+              swal(
+                {
+                  title: `${res.data.porcentagemAcerto}% de acerto`,
+                  text: 'Submissão enviada com sucesso',
+                  type: 'error'
+                },
+                redirect
+              );
+            }
+          })
+          .catch(err => {
+            console.error(err);
+            swal('Oops...', 'Ocorreu algum erro ao enviar a submissão', 'error');
+          })
+          .then(() => {
+            $btn.prop('disabled', false);
+            $btn.removeClass('is-loading');
+          });
+      } else {
+        $btn.prop('disabled', false);
+        $btn.removeClass('is-loading');
+      }
     }
-    else {
-      $btn.prop('disabled', false);
-      $btn.removeClass('is-loading');
-    }
-  });
+  );
 });
 
 //Salvar rascunho
-$('#btn-salvar-rascunho').on('click', function () {
+$('#btn-salvar-rascunho').on('click', function() {
   let codigo = editor.getValue();
   if (codigo.startsWith('// Rascunho')) {
     codigo = codigo.substring(codigo.indexOf('\n') + 1);
   }
   console.log('Salvando rascunho');
   console.log(codigo);
-  
+
   const $btn = $(this);
   const $icone = $('#icone-rascunho');
 
   $btn.prop('disabled', true);
   $btn.addClass('is-loading');
-  api.salvarCodigoRascunho(codigo, $questaoId.val())
+  api
+    .salvarCodigoRascunho(codigo, $questaoId.val())
     .then(() => {
       $icone.removeClass('fa-bookmark-o');
       $icone.addClass('fa-bookmark');
@@ -125,7 +136,8 @@ $('#btn-salvar-rascunho').on('click', function () {
     .catch(err => {
       console.error(err);
       swal('Ops...', 'Ocorreu um erro ao salvar o rascunho, contato um administrador.', 'error');
-    }).then(() => {
+    })
+    .then(() => {
       $btn.prop('disabled', false);
       $btn.removeClass('is-loading');
     });
@@ -135,8 +147,7 @@ function redirect() {
   editor.setValue('');
   if (!listaId) {
     window.location.href = '/';
-  }
-  else {
+  } else {
     window.location.href = `/lista/${listaId}`;
   }
 }
@@ -180,4 +191,3 @@ function criarLinhasResultado(resultado) {
     })
     .join('');
 }
-
