@@ -11,13 +11,7 @@ const crypto = require('crypto');
 const executar = require("../negocio/executar");
 const passport =  require('passport');
 const mailController = require('./mailController');
-const mongoose = require('mongoose');
-const Questao = mongoose.model('Questao');
-const Submissao = mongoose.model('Submissao');
-const SubmissaoProva = mongoose.model('SubmissaoProva');
-const Rascunho = mongoose.model('Rascunho');
-const Data = mongoose.model('Data');
-const executar = require('../negocio/executar');
+
 
 /**
  * Incrementa o contador de execuções no banco de forma atômica
@@ -64,6 +58,7 @@ exports.incrementarCliqueNovidades = (req, res) => {
  * Utilizado na execução presente no cadastro de questões
  */
 exports.executarCodigoComResultado = (req, res) => {
+  console.log(req.body);
   const { codigo, resultadosEsperados } = req.body;
   if (!resultadosEsperados || !resultadosEsperados[0] || !resultadosEsperados[0].saida) {
     res.status(500).send('Resultados esperados vieram nulos');
@@ -87,6 +82,7 @@ exports.executarCodigoComResultado = (req, res) => {
  * Utilizado no editor de código da página de questões do sistema
  */
 exports.executarCodigoQuestao = async (req, res) => {
+  console.log(req.body.codigo);
   const { codigo, id } = req.body;
   const questao = await Questao.findOne({ _id: id });
   if (!questao) {
