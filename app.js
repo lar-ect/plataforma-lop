@@ -21,6 +21,8 @@ const helpers = require('./helpers');
 const permissoes = require('./dominio/Permissoes');
 const errorHandlers = require('./negocio/errorHandlers');
 
+const openBrowser = require('./dev-utils/openBrowser');
+
 // Assegura que o servidor está rodando com node >= 7.6
 const [major, minor] = process.versions.node.split('.').map(parseFloat);
 if (major < 7 || (major === 7 && minor <= 5)) {
@@ -178,6 +180,11 @@ app.use(errorHandlers.productionErrors);
 
 // Finalmenteeeeee, inicializa o servidor 😄
 app.set('port', process.env.PORT || 8080);
-const server = app.listen(app.get('port'), () => {
+var server = app.listen(app.get('port'), () => {
   console.log(`Servidor rodando na porta: ${server.address().port}`);
+  if (app.get('env') === 'development') {
+    let opened = openBrowser(`localhost:${server.address().port}`);
+    let msg = opened ? 'browser aberto com sucesso' : 'ocorreu um problema ao abrir o browser';
+    console.log(msg);
+  }
 });

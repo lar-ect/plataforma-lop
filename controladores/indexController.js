@@ -1,11 +1,9 @@
 const mongoose = require('mongoose');
 const Questao = mongoose.model('Questao');
 const ListaExercicio = mongoose.model('ListaExercicio');
-const Sugestao = mongoose.model('Sugestao');
 const Submissao = mongoose.model('Submissao');
 const Suporte = mongoose.model('Suporte');
 const permissoes = require('../dominio/Permissoes');
-const validator = require('validator');
 
 exports.redirectToIndex = (req, res) => {
   res.redirect('/');
@@ -15,7 +13,6 @@ exports.index = async (req, res) => {
   const questoes = await Questao.find({ oculta: { $in: [null, false] } });
   const listasExercicio = await ListaExercicio.find({});
   const tags = await Questao.find().distinct('tags');
-  const progressoLista = new Map();
   if (req.user) {
     const submissoes = await Submissao.listarSubmissoesUsuario(req.user);
     let questoesOcultas = null;
