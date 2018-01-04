@@ -21,6 +21,8 @@ const helpers = require('./helpers');
 const permissoes = require('./dominio/Permissoes');
 const errorHandlers = require('./negocio/errorHandlers');
 
+const openBrowser = require('./dev-utils/openBrowser');
+
 // Assegura que o servidor está rodando com node >= 7.6
 const [major, minor] = process.versions.node.split('.').map(parseFloat);
 if (major < 7 || (major === 7 && minor <= 5)) {
@@ -179,4 +181,8 @@ app.use(errorHandlers.productionErrors);
 app.set('port', process.env.PORT || 8080);
 const server = app.listen(app.get('port'), () => {
   console.log(`Servidor rodando na porta: ${server.address().port}`);
+  if (app.get('env') === 'development') {
+    var opened = openBrowser(`localhost:${server.address().port}`);
+    console.log(opened);
+  }
 });
