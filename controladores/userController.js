@@ -1,7 +1,6 @@
 const promisify = require('es6-promisify');
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
-const Questao = mongoose.model('Questao');
 const Submissao = mongoose.model('Submissao');
 const Turma = mongoose.model('Turma');
 const Prova = mongoose.model('Prova');
@@ -12,7 +11,6 @@ exports.perfil = async (req, res) => {
   let turmas = null;
   let provas = null;
   if (req.user && permissoes.isProfessor(req.user)) {
-    let turmaQuery = {};
     if (permissoes.isAdmin(req.user)) {
       provas = await Prova.find({});
       turmas = await Turma.find({}, 'descricaoComponente codigoString qtdMatriculados _id id');
@@ -23,7 +21,6 @@ exports.perfil = async (req, res) => {
         },
         'descricaoComponente codigoString qtdMatriculados _id id'
       );
-      const turmasUser = turmas.map(t => t._id.toString());
       provas = await Prova.find({ $or: [{ autor: req.user._id }, { turmas: { $in: req.user.sigaa.turmas } }] });
     }
   }

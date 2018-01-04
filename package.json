@@ -15,10 +15,7 @@
     "analyze-bundle": "npx webpack-bundle-analyzer webpack-stats.json public/dist",
     "prettier": "prettier \"*/**/*.js\" --ignore-path ./.prettierignore --write"
   },
-  "pre-commit": [
-    "test",
-    "prettier"
-  ],
+  "pre-commit": ["test", "prettier"],
   "browserslist": "last 2 versions",
   "dependencies": {
     "axios": "^0.16.1",

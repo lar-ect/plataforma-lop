@@ -1,17 +1,16 @@
 const promisify = require('es6-promisify');
-const mongoose = require("mongoose");
-const Questao = mongoose.model("Questao");
-const Submissao = mongoose.model("Submissao");
-const SubmissaoProva = mongoose.model("SubmissaoProva");
-const Rascunho = mongoose.model("Rascunho");
-const Sessions = mongoose.model("Sessions");
+const mongoose = require('mongoose');
+const Questao = mongoose.model('Questao');
+const Submissao = mongoose.model('Submissao');
+const SubmissaoProva = mongoose.model('SubmissaoProva');
+const Rascunho = mongoose.model('Rascunho');
+const Sessions = mongoose.model('Sessions');
 const User = mongoose.model('User');
-const Data = mongoose.model("Data");
+const Data = mongoose.model('Data');
 const crypto = require('crypto');
-const executar = require("../negocio/executar");
-const passport =  require('passport');
+const executar = require('../negocio/executar');
+const passport = require('passport');
 const mailController = require('./mailController');
-
 
 /**
  * Incrementa o contador de execuções no banco de forma atômica
@@ -248,47 +247,48 @@ exports.salvarRascunho = async (req, res) => {
   res.json(rascunhoSalvo);
 };
 
-exports.loginUser = function(req,res,next){
-  passport.authenticate('local', function(err, user, info) {
-    if (err) { 
-      res.status(500).json({erro:err}); 
+exports.loginUser = function(req, res, next) {
+  passport.authenticate('local', function(err, user) {
+    if (err) {
+      res.status(500).json({ erro: err });
       return next(err);
     }
-    if(!user){ 
+
+    if (!user) {
       return res.status(203).json({
-        codigo:203,
-        msg:"Usuário ou senha inválidos.",
+        codigo: 203,
+        msg: 'Usuário ou senha inválidos.',
         status: false
-      }); 
+      });
     }
+
     req.logIn(user, function(err) {
       if (err) {
-        res.status(500).json({erro:err});
-        next(err); 
+        res.status(500).json({ erro: err });
+        next(err);
       }
-      console.log(req.session);
+
       return res.status(200).json({
-        codigo:200,
-        msg:"Usuário logado com sucesso.",
-        status:true,
-        nome:user.nome,
-        email:user.email,
-        matricula:user.matricula,
-        sigaa:user.sigaa,
-        questoesFavoritas:user.questoesFavoritas,
-        listasFavoritas:user.listasFavoritas,
-        idSessao:req.session.id
+        codigo: 200,
+        msg: 'Usuário logado com sucesso.',
+        status: true,
+        nome: user.nome,
+        email: user.email,
+        matricula: user.matricula,
+        sigaa: user.sigaa,
+        questoesFavoritas: user.questoesFavoritas,
+        listasFavoritas: user.listasFavoritas,
+        idSessao: req.session.id
       });
     });
   })(req, res, next);
 };
 
-exports.esqueceuSenha =  async (req, res) => {
-  
+exports.esqueceuSenha = async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
   console.log(user);
   if (!user) {
-    return res.status(203).json({status:false,msg:"E-mail de alteração de senha enviado."});
+    return res.status(203).json({ status: false, msg: 'E-mail de alteração de senha enviado.' });
   }
 
   user.resetPasswordToken = crypto.randomBytes(20).toString('hex');
@@ -298,92 +298,55 @@ exports.esqueceuSenha =  async (req, res) => {
   const resetUrl = 'http://${req.headers.host}/conta/resetar-senha/${user.resetPasswordToken}';
   try {
     await mailController.sendResetPwdMail(user.email, resetUrl);
-    return res.status(200).json({status:true,msg:"Um email de alteração de senha foi enviado para "+req.body.email});
-  }
-  catch(err) {
+    return res
+      .status(200)
+      .json({ status: true, msg: 'Um email de alteração de senha foi enviado para ' + req.body.email });
+  } catch (err) {
     console.error(err);
-    return res.status(203).json({status:false,msg:"Ocorreu algum erro ao enviar seu email de alteração de senha, contate o administrador do sistema"});
+    return res.status(203).json({
+      status: false,
+      msg: 'Ocorreu algum erro ao enviar seu email de alteração de senha, contate o administrador do sistema'
+    });
   }
-  return res.status(200).json({status:true,msg:"Um email de alteração de senha foi enviado para "+req.body.email});
-  
 };
 
-exports.validarRegistroApi = (req, res, next) => {
-  req.sanitizeBody('nome');
-  req.checkBody('nome', 'Por favor informe um nome').notEmpty();
-  req.checkBody('email', 'E-mail inválido').isEmail();
-
-  /**
-   * Permite variações na forma de escrever os emails que são ignoradas pelos provedores
-   * Ex.:
-   * tibuurcio@gmail.com
-   * Tibuurcio@gmail.com
-   * tibuurcio@googlemail.com //uk
-   * ti.b.uu.rcio@gmail.com
-   * tibuurcio+text@gmail.com
-   */
-  req.sanitizeBody('email').normalizeEmail({
-    remove_dots: false,
-    remove_extension: false,
-    gmail_remove_subaddress: false,
-    gmail_remove_dots: false,
-    yahoo_remove_subaddress: false
-  });
-
-  req.checkBody('password', 'Por favor informe uma senha').notEmpty();
-  req.checkBody('password-confirm', 'Senhas não coincidem').equals(req.body.password);
-
-  const erros = req.validationErrors();
-  if (erros) {
-    return res.status(203).json({status:false,err:erros});
-  }
-  
-  next();
-};
-
-exports.registrarAPI = async (req, res, next) => {
+exports.registrarAPI = async (req, res) => {
   const user = new User({ email: req.body.email, nome: req.body.nome, matricula: req.body.matricula });
   const registerWithPromise = promisify(User.register, User);
   await registerWithPromise(user, req.body.password);
   return res.status(200).json({
-    status:true,
-    msg:"Usuário cadastrado com sucesso",
-    email:req.body.email,
-    nome:req.body.nome,
-    matricula:req.body.matricula
-    });
-  next();
-};
-
-exports.sessionStatus = function(req,res){
-  req.session.destroy(function(err){
-    Sessions.find({_id:req.body.id},function(err,date){
-      if(err){
-        return res.status(500).json({status:false,msg:"Erro interno."});
-      }
-      if(date.length>0){
-        var now = new Date().getTime();
-        if(now < date[0].expires.getTime()) return res.status(200).json({status:true,msg:"Sessão ativa"});
-        return res.status(203).json({status:false,msg:"Sessão expirada"});
-      }
-      return res.status(404).json({status:false,msg:"Sessão não encontrada"});
-    }); 
-  });
-};
-exports.olaLop = function(req,res){
-  req.session.destroy(function(err){
-    return res.status(200).json({status:true,msg:"Bem vindo a plataforma LoP",msgEnviada:req.body.msg});
+    status: true,
+    msg: 'Usuário cadastrado com sucesso',
+    email: req.body.email,
+    nome: req.body.nome,
+    matricula: req.body.matricula
   });
 };
 
-exports.finalizarSession = function(req,res){
-  req.session.destroy(function(err){
-    Sessions.findByIdAndRemove(req.body.id, function (err, data) {
-      if(err) return res.status(500).json({status:false,msg:"Erro interno."});
-      if(data!=null){
-        return res.status(200).json({status:true,msg:"Sessão finalizada"});
-      }
-      return res.status(404).json({status:false,msg:"Sessão não encontrada"});
-    });
+exports.sessionStatus = function(req, res) {
+  Sessions.find({ _id: req.body.id }, function(err, date) {
+    if (err) {
+      return res.status(500).json({ status: false, msg: 'Erro interno.' });
+    }
+    if (date.length > 0) {
+      var now = new Date().getTime();
+      if (now < date[0].expires.getTime()) return res.status(200).json({ status: true, msg: 'Sessão ativa' });
+      return res.status(203).json({ status: false, msg: 'Sessão expirada' });
+    }
+    return res.status(203).json({ status: false, msg: 'Sessão não encontrada' });
   });
-}
+};
+
+exports.lopStatus = function(req, res) {
+  return res.status(200).json({ status: true, msg: 'Bem vindo a plataforma LoP', msgEnviada: req.body.msg });
+};
+
+exports.finalizarSession = function(req, res) {
+  Sessions.findByIdAndRemove(req.body.id, function(err, data) {
+    if (err) return res.status(500).json({ status: false, msg: 'Erro interno.' });
+    if (data != null) {
+      return res.status(200).json({ status: true, msg: 'Sessão finalizada' });
+    }
+    return res.status(404).json({ status: false, msg: 'Sessão não encontrada' });
+  });
+};
