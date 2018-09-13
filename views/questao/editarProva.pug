@@ -42,7 +42,8 @@ block content
               placeholder: 'Selecione as turmas', 
               options: turmas.map(t => {
                 return {
-                  text: t.codigoString,
+                  //text: t.codigoString,
+                  text: t.descricaoCompleta,
                   value: t._id
                 }
               }),
