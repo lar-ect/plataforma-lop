@@ -9,8 +9,8 @@ router.get('/', catchErrors(provaController.findProvaByUserId), indexController.
 
 router.get('/processing', indexController.processing);
 
-router.get('/suporte', indexController.suporte);
+// router.get('/suporte', indexController.suporte);
 
-router.post('/suporte', catchErrors(indexController.enviarMensagemSuporte));
+// router.post('/suporte', catchErrors(indexController.enviarMensagemSuporte));
 
 module.exports = router;
