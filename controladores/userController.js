@@ -13,13 +13,13 @@ exports.perfil = async (req, res) => {
   if (req.user && permissoes.isProfessor(req.user)) {
     if (permissoes.isAdmin(req.user)) {
       provas = await Prova.find({});
-      turmas = await Turma.find({}, 'descricaoComponente codigoString qtdMatriculados _id id');
+      turmas = await Turma.find({}, 'descricaoComponente codigoString qtdMatriculados _id id descricaoCompleta');
     } else {
       turmas = await Turma.find(
         {
           _id: { $in: req.user.sigaa.turmas }
         },
-        'descricaoComponente codigoString qtdMatriculados _id id'
+        'descricaoComponente codigoString qtdMatriculados _id id descricaoCompleta'
       );
       provas = await Prova.find({ $or: [{ autor: req.user._id }, { turmas: { $in: req.user.sigaa.turmas } }] });
     }
