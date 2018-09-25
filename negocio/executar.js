@@ -52,7 +52,10 @@ const contexto = {
     return Math.pow(base, expoente);
   },
   divisaoInteira: function(x, y) {
-    return Math.floor(x / y);
+    if (x>0)
+      return Math.floor(x / y);
+    else
+      return Math.ceil(x / y); 
   }
 };
 
