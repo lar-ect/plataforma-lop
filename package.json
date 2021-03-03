@@ -46,7 +46,7 @@
     "passport-local-mongoose": "4.2.1",
     "passport-oauth2": "1.4.0",
     "postmark": "1.4.1",
-    "pug": "2.0.0-rc.4",
+    "pug": "3.0.1",
     "react": "16.0.0",
     "react-dom": "16.0.0",
     "slugs": "0.1.3",
